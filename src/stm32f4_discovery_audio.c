@@ -192,7 +192,7 @@ void HAL_I2S_TxCpltCallback(I2S_HandleTypeDef *hi2s)
   if(hi2s->Instance == I2S3)
   {
     /* Call the user function which will manage directly transfer complete */  
-    BSP_AUDIO_OUT_TransferComplete_CallBack();       
+          
   }
 }
 
@@ -206,7 +206,7 @@ void HAL_I2S_TxHalfCpltCallback(I2S_HandleTypeDef *hi2s)
   {
     /* Manage the remaining file size and new address offset: This function should
        be coded by user (its prototype is already declared in stm32f4_discovery_audio.h) */  
-    BSP_AUDIO_OUT_HalfTransfer_CallBack();
+    
   }
 }
 
@@ -643,10 +643,7 @@ void HAL_I2S_ErrorCallback(I2S_HandleTypeDef *hi2s)
 {
   /* Manage the error generated on DMA FIFO: This function 
      should be coded by user (its prototype is already declared in stm32f4_discovery_audio.h) */  
-  if(hi2s->Instance == I2S3)
-  {
-    BSP_AUDIO_OUT_Error_CallBack();
-  }
+
   if(hi2s->Instance == I2S2)
   {
     BSP_AUDIO_IN_Error_Callback();
