@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "main.h": "c",
+        "board_api.h": "c",
+        "tusb.h": "c",
+        "tusb_types.h": "c"
+    }
+}

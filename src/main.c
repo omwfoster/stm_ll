@@ -3,8 +3,10 @@
 #include <viseffect/visEffect.h>
 #include <stm32f4_discovery_audio.h>
 #include "main.h"
-#include "bsp/board_api.h"
-#include "tusb.h"
+
+
+
+
 // GPIO clock peripheral enable command
 #define WS2812B_GPIO_CLK_ENABLE() __HAL_RCC_GPIOC_CLK_ENABLE()
 // LED output port
@@ -40,7 +42,7 @@ Audio_BufferTypeDef BufferCtl;
 int main(void)
 {
 
-  board_init();
+  
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
@@ -50,12 +52,10 @@ int main(void)
   visInit();
   BSP_AUDIO_IN_Init(DEFAULT_AUDIO_IN_FREQ, DEFAULT_AUDIO_IN_BIT_RESOLUTION, DEFAULT_AUDIO_IN_CHANNEL_NBR);
 
-  tusb_init();
+  
 
-  while (1)
-  {
- //  tud_task(); // tinyusb device task
-  //  cdc_task();
+  while (1) {
+
   }
 }
 
@@ -133,54 +133,6 @@ void Error_Handler(void)
   /* USER CODE END Error_Handler */
 }
 
-static void cdc_task(void)
-{
-  uint8_t itf;
-
-  for (itf = 0; itf < CFG_TUD_CDC; itf++)
-  {
-    // connected() check for DTR bit
-    // Most but not all terminal client set this when making connection
-    // if ( tud_cdc_n_connected(itf) )
-    {
-      if (tud_cdc_n_available(itf))
-      {
-        uint8_t buf[64];
-
-        uint32_t count = tud_cdc_n_read(itf, buf, sizeof(buf));
-
-        // echo back to both serial ports
-   //    echo_serial_port(0, buf, count);
-   //     echo_serial_port(1, buf, count);
-      }
-    }
-  }
-}
-
-// Invoked when cdc when line state changed e.g connected/disconnected
-// Use to reset to DFU when disconnect with 1200 bps
-void tud_cdc_line_state_cb(uint8_t instance, bool dtr, bool rts)
-{
-  (void)rts;
-
-  // DTR = false is counted as disconnected
-  if (!dtr)
-  {
-    // touch1200 only with first CDC instance (Serial)
-    if (instance == 0)
-    {
-      cdc_line_coding_t coding;
-      tud_cdc_get_line_coding(&coding);
-      if (coding.bit_rate == 1200)
-      {
-        if (board_reset_to_bootloader)
-        {
-          board_reset_to_bootloader();
-        }
-      }
-    }
-  }
-}
 
 #ifdef USE_FULL_ASSERT
 
