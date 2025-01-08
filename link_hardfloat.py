@@ -4,15 +4,15 @@ Import("projenv")
 for e in [env, projenv, DefaultEnvironment()]:
     e.Append(
         CCFLAGS=[
-        "-mfloat-abi=softfp",
+        "-mfloat-abi=hard",
         "-mfpu=fpv4-sp-d16"
         ],
         CFLAGS=[
-        "-mfloat-abi=softfp",
+        "-mfloat-abi=hard",
         "-mfpu=fpv4-sp-d16"
         ],
         LINKFLAGS=[
-        "-mfloat-abi=softfp",
+        "-mfloat-abi=hard",
         "-mfpu=fpv4-sp-d16"
         ]
     )
