@@ -3,10 +3,8 @@
 #include "stm32f4xx_hal.h"
 #include <viseffect/visEffect.h>
 #include <stm32f4_discovery_audio.h>
-
-
-
-
+#include "usb_device.h"
+#include "usbd_cdc_if.h"
 
 // GPIO clock peripheral enable command
 #define WS2812B_GPIO_CLK_ENABLE() __HAL_RCC_GPIOC_CLK_ENABLE()
@@ -24,8 +22,10 @@ void Error_Handler(void);
 static void MX_GPIO_Init(void);
 static void MX_USB_OTG_HS_PCD_Init(void);
 
-PCD_HandleTypeDef hpcd_USB_OTG_HS;
+uint8_t TxBuffer[USB_OUT_BUFFER_SIZE];
 
+
+PCD_HandleTypeDef hpcd_USB_OTG_HS;
 
 typedef struct
 {
@@ -47,8 +47,6 @@ Audio_BufferTypeDef BufferCtl;
 int main(void)
 {
 
-  
-
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
   MX_GPIO_Init();
@@ -59,10 +57,10 @@ int main(void)
   visInit();
   BSP_AUDIO_IN_Init(DEFAULT_AUDIO_IN_FREQ, DEFAULT_AUDIO_IN_BIT_RESOLUTION, DEFAULT_AUDIO_IN_CHANNEL_NBR);
 
-  
-
-  while (1) {
-
+  while (1)
+  {
+    CDC_Transmit_HS(TxBuffer, 1024);
+    HAL_Delay(100);
   }
 }
 
@@ -121,7 +119,6 @@ void SystemClock_Config(void)
   HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
 }
 
-
 static void MX_USB_OTG_HS_PCD_Init(void)
 {
 
@@ -150,21 +147,25 @@ static void MX_USB_OTG_HS_PCD_Init(void)
   /* USER CODE BEGIN USB_OTG_HS_Init 2 */
 
   /* USER CODE END USB_OTG_HS_Init 2 */
-
 }
 
 static void MX_GPIO_Init(void)
 {
-/* USER CODE BEGIN MX_GPIO_Init_1 */
-/* USER CODE END MX_GPIO_Init_1 */
+  /* USER CODE BEGIN MX_GPIO_Init_1 */
+  /* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
-/* USER CODE BEGIN MX_GPIO_Init_2 */
-/* USER CODE END MX_GPIO_Init_2 */
+  /* USER CODE BEGIN MX_GPIO_Init_2 */
+  /* USER CODE END MX_GPIO_Init_2 */
+}
+
+void USB_CDC_RxHandler(uint8_t* Buf, uint32_t Len)
+{
+    CDC_Transmit_HS(Buf, Len);
 }
 
 /* USER CODE END 4 */
@@ -183,7 +184,6 @@ void Error_Handler(void)
   }
   /* USER CODE END Error_Handler */
 }
-
 
 #ifdef USE_FULL_ASSERT
 
