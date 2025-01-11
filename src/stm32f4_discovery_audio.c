@@ -527,25 +527,7 @@ __weak void BSP_AUDIO_IN_MspDeInit(I2S_HandleTypeDef *hi2s, void *Params)
      by surcgarging this __weak function */ 
 }
 
-/**
-  * @brief  User callback when record buffer is filled.
-  */
-__weak void BSP_AUDIO_IN_TransferComplete_CallBack(void)
-{
-  /* This function should be implemented by the user application.
-     It is called into this driver when the current buffer is filled
-     to prepare the next buffer pointer and its size. */
-}
 
-/**
-  * @brief  Manages the DMA Half Transfer complete event.
-  */
-__weak void BSP_AUDIO_IN_HalfTransfer_CallBack(void)
-{
-  /* This function should be implemented by the user application.
-     It is called into this driver when the current buffer is filled
-     to prepare the next buffer pointer and its size. */
-}
 
 /**
   * @brief  Audio IN Error callback function.
