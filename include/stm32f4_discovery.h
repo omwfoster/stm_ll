@@ -40,76 +40,9 @@
   * @{
   */ 
 
-/** @defgroup STM32F4_DISCOVERY_LOW_LEVEL_Exported_Types STM32F4 DISCOVERY LOW LEVEL_Exported_Types
-  * @{
-  */
-typedef enum 
-{
-  LED4 = 0,
-  LED3 = 1,
-  LED5 = 2,
-  LED6 = 3
-} Led_TypeDef;
-
-typedef enum 
-{  
-  BUTTON_KEY = 0,
-} Button_TypeDef;
-
-typedef enum 
-{  
-  BUTTON_MODE_GPIO = 0,
-  BUTTON_MODE_EXTI = 1
-} ButtonMode_TypeDef;     
-/**
-  * @}
-  */ 
-
-/** @defgroup STM32F4_DISCOVERY_LOW_LEVEL_Exported_Constants STM32F4 DISCOVERY LOW LEVEL Exported Constants
-  * @{
-  */ 
-
-/** 
-* @brief  Define for STM32F4_DISCOVERY board  
-*/ 
-#if !defined (USE_STM32F4_DISCO)
- #define USE_STM32F4_DISCO
-#endif
-
-/** @defgroup STM32F4_DISCOVERY_LOW_LEVEL_LED STM32F4 DISCOVERY LOW LEVEL LED
-  * @{
-  */
-#define LEDn                             4
 
 
 
-  
-/** @defgroup STM32F4_DISCOVERY_LOW_LEVEL_BUTTON STM32F4 DISCOVERY LOW LEVEL BUTTON
-  * @{
-  */  
-#define BUTTONn                          1 
-
-/**
- * @brief Wakeup push-button
- */
-#define KEY_BUTTON_PIN                GPIO_PIN_0
-#define KEY_BUTTON_GPIO_PORT          GPIOA
-#define KEY_BUTTON_GPIO_CLK_ENABLE()  __HAL_RCC_GPIOA_CLK_ENABLE()
-#define KEY_BUTTON_GPIO_CLK_DISABLE() __HAL_RCC_GPIOA_CLK_DISABLE()
-#define KEY_BUTTON_EXTI_IRQn          EXTI0_IRQn 
-
-#define BUTTONx_GPIO_CLK_ENABLE(__INDEX__)    do{if((__INDEX__) == 0) KEY_BUTTON_GPIO_CLK_ENABLE(); \
-                                                }while(0)
-
-#define BUTTONx_GPIO_CLK_DISABLE(__INDEX__)    do{if((__INDEX__) == 0) KEY_BUTTON_GPIO_CLK_DISABLE(); \
-                                                 }while(0)
-/**
-  * @}
-  */ 
-  
-/** @defgroup STM32F4_DISCOVERY_LOW_LEVEL_BUS STM32F4 DISCOVERY LOW LEVEL BUS
-  * @{
-  */  
 
 /*############################### SPI1 #######################################*/
 #define DISCOVERY_SPIx                              SPI1
@@ -168,27 +101,7 @@ typedef enum
 /* Dummy Byte Send by the SPI Master device in order to generate the Clock to the Slave device */
 #define DUMMY_BYTE                        ((uint8_t)0x00)
 
-/* Chip Select macro definition */
-#define ACCELERO_CS_LOW()       HAL_GPIO_WritePin(ACCELERO_CS_GPIO_PORT, ACCELERO_CS_PIN, GPIO_PIN_RESET)
-#define ACCELERO_CS_HIGH()      HAL_GPIO_WritePin(ACCELERO_CS_GPIO_PORT, ACCELERO_CS_PIN, GPIO_PIN_SET)
 
-/**
-  * @brief  ACCELEROMETER Interface pins
-  */
-#define ACCELERO_CS_PIN                        GPIO_PIN_3                 /* PE.03 */
-#define ACCELERO_CS_GPIO_PORT                  GPIOE                      /* GPIOE */
-#define ACCELERO_CS_GPIO_CLK_ENABLE()          __HAL_RCC_GPIOE_CLK_ENABLE()
-#define ACCELERO_CS_GPIO_CLK_DISABLE()         __HAL_RCC_GPIOE_CLK_DISABLE()
-#define ACCELERO_INT_GPIO_PORT                 GPIOE                      /* GPIOE */
-#define ACCELERO_INT_GPIO_CLK_ENABLE()         __HAL_RCC_GPIOE_CLK_ENABLE()
-#define ACCELERO_INT_GPIO_CLK_DISABLE()        __HAL_RCC_GPIOE_CLK_DISABLE()
-#define ACCELERO_INT1_PIN                      GPIO_PIN_0                 /* PE.00 */
-#define ACCELERO_INT1_EXTI_IRQn                EXTI0_IRQn 
-#define ACCELERO_INT2_PIN                      GPIO_PIN_1                 /* PE.01 */
-#define ACCELERO_INT2_EXTI_IRQn                EXTI1_IRQn 
-/**
-  * @}
-  */ 
 
 
 /*############################### AUDIO ######################################*/
@@ -205,43 +118,7 @@ typedef enum
   * @}
   */  
 
-/** @defgroup STM32F4_DISCOVERY_LOW_LEVEL_Exported_Macros STM32F4 DISCOVERY LOW LEVEL Exported Macros
-  * @{
-  */  
-/**
-  * @}
-  */ 
 
-/** @defgroup STM32F4_DISCOVERY_LOW_LEVEL_Exported_Functions STM32F4 DISCOVERY LOW LEVEL Exported Functions
-  * @{
-  */
-uint32_t BSP_GetVersion(void);
-void     BSP_LED_Init(Led_TypeDef Led);
-void     BSP_LED_On(Led_TypeDef Led);
-void     BSP_LED_Off(Led_TypeDef Led);
-void     BSP_LED_Toggle(Led_TypeDef Led);
-void     BSP_PB_Init(Button_TypeDef Button, ButtonMode_TypeDef Mode);
-uint32_t BSP_PB_GetState(Button_TypeDef Button);
-
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */ 
-
-/**
-  * @}
-  */ 
-
-/**
-  * @}
-  */
   
 #ifdef __cplusplus
 }
