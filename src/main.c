@@ -56,13 +56,15 @@ int main(void)
 
   /* Configure the system clock */
   uint8_t myname[]="HELLO WORLD !\r";
-  //visInit();
+  uint8_t name_len = sizeof(myname);
+  visInit();
   //BSP_AUDIO_IN_Init(DEFAULT_AUDIO_IN_FREQ, DEFAULT_AUDIO_IN_BIT_RESOLUTION, DEFAULT_AUDIO_IN_CHANNEL_NBR);
   //BSP_AUDIO_IN_Record(RecBuf, (PCM_OUT_SIZE * 2));
   while (1)
   {
-  
+    CDC_Transmit_FS(myname, name_len);
     HAL_Delay(100);
+    visHandle();
   }
 }
 
@@ -108,35 +110,7 @@ void SystemClock_Config(void)
     Error_Handler();
   }
 }
-static void MX_USB_OTG_HS_PCD_Init(void)
-{
 
-  /* USER CODE BEGIN USB_OTG_HS_Init 0 */
-
-  /* USER CODE END USB_OTG_HS_Init 0 */
-
-  /* USER CODE BEGIN USB_OTG_HS_Init 1 */
-
-  /* USER CODE END USB_OTG_HS_Init 1 */
-  hpcd_USB_OTG_HS.Instance = USB_OTG_HS;
-  hpcd_USB_OTG_HS.Init.dev_endpoints = 6;
-  hpcd_USB_OTG_HS.Init.speed = PCD_SPEED_HIGH;
-  hpcd_USB_OTG_HS.Init.dma_enable = DISABLE;
-  hpcd_USB_OTG_HS.Init.phy_itface = USB_OTG_ULPI_PHY;
-  hpcd_USB_OTG_HS.Init.Sof_enable = DISABLE;
-  hpcd_USB_OTG_HS.Init.low_power_enable = DISABLE;
-  hpcd_USB_OTG_HS.Init.lpm_enable = DISABLE;
-  hpcd_USB_OTG_HS.Init.vbus_sensing_enable = DISABLE;
-  hpcd_USB_OTG_HS.Init.use_dedicated_ep1 = DISABLE;
-  hpcd_USB_OTG_HS.Init.use_external_vbus = ENABLE;
-  if (HAL_PCD_Init(&hpcd_USB_OTG_HS) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN USB_OTG_HS_Init 2 */
-
-  /* USER CODE END USB_OTG_HS_Init 2 */
-}
 
 static void MX_GPIO_Init(void)
 {
