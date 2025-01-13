@@ -58,7 +58,7 @@ int main(void)
   uint8_t myname[]="HELLO WORLD !\r";
   uint8_t name_len = sizeof(myname);
   visInit();
-  //BSP_AUDIO_IN_Init(DEFAULT_AUDIO_IN_FREQ, DEFAULT_AUDIO_IN_BIT_RESOLUTION, DEFAULT_AUDIO_IN_CHANNEL_NBR);
+ // BSP_AUDIO_IN_Init(DEFAULT_AUDIO_IN_FREQ, DEFAULT_AUDIO_IN_BIT_RESOLUTION, DEFAULT_AUDIO_IN_CHANNEL_NBR);
   //BSP_AUDIO_IN_Record(RecBuf, (PCM_OUT_SIZE * 2));
   while (1)
   {
@@ -137,10 +137,7 @@ static void MX_GPIO_Init(void)
 /* USER CODE END MX_GPIO_Init_2 */
 }
 
-void USB_CDC_RxHandler(uint8_t* Buf, uint32_t Len)
-{
-    CDC_Transmit_HS(Buf, Len);
-}
+
 
 void BSP_AUDIO_IN_TransferComplete_CallBack(void)
 {

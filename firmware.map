@@ -2817,8 +2817,6 @@ Discarded input sections
  .text          0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/src/main.o
  .data          0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/src/main.o
  .bss           0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/src/main.o
- .text.USB_CDC_RxHandler
-                0x0000000000000000        0x4 .pio/build/adafruit_feather_f405/src/main.o
  .text.BSP_AUDIO_IN_TransferComplete_CallBack
                 0x0000000000000000        0x2 .pio/build/adafruit_feather_f405/src/main.o
  .text.BSP_AUDIO_IN_HalfTransfer_CallBack
