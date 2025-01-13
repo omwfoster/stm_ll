@@ -2801,21 +2801,7 @@ Discarded input sections
  .text          0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/src/stm32f4_discovery.o
  .data          0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/src/stm32f4_discovery.o
  .bss           0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/src/stm32f4_discovery.o
- .text.I2Cx_Init
-                0x0000000000000000       0xbc .pio/build/adafruit_feather_f405/src/stm32f4_discovery.o
- .text.AUDIO_IO_Init
-                0x0000000000000000       0x64 .pio/build/adafruit_feather_f405/src/stm32f4_discovery.o
- .text.AUDIO_IO_DeInit
-                0x0000000000000000        0x2 .pio/build/adafruit_feather_f405/src/stm32f4_discovery.o
- .text.AUDIO_IO_Write
-                0x0000000000000000       0x38 .pio/build/adafruit_feather_f405/src/stm32f4_discovery.o
- .text.AUDIO_IO_Read
-                0x0000000000000000       0x40 .pio/build/adafruit_feather_f405/src/stm32f4_discovery.o
- .bss.I2cHandle
-                0x0000000000000000       0x84 .pio/build/adafruit_feather_f405/src/stm32f4_discovery.o
  .data.I2cxTimeout
-                0x0000000000000000        0x4 .pio/build/adafruit_feather_f405/src/stm32f4_discovery.o
- .data.SpixTimeout
                 0x0000000000000000        0x4 .pio/build/adafruit_feather_f405/src/stm32f4_discovery.o
  .comment       0x0000000000000000       0x7f .pio/build/adafruit_feather_f405/src/stm32f4_discovery.o
  .ARM.attributes

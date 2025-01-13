@@ -66,7 +66,7 @@ int main(void)
   uint8_t myname[]="HELLO WORLD !\r";
   uint8_t name_len = sizeof(myname);
   visInit();
- // BSP_AUDIO_IN_Init(DEFAULT_AUDIO_IN_FREQ, DEFAULT_AUDIO_IN_BIT_RESOLUTION, DEFAULT_AUDIO_IN_CHANNEL_NBR);
+  //BSP_AUDIO_IN_Init(DEFAULT_AUDIO_IN_FREQ, DEFAULT_AUDIO_IN_BIT_RESOLUTION, DEFAULT_AUDIO_IN_CHANNEL_NBR);
   //BSP_AUDIO_IN_Record(RecBuf, (PCM_OUT_SIZE * 2));
   while (1)
   {
