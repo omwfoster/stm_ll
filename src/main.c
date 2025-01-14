@@ -5,6 +5,7 @@
 #include <stm32f4_discovery_audio.h>
 #include "usb_device.h"
 #include "usbd_cdc_if.h"
+#include "seesaw.h"
 
 // GPIO clock peripheral enable command
 #define WS2812B_GPIO_CLK_ENABLE() __HAL_RCC_GPIOC_CLK_ENABLE()
@@ -122,11 +123,7 @@ void SystemClock_Config(void)
 static void MX_I2C1_Init(void)
 {
 
-  /* USER CODE BEGIN I2C1_Init 0 */
 
-  /* USER CODE END I2C1_Init 0 */
-
-  /* USER CODE BEGIN I2C1_Init 1 */
 
   /* USER CODE END I2C1_Init 1 */
   hi2c1.Instance = I2C1;

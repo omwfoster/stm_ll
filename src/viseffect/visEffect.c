@@ -19,8 +19,8 @@
 #include <stdlib.h>
 
 // RGB Framebuffers
-uint8_t frameBuffer[3*60];
-uint8_t frameBuffer2[3*20];
+uint8_t frameBuffer[3*1];
+uint8_t frameBuffer2[3*1];
 
 // Helper defines
 #define newColor(r, g, b) (((uint32_t)(r) << 16) | ((uint32_t)(g) <<  8) | (b))
