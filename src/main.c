@@ -25,7 +25,7 @@ static void MX_GPIO_Init(void);
 static void MX_USB_OTG_HS_PCD_Init(void);
 
 uint8_t TxBuffer[USB_OUT_BUFFER_SIZE];
-void I2C_scan(I2C_TypeDef* I2Cx);
+uint8_t I2C_scan(I2C_TypeDef* I2Cx);
 
 
 PCD_HandleTypeDef hpcd_USB_OTG_HS;
@@ -68,14 +68,15 @@ int main(void)
   /* Configure the system clock */
   uint8_t myname[]="HELLO WORLD !\r";
   uint8_t name_len = sizeof(myname);
-  I2C_scan(&hi2c1);
-  I2C_scan(&hi2c2);
+ 
   visInit();
   //BSP_AUDIO_IN_Init(DEFAULT_AUDIO_IN_FREQ, DEFAULT_AUDIO_IN_BIT_RESOLUTION, DEFAULT_AUDIO_IN_CHANNEL_NBR);
   //BSP_AUDIO_IN_Record(RecBuf, (PCM_OUT_SIZE * 2));
   while (1)
   {
     CDC_Transmit_FS(myname, name_len);
+    I2C_scan(&hi2c1);
+    I2C_scan(&hi2c2);
    
     visHandle();
   }
@@ -367,23 +368,15 @@ void HAL_I2C_MspDeInit(I2C_HandleTypeDef* hi2c)
 }
 
 
-/* This funtion issues a stop condition and therefore
- * releases the bus
- */
-void I2C_stop(I2C_TypeDef* I2Cx){
-	// Send I2C1 STOP Condition 
-	I2C_GenerateSTOP(I2Cx, ENABLE);
-}
+
+static uint8_t i = 0, ret;
+static uint8_t i2c_connect[]="connected\r";
+static uint8_t i2c_connect_len = sizeof(i2c_connect);
+static uint8_t i2c__not_connect[]="not connected\r";
+static uint8_t i2c_not_connect_len = sizeof(i2c__not_connect);
 
 
-uint8_t i = 0, ret;
-uint8_t i2c_connect[]="connected\r";
-uint8_t i2c_connect_len = sizeof(i2c_connect);
-uint8_t i2c__not_connect[]="not connected\r";
-uint8_t i2c_not_connect_len = sizeof(i2c__not_connect);
-
-
-void I2C_scan(I2C_TypeDef* I2Cx)
+uint8_t I2C_scan(I2C_TypeDef* I2Cx)
 
  {
     
@@ -396,13 +389,16 @@ void I2C_scan(I2C_TypeDef* I2Cx)
         }
         else if(ret == HAL_OK)
         {
-            
-            CDC_Transmit_FS(i2c_connect, i2c_connect_len);
+            CDC_Transmit_FS(i, 1);
+            HAL_Delay(1000);
+            return i;
         }
     }
-
+return 0;
 
  }
+
+
 
 #ifdef USE_FULL_ASSERT
 
