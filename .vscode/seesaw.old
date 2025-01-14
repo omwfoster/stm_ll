@@ -258,4 +258,104 @@ union keyState {
 #define CRICKIT_DUTY_CYCLE_OFF 0
 #define CRICKIT_DUTY_CYCLE_MAX 65535
 
+class Adafruit_seesaw : public Print {
+public:
+  // constructors
+  Adafruit_seesaw(TwoWire *Wi = NULL);
+  ~Adafruit_seesaw(void){};
+
+  bool begin(uint8_t addr = SEESAW_ADDRESS, int8_t flow = -1,
+             bool reset = true);
+  uint32_t getOptions();
+  uint32_t getVersion();
+  bool getProdDatecode(uint16_t *pid, uint8_t *year, uint8_t *mon,
+                       uint8_t *day);
+
+  bool SWReset();
+
+  void pinMode(uint8_t pin, uint8_t mode);
+  void pinModeBulk(uint32_t pins, uint8_t mode);
+  void pinModeBulk(uint32_t pinsa, uint32_t pinsb, uint8_t mode);
+  virtual void analogWrite(uint8_t pin, uint16_t value, uint8_t width = 8);
+  void digitalWrite(uint8_t pin, uint8_t value);
+  void digitalWriteBulk(uint32_t port_values);
+  void digitalWriteBulk(uint32_t pins, uint8_t value);
+  void digitalWriteBulk(uint32_t pinsa, uint32_t pinsb, uint8_t value);
+
+  bool digitalRead(uint8_t pin);
+  uint32_t digitalReadBulk(uint32_t pins);
+  uint32_t digitalReadBulkB(uint32_t pins);
+
+  void setGPIOInterrupts(uint32_t pins, bool enabled);
+
+  virtual uint16_t analogRead(uint8_t pin);
+
+  uint16_t touchRead(uint8_t pin);
+
+  virtual void setPWMFreq(uint8_t pin, uint16_t freq);
+
+  void enableSercomDataRdyInterrupt(uint8_t sercom = 0);
+  void disableSercomDataRdyInterrupt(uint8_t sercom = 0);
+
+  char readSercomData(uint8_t sercom = 0);
+
+  void EEPROMWrite8(uint8_t addr, uint8_t val);
+  void EEPROMWrite(uint8_t addr, uint8_t *buf, uint8_t size);
+  uint8_t EEPROMRead8(uint8_t addr);
+
+  void setI2CAddr(uint8_t addr);
+  uint8_t getI2CAddr();
+
+  void UARTSetBaud(uint32_t baud);
+
+  void setKeypadEvent(uint8_t key, uint8_t edge, bool enable = true);
+  void enableKeypadInterrupt();
+  void disableKeypadInterrupt();
+  uint8_t getKeypadCount();
+  bool readKeypad(keyEventRaw *buf, uint8_t count);
+
+  float getTemp();
+
+  int32_t getEncoderPosition(uint8_t encoder = 0);
+  int32_t getEncoderDelta(uint8_t encoder = 0);
+  bool enableEncoderInterrupt(uint8_t encoder = 0);
+  bool disableEncoderInterrupt(uint8_t encoder = 0);
+  void setEncoderPosition(int32_t pos, uint8_t encoder = 0);
+
+  virtual size_t write(uint8_t);
+  virtual size_t write(const char *str);
+
+protected:
+  TwoWire *_i2cbus; /*!< The I2C Bus used to communicate with the seesaw */
+  Adafruit_I2CDevice *_i2c_dev = NULL; ///< The BusIO device for I2C control
+
+  int8_t _flow; /*!< The flow control pin to use */
+
+  uint8_t _hardwaretype = 0; /*!< what hardware type is attached! */
+  uint8_t getI2CaddrEEPROMloc();
+
+  bool write8(byte regHigh, byte regLow, byte value);
+  uint8_t read8(byte regHigh, byte regLow, uint16_t delay = 250);
+
+  bool read(uint8_t regHigh, uint8_t regLow, uint8_t *buf, uint8_t num,
+            uint16_t delay = 250);
+  bool write(uint8_t regHigh, uint8_t regLow, uint8_t *buf, uint8_t num);
+
+  /*=========================================================================
+          REGISTER BITFIELDS
+      -----------------------------------------------------------------------*/
+
+  /** Sercom interrupt enable register
+   */
+  union sercom_inten {
+    struct {
+      uint8_t DATA_RDY : 1; ///< this bit is set when data becomes available
+    } bit;                  ///< bitfields
+    uint8_t reg;            ///< full register
+  };
+  sercom_inten _sercom_inten; ///< sercom interrupt enable register instance
+
+  /*=========================================================================*/
+};
+
 #endif
