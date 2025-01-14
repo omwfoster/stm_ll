@@ -74,7 +74,7 @@ int main(void)
   //BSP_AUDIO_IN_Record(RecBuf, (PCM_OUT_SIZE * 2));
   while (1)
   {
-    CDC_Transmit_FS(myname, name_len);
+    //CDC_Transmit_FS(myname, name_len);
     I2C_scan(&hi2c1);
     I2C_scan(&hi2c2);
    
