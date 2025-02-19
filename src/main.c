@@ -2,7 +2,7 @@
 #include <arm_math.h>
 #include "stm32f4xx_hal.h"
 #include <viseffect/visEffect.h>
-#include <stm32f4_discovery_audio.h>
+
 #include "usb_device.h"
 #include "usbd_cdc_if.h"
 
@@ -20,7 +20,7 @@
 void SystemClock_Config(void);
 void Error_Handler(void);
 static void MX_GPIO_Init(void);
-static void MX_USB_OTG_HS_PCD_Init(void);
+
 
 uint8_t TxBuffer[USB_OUT_BUFFER_SIZE];
 
@@ -39,8 +39,7 @@ uint16_t WrBuffer[WR_BUFFER_SIZE];
 uint8_t frameBuffer[3 * 60];
 uint8_t frameBuffer2[3 * 20];
 
-static uint16_t RecBuf[PCM_OUT_SIZE * 2];
-static uint16_t InternalBuffer[INTERNAL_BUFF_SIZE];
+
 
 Audio_BufferTypeDef BufferCtl;
 
@@ -139,26 +138,10 @@ static void MX_GPIO_Init(void)
 
 void USB_CDC_RxHandler(uint8_t* Buf, uint32_t Len)
 {
-    CDC_Transmit_HS(Buf, Len);
+    CDC_Transmit_FS(Buf, Len);
 }
 
-void BSP_AUDIO_IN_TransferComplete_CallBack(void)
-{
-  /* This function should be implemented by the user application.
-     It is called into this driver when the current buffer is filled
-     to prepare the next buffer pointer and its size. */
-    
-}
 
-/**
-  * @brief  Manages the DMA Half Transfer complete event.
-  */
-void BSP_AUDIO_IN_HalfTransfer_CallBack(void)
-{
-  /* This function should be implemented by the user application.
-     It is called into this driver when the current buffer is filled
-     to prepare the next buffer pointer and its size. */
-}
 
 /* USER CODE END 4 */
 
