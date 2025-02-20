@@ -5,6 +5,7 @@
 
 #include "usb_device.h"
 #include "usbd_cdc_if.h"
+#include "mp34dt_spi.h"
 
 // GPIO clock peripheral enable command
 #define WS2812B_GPIO_CLK_ENABLE() __HAL_RCC_GPIOC_CLK_ENABLE()
