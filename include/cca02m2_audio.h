@@ -26,19 +26,16 @@ extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
-#include "cca02m2_conf.h"
+#include <cca02m2_conf.h>
 #include <stdlib.h>
 
-#ifndef USE_STM32L4XX_NUCLEO
-/* Include PDM to PCM lib header file */
+
 #include "pdm2pcm_glo.h"
-#endif
+
 
 
   */
-#ifdef USE_STM32L4XX_NUCLEO
-extern DMA_HandleTypeDef hDmaDfsdm[];
-#else
+
 
 
 

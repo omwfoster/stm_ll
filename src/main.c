@@ -363,8 +363,8 @@ uint8_t I2C_scan(I2C_HandleTypeDef I2Cx)
         }
         else if(ret == HAL_OK)
         {
-            CDC_Transmit_FS(i, 1);
-            HAL_Delay(10);
+         //   CDC_Transmit_FS(i, 1);
+            CDC_Transmit_FS(i2c_connect, i2c_connect_len);
             return i;
         }
     }

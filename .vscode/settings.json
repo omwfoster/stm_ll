@@ -3,6 +3,7 @@
         "main.h": "c",
         "arm_math.h": "c",
         "usbd_cdc_if.h": "c",
-        "usbd_cdc.h": "c"
+        "usbd_cdc.h": "c",
+        "cca02m2_conf.h": "c"
     }
 }
