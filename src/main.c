@@ -24,7 +24,7 @@ static void MX_GPIO_Init(void);
 
 
 uint8_t TxBuffer[USB_OUT_BUFFER_SIZE];
-uint8_t I2C_scan(I2C_TypeDef* I2Cx);
+uint8_t I2C_scan(I2C_HandleTypeDef  I2Cx);
 
 
 PCD_HandleTypeDef hpcd_USB_OTG_HS;
@@ -43,9 +43,11 @@ uint8_t frameBuffer2[3 * 20];
 
 I2C_HandleTypeDef hi2c1;
 I2C_HandleTypeDef hi2c2;
+I2C_HandleTypeDef hi2c3;
 
 static void MX_I2C1_Init(void);
 static void MX_I2C2_Init(void);
+static void MX_I2C3_Init(void);
 
 
 
@@ -63,19 +65,20 @@ int main(void)
 
   MX_I2C1_Init();
   MX_I2C2_Init();
+ 
 
   /* Configure the system clock */
   uint8_t myname[]="HELLO WORLD !\r";
   uint8_t name_len = sizeof(myname);
   visInit();
-  //BSP_AUDIO_IN_Init(DEFAULT_AUDIO_IN_FREQ, DEFAULT_AUDIO_IN_BIT_RESOLUTION, DEFAULT_AUDIO_IN_CHANNEL_NBR);
-  //BSP_AUDIO_IN_Record(RecBuf, (PCM_OUT_SIZE * 2));
+
   while (1)
   {
     //CDC_Transmit_FS(myname, name_len);
-    I2C_scan(&hi2c1);
-    I2C_scan(&hi2c2);
-    HAL_Delay(100);
+    I2C_scan(hi2c1);
+    I2C_scan(hi2c2);
+    I2C_scan(hi2c3);
+   // HAL_Delay(100);
     visHandle();
   }
 }
@@ -126,7 +129,7 @@ void SystemClock_Config(void)
 static void MX_I2C1_Init(void)
 {
 
-
+  HAL_I2C_MspInit(I2C1);
 
   /* USER CODE END I2C1_Init 1 */
   hi2c1.Instance = I2C1;
@@ -156,13 +159,8 @@ static void MX_I2C1_Init(void)
 static void MX_I2C2_Init(void)
 {
 
-  /* USER CODE BEGIN I2C2_Init 0 */
+  HAL_I2C_MspInit(I2C2);
 
-  /* USER CODE END I2C2_Init 0 */
-
-  /* USER CODE BEGIN I2C2_Init 1 */
-
-  /* USER CODE END I2C2_Init 1 */
   hi2c2.Instance = I2C2;
   hi2c2.Init.ClockSpeed = 100000;
   hi2c2.Init.DutyCycle = I2C_DUTYCYCLE_2;
@@ -173,6 +171,30 @@ static void MX_I2C2_Init(void)
   hi2c2.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
   hi2c2.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
   if (HAL_I2C_Init(&hi2c2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN I2C2_Init 2 */
+
+  /* USER CODE END I2C2_Init 2 */
+
+}
+
+static void MX_I2C3_Init(void)
+{
+
+  HAL_I2C_MspInit(I2C3);
+
+  hi2c2.Instance = I2C3;
+  hi2c2.Init.ClockSpeed = 100000;
+  hi2c2.Init.DutyCycle = I2C_DUTYCYCLE_2;
+  hi2c2.Init.OwnAddress1 = 0;
+  hi2c2.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+  hi2c2.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+  hi2c2.Init.OwnAddress2 = 0;
+  hi2c2.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+  hi2c2.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+  if (HAL_I2C_Init(&hi2c3) != HAL_OK)
   {
     Error_Handler();
   }
@@ -328,7 +350,7 @@ static uint8_t i2c__not_connect[]="not connected\r";
 static uint8_t i2c_not_connect_len = sizeof(i2c__not_connect);
 
 
-uint8_t I2C_scan(I2C_TypeDef* I2Cx)
+uint8_t I2C_scan(I2C_HandleTypeDef I2Cx)
 
  {
     
@@ -337,12 +359,12 @@ uint8_t I2C_scan(I2C_TypeDef* I2Cx)
         ret = HAL_I2C_IsDeviceReady(&I2Cx, (uint16_t)(i<<1), 3, 5);
         if (ret != HAL_OK) /* No ACK Received At That Address */
         {
-            CDC_Transmit_FS(i2c__not_connect, i2c_not_connect_len);
+       //     CDC_Transmit_FS(i2c__not_connect, i2c_not_connect_len);
         }
         else if(ret == HAL_OK)
         {
             CDC_Transmit_FS(i, 1);
-            HAL_Delay(1000);
+            HAL_Delay(10);
             return i;
         }
     }
