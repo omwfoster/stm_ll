@@ -6,6 +6,7 @@
 #include "usb_device.h"
 #include "usbd_cdc_if.h"
 #include "mp34dt_spi.h"
+#include <memsafe_buffer.h>
 
 // GPIO clock peripheral enable command
 #define WS2812B_GPIO_CLK_ENABLE() __HAL_RCC_GPIOC_CLK_ENABLE()
@@ -21,6 +22,7 @@
 void SystemClock_Config(void);
 void Error_Handler(void);
 static void MX_GPIO_Init(void);
+
 
 
 uint8_t TxBuffer[USB_OUT_BUFFER_SIZE];
@@ -44,6 +46,7 @@ uint8_t frameBuffer2[3 * 20];
 I2C_HandleTypeDef hi2c1;
 I2C_HandleTypeDef hi2c2;
 I2C_HandleTypeDef hi2c3;
+int writebuffer(uint8_t *buffer, uint8_t len);
 
 static void MX_I2C1_Init(void);
 static void MX_I2C2_Init(void);
@@ -348,6 +351,30 @@ static uint8_t i2c_connect[]="connected\r";
 static uint8_t i2c_connect_len = sizeof(i2c_connect);
 static uint8_t i2c__not_connect[]="not connected\r";
 static uint8_t i2c_not_connect_len = sizeof(i2c__not_connect);
+
+
+
+
+uint8_t buffer[USB_OUT_BUFFER_SIZE];
+
+int writebuffer(uint8_t *buffer, uint8_t len)
+{
+  static uint8_t i = 0;
+  for(i = 0; i < len; i++)
+  {
+    if(i<USB_OUT_BUFFER_SIZE)
+    {
+    TxBuffer[i] = buffer[i];
+    return 1;
+    }
+    else
+    {
+      return 0;
+    }
+  }
+ 
+}
+
 
 
 uint8_t I2C_scan(I2C_HandleTypeDef I2Cx)
