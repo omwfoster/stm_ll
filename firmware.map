@@ -2771,6 +2771,8 @@ Discarded input sections
                 0x0000000000000000       0x12 .pio/build/adafruit_feather_f405/src/memsafe_buffer.o
  .text.safe_append
                 0x0000000000000000       0x42 .pio/build/adafruit_feather_f405/src/memsafe_buffer.o
+ .text.reset_buffer
+                0x0000000000000000       0x18 .pio/build/adafruit_feather_f405/src/memsafe_buffer.o
  .comment       0x0000000000000000       0x7f .pio/build/adafruit_feather_f405/src/memsafe_buffer.o
  .ARM.attributes
                 0x0000000000000000       0x39 .pio/build/adafruit_feather_f405/src/memsafe_buffer.o

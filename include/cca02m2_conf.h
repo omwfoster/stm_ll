@@ -27,9 +27,8 @@ extern "C" {
 
 /* Includes ------------------------------------------------------------------*/
 /* Replace the header file names with the ones of the target platform */
-#include "stm32yyxx_hal.h"
-#include "nucleo_xyyyzz_bus.h"
-#include "nucleo_xyyyzz_errno.h"
+
+#include "stm32f4xx_hal.h"
 
 
 /* The N_MS value defines the number of millisecond to be processed at each AudioProcess call,

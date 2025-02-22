@@ -34,22 +34,13 @@ extern "C" {
 
 
 
-  */
-
-
 
 
 #define DMA_MAX(_X_) (((_X_) <= DMA_MAX_SZE)? (_X_):DMA_MAX_SZE)
 #define HTONS(A) ((((A) & (uint16_t)0xff00) >> 8) | (((A) & (uint16_t)0x00ff) << 8))
 #endif
 
-/**
-  * @}
-  */
 
-/** @defgroup CCA02M2_AUDIO_Exported_Types CCA02M2_AUDIO_ Exported Types
-  * @{
-  */
 
 typedef struct
 {
@@ -101,49 +92,7 @@ typedef struct
   uint32_t CRCPolynomial;
 } MX_SPI_Config;
 
-#ifdef USE_STM32L4XX_NUCLEO
 
-typedef struct
-{
-  /* Filter parameters */
-  DFSDM_Filter_TypeDef *FilterInstance;
-  uint32_t RegularTrigger;
-  uint32_t SincOrder;
-  uint32_t Oversampling;
-  /* Channel parameters */
-  DFSDM_Channel_TypeDef *ChannelInstance;
-  uint32_t DigitalMicPins;
-  uint32_t DigitalMicType;
-  uint32_t Channel4Filter;
-  uint32_t ClockDivider;
-  uint32_t RightBitShift;
-} MX_DFSDM_Config;
-
-#if ((USE_HAL_DFSDM_REGISTER_CALLBACKS == 1) || (USE_HAL_SAI_REGISTER_CALLBACKS == 1))
-typedef struct
-{
-#if (USE_HAL_SAI_REGISTER_CALLBACKS == 1)
-  pSAI_CallbackTypeDef pMspSaiInitCb;
-  pSAI_CallbackTypeDef pMspSaiDeInitCb;
-#endif
-#if (USE_HAL_DFSDM_REGISTER_CALLBACKS == 1)
-  pDFSDM_Filter_CallbackTypeDef pMspFltrInitCb;
-  pDFSDM_Filter_CallbackTypeDef pMspFltrDeInitCb;
-  pDFSDM_Channel_CallbackTypeDef pMspChInitCb;
-  pDFSDM_Channel_CallbackTypeDef pMspChDeInitCb;
-#endif /* (USE_HAL_DFSDM_REGISTER_CALLBACKS == 1) */
-} CCA02M2_AUDIO_IN_Cb_t;
-#endif /* ((USE_HAL_DFSDM_REGISTER_CALLBACKS == 1) || (USE_HAL_SAI_REGISTER_CALLBACKS == 1)) */
-
-#endif
-
-/**
-  * @}
-  */
-
-/** @defgroup CCA02M2_AUDIO_Exported_Constants CCA02M2_AUDIO_ Exported Constants
-  * @{
-  */
 
 /* AUDIO FREQUENCY */
 #ifndef AUDIO_FREQUENCY_192K
