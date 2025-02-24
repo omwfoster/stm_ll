@@ -24,8 +24,12 @@ void Error_Handler(void);
 static void MX_GPIO_Init(void);
 
 
+char str_output_buffer[99] = {0};
 
-uint8_t TxBuffer[USB_OUT_BUFFER_SIZE];
+
+
+char TxBuffer[USB_OUT_BUFFER_SIZE]={0};
+
 uint8_t I2C_scan(I2C_HandleTypeDef  I2Cx);
 
 
@@ -68,12 +72,13 @@ int main(void)
 
   MX_I2C1_Init();
   MX_I2C2_Init();
+  MX_I2C3_Init();
  
 
-  /* Configure the system clock */
-  uint8_t myname[]="HELLO WORLD !\r";
-  uint8_t name_len = sizeof(myname);
+ 
   visInit();
+
+  safe_append(str_output_buffer, sizeof(str_hal_ok), str_hal_ok);
 
   while (1)
   {
@@ -346,11 +351,7 @@ void HAL_I2C_MspDeInit(I2C_HandleTypeDef* hi2c)
 
 
 
-static uint8_t i = 0, ret;
-static uint8_t i2c_connect[]="connected\r";
-static uint8_t i2c_connect_len = sizeof(i2c_connect);
-static uint8_t i2c__not_connect[]="not connected\r";
-static uint8_t i2c_not_connect_len = sizeof(i2c__not_connect);
+
 
 
 
@@ -380,7 +381,8 @@ int writebuffer(uint8_t *buffer, uint8_t len)
 uint8_t I2C_scan(I2C_HandleTypeDef I2Cx)
 
  {
-    
+    uint16_t  i = 0;
+    HAL_StatusTypeDef ret;
     for(i=1; i<128; i++)
     {
         ret = HAL_I2C_IsDeviceReady(&I2Cx, (uint16_t)(i<<1), 3, 5);
@@ -391,7 +393,7 @@ uint8_t I2C_scan(I2C_HandleTypeDef I2Cx)
         else if(ret == HAL_OK)
         {
          //   CDC_Transmit_FS(i, 1);
-            CDC_Transmit_FS(i2c_connect, i2c_connect_len);
+            CDC_Transmit_FS(i2c_connect, strlen(i2c_connect));
             return i;
         }
     }
