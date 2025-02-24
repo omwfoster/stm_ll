@@ -7,6 +7,7 @@
 #include "usbd_cdc_if.h"
 #include "mp34dt_spi.h"
 #include <memsafe_buffer.h>
+#include <seesaw.h>
 
 // GPIO clock peripheral enable command
 #define WS2812B_GPIO_CLK_ENABLE() __HAL_RCC_GPIOC_CLK_ENABLE()
@@ -79,9 +80,7 @@ int main(void)
 
   while (1)
   {
-    // CDC_Transmit_FS(myname, name_len);
 
-    // HAL_Delay(100);
     visHandle();
   }
 }
