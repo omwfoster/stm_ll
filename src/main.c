@@ -49,7 +49,7 @@ uint8_t frameBuffer2[3 * 20];
 I2C_HandleTypeDef hi2c1;
 
 
-
+int16_t * gy_readings[6];
 Audio_BufferTypeDef BufferCtl;
 
 int main(void)
@@ -67,6 +67,8 @@ int main(void)
 
   safe_append(str_output_buffer, sizeof(str_hal_ok), str_hal_ok);
 
+  ICM20948_init(&hi2c1,0,GYRO_FULL_SCALE_2000DPS);
+
   HAL_Delay(5000);
 
 
@@ -75,7 +77,7 @@ int main(void)
 
   while (1)
   {
-
+    ICM20948_readGyroscope_allAxises(&hi2c1,0x69,GYRO_FULL_SCALE_2000DPS,gy_readings[0]);
     visHandle();
   }
 }
