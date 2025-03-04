@@ -71,6 +71,8 @@ int main(void)
 
   I2C_scan(hi2c1);
 
+ 
+
   while (1)
   {
 
@@ -165,7 +167,7 @@ void Error_Handler(void)
   /* User can add his own implementation to report the HAL error return state */
   while (1)
   {
-    CDC_Transmit_FS(str_hal_error, strlen(str_hal_error));
+    CDC_Transmit_FS((uint8_t *)str_hal_error, strlen(str_hal_error));
   }
   /* USER CODE END Error_Handler */
 }
