@@ -5,6 +5,9 @@
         "usbd_cdc_if.h": "c",
         "usbd_cdc.h": "c",
         "cca02m2_conf.h": "c",
-        "mp34dt_spi.h": "c"
+        "mp34dt_spi.h": "c",
+        "i2c_acc.h": "c",
+        "i2c_acc_OPTIONS.h": "c",
+        "i2c_acc_REG.h": "c"
     }
 }

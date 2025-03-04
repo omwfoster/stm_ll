@@ -69,7 +69,7 @@ int main(void)
 
   HAL_Delay(5000);
 
-  I2C_scan(hi2c1);
+
 
  
 

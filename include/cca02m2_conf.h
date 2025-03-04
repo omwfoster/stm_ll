@@ -77,3 +77,4 @@ close SB20 and SB21*/
 #endif
 
 #endif /* CCA02M2_CONF_H__*/
+"i2c_acc.h": "c"
