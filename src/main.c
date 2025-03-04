@@ -6,6 +6,7 @@
 #include "usb_device.h"
 #include "usbd_cdc_if.h"
 #include "mp34dt_spi.h"
+#include "i2c_acc.h"
 #include <memsafe_buffer.h>
 #include <seesaw.h>
 
@@ -18,6 +19,7 @@
 // How many LEDs are in the series
 #define WS2812B_NUMBER_OF_LEDS 60
 // Number of paralel LED strips on the SAME gpio. Each has its own buffer.
+#define WR_BUFFER_SIZE 99
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
@@ -28,7 +30,7 @@ char str_output_buffer[99] = {0};
 
 char TxBuffer[USB_OUT_BUFFER_SIZE] = {0};
 
-uint8_t I2C_scan(I2C_HandleTypeDef I2Cx);
+
 
 PCD_HandleTypeDef hpcd_USB_OTG_HS;
 
@@ -45,13 +47,8 @@ uint8_t frameBuffer[3 * 60];
 uint8_t frameBuffer2[3 * 20];
 
 I2C_HandleTypeDef hi2c1;
-I2C_HandleTypeDef hi2c2;
-I2C_HandleTypeDef hi2c3;
-int writebuffer(uint8_t *buffer, uint8_t len);
 
-static void MX_I2C1_Init(void);
-static void MX_I2C2_Init(void);
-static void MX_I2C3_Init(void);
+
 
 Audio_BufferTypeDef BufferCtl;
 
@@ -65,8 +62,6 @@ int main(void)
   MX_USB_DEVICE_Init();
 
   MX_I2C1_Init();
-  MX_I2C2_Init();
-  MX_I2C3_Init();
 
   visInit();
 
@@ -75,8 +70,6 @@ int main(void)
   HAL_Delay(5000);
 
   I2C_scan(hi2c1);
-  I2C_scan(hi2c2);
-  I2C_scan(hi2c3);
 
   while (1)
   {
@@ -127,80 +120,7 @@ void SystemClock_Config(void)
   }
 }
 
-static void MX_I2C1_Init(void)
-{
 
-  HAL_I2C_MspInit(I2C1);
-
-  /* USER CODE END I2C1_Init 1 */
-  hi2c1.Instance = I2C1;
-  hi2c1.Init.ClockSpeed = 100000;
-  hi2c1.Init.DutyCycle = I2C_DUTYCYCLE_2;
-  hi2c1.Init.OwnAddress1 = 0;
-  hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
-  hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
-  hi2c1.Init.OwnAddress2 = 0;
-  hi2c1.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
-  hi2c1.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
-  if (HAL_I2C_Init(&hi2c1) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN I2C1_Init 2 */
-
-  /* USER CODE END I2C1_Init 2 */
-}
-
-/**
- * @brief I2C2 Initialization Function
- * @param None
- * @retval None
- */
-static void MX_I2C2_Init(void)
-{
-
-  HAL_I2C_MspInit(I2C2);
-
-  hi2c2.Instance = I2C2;
-  hi2c2.Init.ClockSpeed = 100000;
-  hi2c2.Init.DutyCycle = I2C_DUTYCYCLE_2;
-  hi2c2.Init.OwnAddress1 = 0;
-  hi2c2.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
-  hi2c2.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
-  hi2c2.Init.OwnAddress2 = 0;
-  hi2c2.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
-  hi2c2.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
-  if (HAL_I2C_Init(&hi2c2) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN I2C2_Init 2 */
-
-  /* USER CODE END I2C2_Init 2 */
-}
-
-static void MX_I2C3_Init(void)
-{
-
-  HAL_I2C_MspInit(I2C3);
-
-  hi2c2.Instance = I2C3;
-  hi2c2.Init.ClockSpeed = 100000;
-  hi2c2.Init.DutyCycle = I2C_DUTYCYCLE_2;
-  hi2c2.Init.OwnAddress1 = 0;
-  hi2c2.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
-  hi2c2.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
-  hi2c2.Init.OwnAddress2 = 0;
-  hi2c2.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
-  hi2c2.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
-  if (HAL_I2C_Init(&hi2c3) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN I2C2_Init 2 */
-
-  /* USER CODE END I2C2_Init 2 */
-}
 
 static void MX_GPIO_Init(void)
 {
@@ -232,152 +152,7 @@ void USB_CDC_RxHandler(uint8_t *Buf, uint32_t Len)
   CDC_Transmit_FS(Buf, Len);
 }
 
-void HAL_I2C_MspInit(I2C_HandleTypeDef *hi2c)
-{
-  GPIO_InitTypeDef GPIO_InitStruct = {0};
-  if (hi2c->Instance == I2C1)
-  {
-    /* USER CODE BEGIN I2C1_MspInit 0 */
 
-    /* USER CODE END I2C1_MspInit 0 */
-
-    __HAL_RCC_GPIOB_CLK_ENABLE();
-    /**I2C1 GPIO Configuration
-    PB6     ------> I2C1_SCL
-    PB7     ------> I2C1_SDA
-    */
-    GPIO_InitStruct.Pin = GPIO_PIN_6 | GPIO_PIN_7;
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-    GPIO_InitStruct.Alternate = GPIO_AF4_I2C1;
-    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-    /* Peripheral clock enable */
-    __HAL_RCC_I2C1_CLK_ENABLE();
-    /* USER CODE BEGIN I2C1_MspInit 1 */
-
-    /* USER CODE END I2C1_MspInit 1 */
-  }
-  else if (hi2c->Instance == I2C2)
-  {
-    /* USER CODE BEGIN I2C2_MspInit 0 */
-
-    /* USER CODE END I2C2_MspInit 0 */
-
-    __HAL_RCC_GPIOB_CLK_ENABLE();
-    /**I2C2 GPIO Configuration
-    PB10     ------> I2C2_SCL
-    PB11     ------> I2C2_SDA
-    */
-    GPIO_InitStruct.Pin = GPIO_PIN_10 | GPIO_PIN_11;
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-    GPIO_InitStruct.Alternate = GPIO_AF4_I2C2;
-    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-    /* Peripheral clock enable */
-    __HAL_RCC_I2C2_CLK_ENABLE();
-    /* USER CODE BEGIN I2C2_MspInit 1 */
-
-    /* USER CODE END I2C2_MspInit 1 */
-  }
-}
-
-/**
- * @brief I2C MSP De-Initialization
- * This function freeze the hardware resources used in this example
- * @param hi2c: I2C handle pointer
- * @retval None
- */
-void HAL_I2C_MspDeInit(I2C_HandleTypeDef *hi2c)
-{
-  if (hi2c->Instance == I2C1)
-  {
-    /* USER CODE BEGIN I2C1_MspDeInit 0 */
-
-    /* USER CODE END I2C1_MspDeInit 0 */
-    /* Peripheral clock disable */
-    __HAL_RCC_I2C1_CLK_DISABLE();
-
-    /**I2C1 GPIO Configuration
-    PB6     ------> I2C1_SCL
-    PB7     ------> I2C1_SDA
-    */
-    HAL_GPIO_DeInit(GPIOB, GPIO_PIN_6);
-
-    HAL_GPIO_DeInit(GPIOB, GPIO_PIN_7);
-
-    /* USER CODE BEGIN I2C1_MspDeInit 1 */
-
-    /* USER CODE END I2C1_MspDeInit 1 */
-  }
-  else if (hi2c->Instance == I2C2)
-  {
-    /* USER CODE BEGIN I2C2_MspDeInit 0 */
-
-    /* USER CODE END I2C2_MspDeInit 0 */
-    /* Peripheral clock disable */
-    __HAL_RCC_I2C2_CLK_DISABLE();
-
-    /**I2C2 GPIO Configuration
-    PB10     ------> I2C2_SCL
-    PB11     ------> I2C2_SDA
-    */
-    HAL_GPIO_DeInit(GPIOB, GPIO_PIN_10);
-
-    HAL_GPIO_DeInit(GPIOB, GPIO_PIN_11);
-
-    /* USER CODE BEGIN I2C2_MspDeInit 1 */
-
-    /* USER CODE END I2C2_MspDeInit 1 */
-  }
-}
-
-uint8_t buffer[USB_OUT_BUFFER_SIZE];
-
-int writebuffer(uint8_t *buffer, uint8_t len)
-{
-  static uint8_t i = 0;
-  for (i = 0; i < len; i++)
-  {
-    if (i < USB_OUT_BUFFER_SIZE)
-    {
-      TxBuffer[i] = buffer[i];
-      return 1;
-    }
-    else
-    {
-      return 0;
-    }
-  }
-}
-
-uint8_t I2C_scan(I2C_HandleTypeDef I2Cx)
-
-{
-  uint8_t i = 0;
-  HAL_StatusTypeDef ret;
-  for (i = 1; i < 128; i++)
-  {
-    ret = HAL_I2C_IsDeviceReady(&I2Cx, (uint16_t)(i << 1), 3, 5);
-    if (ret != HAL_OK) /* No ACK Received At That Address */
-    {
-      //     CDC_Transmit_FS(i2c__not_connect, i2c_not_connect_len);
-    }
-    else if (ret == HAL_OK)
-    {
-      // Device Found At That Address
-      // Transmit The Address Over CDC
-      CDC_Transmit_FS(i2c_connect, strlen(i2c_connect));
-      CDC_Transmit_FS(&i, sizeof(i));
-    }
-  }
-  return 0;
-}
-
-/* USER CODE END 4 */
 
 /**
  * @brief  This function is executed in case of error occurrence.
@@ -390,7 +165,7 @@ void Error_Handler(void)
   /* User can add his own implementation to report the HAL error return state */
   while (1)
   {
-   CDC_Transmit_FS(str_hal_error, strlen(str_hal_error));
+    CDC_Transmit_FS(str_hal_error, strlen(str_hal_error));
   }
   /* USER CODE END Error_Handler */
 }
