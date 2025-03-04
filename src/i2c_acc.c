@@ -421,7 +421,7 @@ void MX_I2C1_Init(void)
 }
 
 
-void output_cdc_page(int pagIni, int pagFin)
+void output_cdc_page(int pagIni, int pagFin,int16_t * gy_readings)
 {
 	uint8_t bufferlec[256];
 	uint32_t temps = 0;

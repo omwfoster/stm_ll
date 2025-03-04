@@ -34,7 +34,7 @@ char TxBuffer[USB_OUT_BUFFER_SIZE] = {0};
 
 PCD_HandleTypeDef hpcd_USB_OTG_HS;
 
-typedef struct
+typedef struct Audio_BufferType
 {
   int32_t offset;
   uint32_t fptr;
@@ -79,6 +79,7 @@ int main(void)
   {
     ICM20948_readGyroscope_allAxises(&hi2c1,0x69,GYRO_FULL_SCALE_2000DPS,gy_readings[0]);
     visHandle();
+    output_cdc_page(1,1,gy_readings);
   }
 }
 

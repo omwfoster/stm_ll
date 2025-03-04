@@ -8,6 +8,7 @@
 void HAL_I2C_MspInit(I2C_HandleTypeDef *hi2c);
 void HAL_I2C_MspDeInit(I2C_HandleTypeDef *hi2c);
 void MX_I2C1_Init(void);
+void output_cdc_page(int pagIni, int pagFin,int16_t * gy_readings);
 
 #define GRYO_SENSITIVITY_SCALE_FACTOR_250DPS 131
 #define GRYO_SENSITIVITY_SCALE_FACTOR_500DPS 65.5
