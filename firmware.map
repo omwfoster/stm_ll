@@ -80,7 +80,7 @@ frameBuffer         0xb4              .pio/build/adafruit_feather_f405/src/main.
 readGyroDataZ       0x2               .pio/build/adafruit_feather_f405/src/i2c_acc.o
 WrBuffer            0xc6              .pio/build/adafruit_feather_f405/src/main.o
 dummy               0x4               .pio/build/adafruit_feather_f405/src/ws2812b/src/ws2812b.o
-gy_readings         0x18              .pio/build/adafruit_feather_f405/src/main.o
+gy_readings         0xc               .pio/build/adafruit_feather_f405/src/main.o
 USBD_StrDesc        0x200             .pio/build/adafruit_feather_f405/src/usbd_desc.o
 ws2812bDmaBitBuffer
                     0x60              .pio/build/adafruit_feather_f405/src/ws2812b/src/ws2812b.o
@@ -4121,7 +4121,7 @@ LOAD /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0
                 0x0000000010000000                _eccmram = .
                 0x0000000010000000                . = ALIGN (0x4)
 
-.bss            0x00000000200001ec     0x24c8
+.bss            0x00000000200001ec     0x24bc
                 0x00000000200001ec                _sbss = .
                 0x00000000200001ec                __bss_start__ = _sbss
  *(.bss)
@@ -4150,7 +4150,7 @@ LOAD /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0
  *(COMMON)
  COMMON         0x00000000200004a0        0x4 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal.o
                 0x00000000200004a0                uwTick
- COMMON         0x00000000200004a4      0x6a0 .pio/build/adafruit_feather_f405/src/main.o
+ COMMON         0x00000000200004a4      0x694 .pio/build/adafruit_feather_f405/src/main.o
                 0x00000000200004a4                hpcd_USB_OTG_HS
                 0x00000000200008e8                hi2c1
                 0x000000002000096c                frameBuffer2
@@ -4158,45 +4158,44 @@ LOAD /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0
                 0x00000000200009b0                frameBuffer
                 0x0000000020000a64                WrBuffer
                 0x0000000020000b2c                gy_readings
- COMMON         0x0000000020000b44      0x2d0 .pio/build/adafruit_feather_f405/src/usb_device.o
-                0x0000000020000b44                hUsbDeviceFS
- COMMON         0x0000000020000e14     0x1000 .pio/build/adafruit_feather_f405/src/usbd_cdc_if.o
-                0x0000000020000e14                UserRxBufferFS
-                0x0000000020001614                UserTxBufferFS
- COMMON         0x0000000020001e14      0x444 .pio/build/adafruit_feather_f405/src/usbd_conf.o
-                0x0000000020001e14                hpcd_USB_OTG_FS
- COMMON         0x0000000020002258      0x200 .pio/build/adafruit_feather_f405/src/usbd_desc.o
-                0x0000000020002258                USBD_StrDesc
- COMMON         0x0000000020002458       0x4c .pio/build/adafruit_feather_f405/src/viseffect/visEffect.o
-                0x0000000020002458                ws2812b
- COMMON         0x00000000200024a4      0x20c .pio/build/adafruit_feather_f405/src/ws2812b/src/ws2812b.o
-                0x00000000200024a4                tim2OC2
-                0x00000000200024c0                timer_reset_pulse_period
-                0x00000000200024c4                dmaCC2
-                0x0000000020002524                tim2OC1
-                0x0000000020002540                TIM1_handle
-                0x0000000020002588                tim_period
-                0x000000002000258c                dmaCC1
-                0x00000000200025ec                dummy
-                0x00000000200025f0                ws2812bDmaBitBuffer
-                0x0000000020002650                dmaUpdate
- COMMON         0x00000000200026b0        0x4 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-reent.o)
-                0x00000000200026b0                errno
-                0x00000000200026b4                . = ALIGN (0x4)
-                0x00000000200026b4                _ebss = .
-                0x00000000200026b4                __bss_end__ = _ebss
+ COMMON         0x0000000020000b38      0x2d0 .pio/build/adafruit_feather_f405/src/usb_device.o
+                0x0000000020000b38                hUsbDeviceFS
+ COMMON         0x0000000020000e08     0x1000 .pio/build/adafruit_feather_f405/src/usbd_cdc_if.o
+                0x0000000020000e08                UserRxBufferFS
+                0x0000000020001608                UserTxBufferFS
+ COMMON         0x0000000020001e08      0x444 .pio/build/adafruit_feather_f405/src/usbd_conf.o
+                0x0000000020001e08                hpcd_USB_OTG_FS
+ COMMON         0x000000002000224c      0x200 .pio/build/adafruit_feather_f405/src/usbd_desc.o
+                0x000000002000224c                USBD_StrDesc
+ COMMON         0x000000002000244c       0x4c .pio/build/adafruit_feather_f405/src/viseffect/visEffect.o
+                0x000000002000244c                ws2812b
+ COMMON         0x0000000020002498      0x20c .pio/build/adafruit_feather_f405/src/ws2812b/src/ws2812b.o
+                0x0000000020002498                tim2OC2
+                0x00000000200024b4                timer_reset_pulse_period
+                0x00000000200024b8                dmaCC2
+                0x0000000020002518                tim2OC1
+                0x0000000020002534                TIM1_handle
+                0x000000002000257c                tim_period
+                0x0000000020002580                dmaCC1
+                0x00000000200025e0                dummy
+                0x00000000200025e4                ws2812bDmaBitBuffer
+                0x0000000020002644                dmaUpdate
+ COMMON         0x00000000200026a4        0x4 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-reent.o)
+                0x00000000200026a4                errno
+                0x00000000200026a8                . = ALIGN (0x4)
+                0x00000000200026a8                _ebss = .
+                0x00000000200026a8                __bss_end__ = _ebss
 
 ._user_heap_stack
-                0x00000000200026b4      0x604
-                0x00000000200026b8                . = ALIGN (0x8)
- *fill*         0x00000000200026b4        0x4 
-                0x00000000200026b8                PROVIDE (end, .)
+                0x00000000200026a8      0x600
+                0x00000000200026a8                . = ALIGN (0x8)
+                0x00000000200026a8                PROVIDE (end, .)
                 [!provide]                        PROVIDE (_end, .)
-                0x00000000200028b8                . = (. + _Min_Heap_Size)
- *fill*         0x00000000200026b8      0x200 
-                0x0000000020002cb8                . = (. + _Min_Stack_Size)
- *fill*         0x00000000200028b8      0x400 
-                0x0000000020002cb8                . = ALIGN (0x8)
+                0x00000000200028a8                . = (. + _Min_Heap_Size)
+ *fill*         0x00000000200026a8      0x200 
+                0x0000000020002ca8                . = (. + _Min_Stack_Size)
+ *fill*         0x00000000200028a8      0x400 
+                0x0000000020002ca8                . = ALIGN (0x8)
 
 /DISCARD/
  libc.a(*)

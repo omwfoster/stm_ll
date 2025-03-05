@@ -428,12 +428,11 @@ void output_cdc_page(int pagIni, int pagFin,int16_t * gy_readings)
 	float lat = 0;
 	float lon;
 	uint8_t *data =
-		(uint8_t *)" ----------Dades GNSS ----------\ nTemps Latitut (º) Longitut (º)\n";
+		(uint8_t *)"Reading : \n";
 	CDC_Transmit_FS(data, strlen((char *)data));
 	while (pagIni < pagFin)
 	{
-		// llegeix la pagina pagIni i el guarda a bufferlec
-		/* 	w25qxx_read(&w25qxx, pagIni * 256, bufferlec, sizeof(bufferlec));
+
 			for (int i = 0; i < 252; i += 12)
 			{
 				// copia la posicio de la memoria multiple de 12, que correspon al temps.
@@ -447,7 +446,7 @@ void output_cdc_page(int pagIni, int pagFin,int16_t * gy_readings)
 
 				sprintf((char *)data, " %lu: %f %f \n", temps, lat, lon);
 				CDC_Transmit_FS(data, strlen((char *)data));
-			} */
+			}
 		pagIni += 3;
 		// delay per evitar errors al rebre els missatges USB.
 		HAL_Delay(100);
