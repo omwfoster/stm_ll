@@ -19,7 +19,9 @@
 // How many LEDs are in the series
 #define WS2812B_NUMBER_OF_LEDS 60
 // Number of paralel LED strips on the SAME gpio. Each has its own buffer.
-#define WR_BUFFER_SIZE 99
+
+
+#define WR_BUFFER_SIZE 1
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
@@ -72,14 +74,12 @@ int main(void)
   HAL_Delay(5000);
 
 
-
- 
-
   while (1)
   {
-    ICM20948_readGyroscope_allAxises(&hi2c1,0x69,GYRO_FULL_SCALE_2000DPS,gy_readings[0]);
+    ICM20948_readGyroscope_allAxises(&hi2c1,0x69,GYRO_FULL_SCALE_2000DPS,&gy_readings[0]);
     visHandle();
     output_cdc_page(1,1,&gy_readings[0]);
+    HAL_Delay(10);
   }
 }
 

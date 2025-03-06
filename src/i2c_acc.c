@@ -116,7 +116,7 @@ uint8_t ICM20948_isI2cAddress2(I2C_HandleTypeDef * hi2c) {
 	return 0;
 }
 
-void ICM20948_init(I2C_HandleTypeDef * hi2c, uint8_t const selectI2cAddress, uint8_t const selectGyroSensitivity) {
+HAL_StatusTypeDef ICM20948_init(I2C_HandleTypeDef * hi2c, uint8_t const selectI2cAddress, uint8_t const selectGyroSensitivity) {
 	HAL_StatusTypeDef status = HAL_OK;
 
 	status = _ICM20948_SelectUserBank(hi2c, selectI2cAddress, USER_BANK_0);
@@ -189,6 +189,8 @@ void ICM20948_init(I2C_HandleTypeDef * hi2c, uint8_t const selectI2cAddress, uin
 			0x02); // Don't understand how this works
 
 //	status = _AK09918_WriteByte(hi2c, AK09916__CNTL2__REGISTER, 0x08);
+
+	return status;
 }
 
 void ICM20948_readGyroscope_allAxises(I2C_HandleTypeDef * hi2c, uint8_t const selectI2cAddress, uint8_t const selectGyroSensitivity, int16_t readings[3]) {
@@ -424,9 +426,7 @@ void MX_I2C1_Init(void)
 void output_cdc_page(int pagIni, int pagFin,int16_t * gy_readings)
 {
 	uint8_t bufferlec[256];
-	uint32_t temps = 0;
-	float lat = 0;
-	float lon;
+
 	uint8_t *data =
 		(uint8_t *)"Reading : \n";
 	CDC_Transmit_FS(data, strlen((char *)data));
@@ -436,15 +436,15 @@ void output_cdc_page(int pagIni, int pagFin,int16_t * gy_readings)
 			for (int i = 0; i < 252; i += 12)
 			{
 				// copia la posicio de la memoria multiple de 12, que correspon al temps.
-				memcpy(&temps, &bufferlec[i], sizeof(uint32_t));
+				memcpy(&gy_readings[0], &bufferlec[i], sizeof(uint32_t));
 
-				memcpy(&lat, &bufferlec[i + 4], sizeof(float));
+				memcpy(&gy_readings[0], &bufferlec[i + 4], sizeof(float));
 
-				memcpy(&lon, &bufferlec[i + 8], sizeof(float));
+				memcpy(&gy_readings[0], &bufferlec[i + 8], sizeof(float));
 				uint8_t data[256];
 				// Codifica el missatge en el format : Temps(ms): latitut (º)
 
-				sprintf((char *)data, " %lu: %f %f \n", temps, lat, lon);
+				sprintf((char *)data, " %i: %i %i \n", gy_readings[0], gy_readings[0], gy_readings[2]);
 				CDC_Transmit_FS(data, strlen((char *)data));
 			}
 		pagIni += 3;
