@@ -8,7 +8,8 @@
 #include "mp34dt_spi.h"
 #include "i2c_acc.h"
 #include <memsafe_buffer.h>
-#include <seesaw.h>
+#include <i2c_see.h>
+
 
 // GPIO clock peripheral enable command
 #define WS2812B_GPIO_CLK_ENABLE() __HAL_RCC_GPIOC_CLK_ENABLE()
@@ -17,7 +18,7 @@
 // LED output pins
 #define WS2812B_PINS (GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3)
 // How many LEDs are in the series
-#define WS2812B_NUMBER_OF_LEDS 60
+#define WS2812B_NUMBER_OF_LEDS 1000
 // Number of paralel LED strips on the SAME gpio. Each has its own buffer.
 
 
@@ -49,6 +50,7 @@ uint8_t frameBuffer[3 * 60];
 uint8_t frameBuffer2[3 * 20];
 
 I2C_HandleTypeDef hi2c1;
+I2C_HandleTypeDef hi2c_see;
 
 
 int16_t  gy_readings[3];
