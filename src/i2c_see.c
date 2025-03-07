@@ -6,7 +6,7 @@
 
 extern I2C_HandleTypeDef hi2c_see;
 
-void HAL_I2C_MspInit(I2C_HandleTypeDef *hi2c)
+void HAL_I2C_see_MspInit(I2C_HandleTypeDef *hi2c)
 {
 	GPIO_InitTypeDef GPIO_InitStruct = {0};
 
@@ -39,7 +39,7 @@ void HAL_I2C_MspInit(I2C_HandleTypeDef *hi2c)
  * @param hi2c: I2C handle pointer
  * @retval None
  */
-void HAL_I2C_MspDeInit(I2C_HandleTypeDef *hi2c)
+void HAL_I2C_see_MspDeInit(I2C_HandleTypeDef *hi2c)
 {
 	if (hi2c->Instance == I2C1)
 	{
@@ -70,13 +70,13 @@ void HAL_I2C_MspDeInit(I2C_HandleTypeDef *hi2c)
 	}
 }
 
-void MX_I2C1_Init(void)
+void MX_I2C_see_Init(void)
 {
 
-	HAL_I2C_MspInit(I2C1);
+	HAL_I2C_see_MspInit(I2C2);
 
 	/* USER CODE END I2C1_Init 1 */
-	hi2c_see.Instance = I2C1;
+	hi2c_see.Instance = I2C2;
 	hi2c_see.Init.ClockSpeed = 100000;
 	hi2c_see.Init.DutyCycle = I2C_DUTYCYCLE_2;
 	hi2c_see.Init.OwnAddress1 = 0;

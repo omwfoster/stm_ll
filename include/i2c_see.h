@@ -5,6 +5,7 @@
 
 #include "stdint.h"
 #include "stdio.h" 
+#include "stm32f4xx_hal.h"
 
 /*=========================================================================
     I2C ADDRESS/BITS
@@ -197,6 +198,11 @@ union keyState {
   } bit;                ///< bitfield format
   uint8_t reg;          ///< register format
 };
+
+
+void HAL_I2C_see_MspInit(I2C_HandleTypeDef *hi2c);
+void HAL_I2C_see_MspDeInit(I2C_HandleTypeDef *hi2c);
+void MX_I2C_see_Init(void);
 
 
 
