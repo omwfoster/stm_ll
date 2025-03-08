@@ -70,26 +70,3 @@ void HAL_I2C_see_MspDeInit(I2C_HandleTypeDef *hi2c)
 	}
 }
 
-void MX_I2C_see_Init(void)
-{
-
-	HAL_I2C_see_MspInit(I2C2);
-
-	/* USER CODE END I2C1_Init 1 */
-	hi2c_see.Instance = I2C2;
-	hi2c_see.Init.ClockSpeed = 100000;
-	hi2c_see.Init.DutyCycle = I2C_DUTYCYCLE_2;
-	hi2c_see.Init.OwnAddress1 = 0;
-	hi2c_see.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
-	hi2c_see.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
-	hi2c_see.Init.OwnAddress2 = 0;
-	hi2c_see.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
-	hi2c_see.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
-	if (HAL_I2C_Init(&hi2c_see) != HAL_OK)
-	{
-		Error_Handler();
-	}
-	/* USER CODE BEGIN I2C1_Init 2 */
-
-	/* USER CODE END I2C1_Init 2 */
-}

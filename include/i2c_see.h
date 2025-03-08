@@ -202,7 +202,7 @@ union keyState {
 
 void HAL_I2C_see_MspInit(I2C_HandleTypeDef *hi2c);
 void HAL_I2C_see_MspDeInit(I2C_HandleTypeDef *hi2c);
-void MX_I2C_see_Init(void);
+
 
 
 

@@ -66,7 +66,7 @@ int main(void)
   MX_USB_DEVICE_Init();
 
   MX_I2C1_Init(&hi2c_see);
-  MX_I2C_see_Init(); // do not trust this function - read the schematics and set the pins manually
+
 
   visInit();
 
