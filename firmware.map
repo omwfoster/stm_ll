@@ -19,9 +19,9 @@ Archive member included to satisfy reference by file (symbol)
 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-rand.o)
                               .pio/build/adafruit_feather_f405/src/viseffect/visEffect.o (rand)
 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-sprintf.o)
-                              .pio/build/adafruit_feather_f405/src/i2c_acc.o (sprintf)
+                              .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o (sprintf)
 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-strlen.o)
-                              .pio/build/adafruit_feather_f405/src/i2c_acc.o (strlen)
+                              .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o (strlen)
 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-malloc.o)
                               /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-rand.o) (malloc)
 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-freer.o)
@@ -49,11 +49,11 @@ Archive member included to satisfy reference by file (symbol)
 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-msizer.o)
                               /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-reallocr.o) (_malloc_usable_size_r)
 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/libgcc.a(_arm_addsubdf3.o)
-                              .pio/build/adafruit_feather_f405/src/i2c_acc.o (__aeabi_i2d)
+                              .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o (__aeabi_i2d)
 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/libgcc.a(_arm_muldivdf3.o)
-                              .pio/build/adafruit_feather_f405/src/i2c_acc.o (__aeabi_dmul)
+                              .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o (__aeabi_dmul)
 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/libgcc.a(_arm_fixdfsi.o)
-                              .pio/build/adafruit_feather_f405/src/i2c_acc.o (__aeabi_d2iz)
+                              .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o (__aeabi_d2iz)
 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/libgcc.a(_aeabi_ldivmod.o)
                               .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_irda.o (__aeabi_ldivmod)
 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/libgcc.a(_aeabi_uldivmod.o)
@@ -96,7 +96,7 @@ UserTxBufferFS      0x800             .pio/build/adafruit_feather_f405/src/usbd_
 ws2812b             0x4c              .pio/build/adafruit_feather_f405/src/viseffect/visEffect.o
 dmaCC1              0x60              .pio/build/adafruit_feather_f405/src/ws2812b/src/ws2812b.o
 frameBuffer         0xb4              .pio/build/adafruit_feather_f405/src/main.o
-readGyroDataZ       0x2               .pio/build/adafruit_feather_f405/src/i2c_acc.o
+readGyroDataZ       0x2               .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
 WrBuffer            0x2               .pio/build/adafruit_feather_f405/src/main.o
 dummy               0x4               .pio/build/adafruit_feather_f405/src/ws2812b/src/ws2812b.o
 gy_readings         0x6               .pio/build/adafruit_feather_f405/src/main.o
@@ -2760,43 +2760,43 @@ Discarded input sections
  .comment       0x0000000000000000       0x7f .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_utils.o
  .ARM.attributes
                 0x0000000000000000       0x39 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_utils.o
- .text          0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/src/i2c_acc.o
- .data          0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/src/i2c_acc.o
- .bss           0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/src/i2c_acc.o
+ .text          0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
+ .data          0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
+ .bss           0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
  .text._ICM20948_ReadByte
-                0x0000000000000000       0x24 .pio/build/adafruit_feather_f405/src/i2c_acc.o
+                0x0000000000000000       0x24 .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
  .text.ICM20948_isI2cAddress1
-                0x0000000000000000       0x14 .pio/build/adafruit_feather_f405/src/i2c_acc.o
+                0x0000000000000000       0x14 .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
  .text.ICM20948_isI2cAddress2
-                0x0000000000000000       0x14 .pio/build/adafruit_feather_f405/src/i2c_acc.o
+                0x0000000000000000       0x14 .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
  .text.ICM20948_readGyroscope_Z
-                0x0000000000000000       0x2c .pio/build/adafruit_feather_f405/src/i2c_acc.o
+                0x0000000000000000       0x2c .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
  .text.ICM20948_readAccelerometer_allAxises
-                0x0000000000000000       0xb2 .pio/build/adafruit_feather_f405/src/i2c_acc.o
+                0x0000000000000000       0xb2 .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
  .text.ICM20948_readTemperature
-                0x0000000000000000       0x30 .pio/build/adafruit_feather_f405/src/i2c_acc.o
+                0x0000000000000000       0x30 .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
  .text._AK09918_BrustRead
-                0x0000000000000000       0x1a .pio/build/adafruit_feather_f405/src/i2c_acc.o
+                0x0000000000000000       0x1a .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
  .text._AK09918_WriteByte
-                0x0000000000000000       0x20 .pio/build/adafruit_feather_f405/src/i2c_acc.o
+                0x0000000000000000       0x20 .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
  .text.ICM20948_readMagnetometer_allAxises
-                0x0000000000000000       0x88 .pio/build/adafruit_feather_f405/src/i2c_acc.o
+                0x0000000000000000       0x88 .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
  .text.HAL_I2C_MspDeInit
-                0x0000000000000000       0x38 .pio/build/adafruit_feather_f405/src/i2c_acc.o
- COMMON         0x0000000000000000        0x2 .pio/build/adafruit_feather_f405/src/i2c_acc.o
- .text          0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/src/i2c_init.o
- .data          0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/src/i2c_init.o
- .bss           0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/src/i2c_init.o
- .text          0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/src/i2c_see.o
- .data          0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/src/i2c_see.o
- .bss           0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/src/i2c_see.o
+                0x0000000000000000       0x38 .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
+ COMMON         0x0000000000000000        0x2 .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
+ .text          0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/src/i2c/i2c_init.o
+ .data          0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/src/i2c/i2c_init.o
+ .bss           0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/src/i2c/i2c_init.o
+ .text          0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/src/i2c/i2c_see.o
+ .data          0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/src/i2c/i2c_see.o
+ .bss           0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/src/i2c/i2c_see.o
  .text.HAL_I2C_see_MspInit
-                0x0000000000000000       0x58 .pio/build/adafruit_feather_f405/src/i2c_see.o
+                0x0000000000000000       0x58 .pio/build/adafruit_feather_f405/src/i2c/i2c_see.o
  .text.HAL_I2C_see_MspDeInit
-                0x0000000000000000       0x38 .pio/build/adafruit_feather_f405/src/i2c_see.o
- .comment       0x0000000000000000       0x7f .pio/build/adafruit_feather_f405/src/i2c_see.o
+                0x0000000000000000       0x38 .pio/build/adafruit_feather_f405/src/i2c/i2c_see.o
+ .comment       0x0000000000000000       0x7f .pio/build/adafruit_feather_f405/src/i2c/i2c_see.o
  .ARM.attributes
-                0x0000000000000000       0x39 .pio/build/adafruit_feather_f405/src/i2c_see.o
+                0x0000000000000000       0x39 .pio/build/adafruit_feather_f405/src/i2c/i2c_see.o
  .text          0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/src/main.o
  .data          0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/src/main.o
  .bss           0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/src/main.o
@@ -3085,9 +3085,9 @@ LOAD .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_tim.o
 LOAD .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usart.o
 LOAD .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
 LOAD .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_utils.o
-LOAD .pio/build/adafruit_feather_f405/src/i2c_acc.o
-LOAD .pio/build/adafruit_feather_f405/src/i2c_init.o
-LOAD .pio/build/adafruit_feather_f405/src/i2c_see.o
+LOAD .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
+LOAD .pio/build/adafruit_feather_f405/src/i2c/i2c_init.o
+LOAD .pio/build/adafruit_feather_f405/src/i2c/i2c_see.o
 LOAD .pio/build/adafruit_feather_f405/src/main.o
 LOAD .pio/build/adafruit_feather_f405/src/memsafe_buffer.o
 LOAD .pio/build/adafruit_feather_f405/src/stm32f4xx_it.o
@@ -3552,29 +3552,29 @@ LOAD /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0
                 0x0000000008003e88       0x4c .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
                 0x0000000008003e88                USB_EP0_OutStart
  .text._ICM20948_SelectUserBank
-                0x0000000008003ed4       0x2e .pio/build/adafruit_feather_f405/src/i2c_acc.o
+                0x0000000008003ed4       0x2e .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
                 0x0000000008003ed4                _ICM20948_SelectUserBank
  .text._ICM20948_WriteByte
-                0x0000000008003f02       0x28 .pio/build/adafruit_feather_f405/src/i2c_acc.o
+                0x0000000008003f02       0x28 .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
                 0x0000000008003f02                _ICM20948_WriteByte
  .text._ICM20948_BrustRead
-                0x0000000008003f2a       0x26 .pio/build/adafruit_feather_f405/src/i2c_acc.o
+                0x0000000008003f2a       0x26 .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
                 0x0000000008003f2a                _ICM20948_BrustRead
  .text.ICM20948_init
-                0x0000000008003f50       0x7a .pio/build/adafruit_feather_f405/src/i2c_acc.o
+                0x0000000008003f50       0x7a .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
                 0x0000000008003f50                ICM20948_init
  *fill*         0x0000000008003fca        0x6 
  .text.ICM20948_readGyroscope_allAxises
-                0x0000000008003fd0      0x138 .pio/build/adafruit_feather_f405/src/i2c_acc.o
+                0x0000000008003fd0      0x138 .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
                 0x0000000008003fd0                ICM20948_readGyroscope_allAxises
  .text.HAL_I2C_MspInit
-                0x0000000008004108       0x58 .pio/build/adafruit_feather_f405/src/i2c_acc.o
+                0x0000000008004108       0x58 .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
                 0x0000000008004108                HAL_I2C_MspInit
  .text.output_cdc_page
-                0x0000000008004160       0x78 .pio/build/adafruit_feather_f405/src/i2c_acc.o
+                0x0000000008004160       0x78 .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
                 0x0000000008004160                output_cdc_page
  .text.MX_I2C1_Init
-                0x00000000080041d8       0x44 .pio/build/adafruit_feather_f405/src/i2c_init.o
+                0x00000000080041d8       0x44 .pio/build/adafruit_feather_f405/src/i2c/i2c_init.o
                 0x00000000080041d8                MX_I2C1_Init
  .text.Error_Handler
                 0x000000000800421c       0x14 .pio/build/adafruit_feather_f405/src/main.o
@@ -4069,7 +4069,7 @@ LOAD /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0
  .rodata.flagBitshiftOffset.11639
                 0x0000000008006630        0x8 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_dma.o
  .rodata.output_cdc_page.str1.1
-                0x0000000008006638       0x4b .pio/build/adafruit_feather_f405/src/i2c_acc.o
+                0x0000000008006638       0x4b .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
  .rodata.str_hal_error
                 0x0000000008006683        0xb .pio/build/adafruit_feather_f405/src/main.o
  .rodata.str_hal_ok
@@ -4329,9 +4329,9 @@ LOAD /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0
  .ARM.attributes
                 0x0000000000000290       0x39 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
  .ARM.attributes
-                0x00000000000002c9       0x39 .pio/build/adafruit_feather_f405/src/i2c_acc.o
+                0x00000000000002c9       0x39 .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
  .ARM.attributes
-                0x0000000000000302       0x39 .pio/build/adafruit_feather_f405/src/i2c_init.o
+                0x0000000000000302       0x39 .pio/build/adafruit_feather_f405/src/i2c/i2c_init.o
  .ARM.attributes
                 0x000000000000033b       0x39 .pio/build/adafruit_feather_f405/src/main.o
  .ARM.attributes
@@ -4431,8 +4431,8 @@ OUTPUT(.pio/build/adafruit_feather_f405/firmware.elf elf32-littlearm)
  .comment       0x000000000000007e       0x7f .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim.o
  .comment       0x000000000000007e       0x7f .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim_ex.o
  .comment       0x000000000000007e       0x7f .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
- .comment       0x000000000000007e       0x7f .pio/build/adafruit_feather_f405/src/i2c_acc.o
- .comment       0x000000000000007e       0x7f .pio/build/adafruit_feather_f405/src/i2c_init.o
+ .comment       0x000000000000007e       0x7f .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
+ .comment       0x000000000000007e       0x7f .pio/build/adafruit_feather_f405/src/i2c/i2c_init.o
  .comment       0x000000000000007e       0x7f .pio/build/adafruit_feather_f405/src/main.o
  .comment       0x000000000000007e       0x7f .pio/build/adafruit_feather_f405/src/memsafe_buffer.o
  .comment       0x000000000000007e       0x7f .pio/build/adafruit_feather_f405/src/stm32f4xx_it.o

@@ -35,15 +35,3 @@ uint8_t reset_buffer(uint8_t *buffer, uint8_t len)
     return 1;
 }
 
-/* int main() {
-    char buffer[20] = "Hello"; // Fixed-size buffer
-    printf("Before: %s\n", buffer);
-
-    size_t new_len = safe_append(buffer, sizeof(buffer), ", World!");
-    printf("After: %s (length: %zu)\n", buffer, new_len);
-
-    new_len = safe_append(buffer, sizeof(buffer), " This is too long!");
-    printf("After Overflow Attempt: %s (length: %zu)\n", buffer, new_len);
-
-    return 0;
-} */
