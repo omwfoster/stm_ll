@@ -67,23 +67,23 @@ int main(void)
   MX_GPIO_Init();
   MX_USB_DEVICE_Init();
 
-  MX_I2C1_Init(&hi2c_see);
+  //MX_I2C1_Init(&hi2c_see);
 
 
   visInit();
 
-  safe_append(str_output_buffer, sizeof(str_hal_ok), str_hal_ok);
 
-  ICM20948_init(&hi2c1,0,GYRO_FULL_SCALE_2000DPS);
+
+  //ICM20948_init(&hi2c1,0,GYRO_FULL_SCALE_2000DPS);
 
   HAL_Delay(5000);
 
 
   while (1)
   {
-    ICM20948_readGyroscope_allAxises(&hi2c1,0x69,GYRO_FULL_SCALE_2000DPS,&gy_readings[0]);
+    //ICM20948_readGyroscope_allAxises(&hi2c1,0x69,GYRO_FULL_SCALE_2000DPS,&gy_readings[0]);
     visHandle();
-    output_cdc_page(1,1,&gy_readings[0]);
+    //output_cdc_page(1,1,&gy_readings[0]);
     HAL_Delay(10);
   }
 }
