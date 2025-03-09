@@ -6,9 +6,11 @@
 #include "usb_device.h"
 #include "usbd_cdc_if.h"
 #include "mp34dt_spi.h"
-#include "i2c_acc.h"
+#include "i2c/i2c_init.h"
+#include "i2c/i2c_acc.h"
+#include <i2c/i2c_see.h>
 #include <memsafe_buffer.h>
-#include <i2c_see.h>
+
 
 
 // GPIO clock peripheral enable command

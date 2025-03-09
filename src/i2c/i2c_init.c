@@ -1,4 +1,4 @@
-#include "i2c_init.h"
+#include "i2c/i2c_init.h"
 
 void MX_I2C1_Init(I2C_HandleTypeDef * i2c)
 {

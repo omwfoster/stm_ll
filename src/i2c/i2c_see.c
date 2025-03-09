@@ -1,4 +1,4 @@
-#include "i2c_see.h"
+#include "i2c/i2c_see.h"
 #include "memsafe_buffer.h"
 #include "usbd_cdc_if.h"
 #include <string.h>
