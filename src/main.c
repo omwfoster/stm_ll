@@ -11,8 +11,6 @@
 #include <i2c/i2c_see.h>
 #include <memsafe_buffer.h>
 
-
-
 // GPIO clock peripheral enable command
 #define WS2812B_GPIO_CLK_ENABLE() __HAL_RCC_GPIOC_CLK_ENABLE()
 // LED output port
@@ -22,7 +20,6 @@
 // How many LEDs are in the series
 #define WS2812B_NUMBER_OF_LEDS 1000
 // Number of paralel LED strips on the SAME gpio. Each has its own buffer.
-
 
 #define WR_BUFFER_SIZE 1
 
@@ -34,8 +31,6 @@ static void MX_GPIO_Init(void);
 char str_output_buffer[99] = {0};
 
 char TxBuffer[USB_OUT_BUFFER_SIZE] = {0};
-
-
 
 PCD_HandleTypeDef hpcd_USB_OTG_HS;
 
@@ -54,8 +49,7 @@ uint8_t frameBuffer2[3 * 20];
 I2C_HandleTypeDef hi2c1;
 I2C_HandleTypeDef hi2c_see;
 
-
-int16_t  gy_readings[3];
+int16_t gy_readings[3];
 Audio_BufferTypeDef BufferCtl;
 
 int main(void)
@@ -67,24 +61,21 @@ int main(void)
   MX_GPIO_Init();
   MX_USB_DEVICE_Init();
 
-  //MX_I2C1_Init(&hi2c_see);
-
+  MX_I2C_Init(&hi2c_see);
+  //  HAL_I2C_MspInit(&hi2c_see);
 
   visInit();
 
-
-
-  //ICM20948_init(&hi2c1,0,GYRO_FULL_SCALE_2000DPS);
+  // ICM20948_init(&hi2c_see,0,GYRO_FULL_SCALE_2000DPS);
 
   HAL_Delay(5000);
 
-
   while (1)
   {
-    //ICM20948_readGyroscope_allAxises(&hi2c1,0x69,GYRO_FULL_SCALE_2000DPS,&gy_readings[0]);
+    // ICM20948_readGyroscope_allAxises(&hi2c1,0x69,GYRO_FULL_SCALE_2000DPS,&gy_readings[0]);
     visHandle();
-    //output_cdc_page(1,1,&gy_readings[0]);
-    HAL_Delay(10);
+    // output_cdc_page(1,1,&gy_readings[0]);
+    HAL_Delay(1000);
   }
 }
 
@@ -130,8 +121,6 @@ void SystemClock_Config(void)
   }
 }
 
-
-
 static void MX_GPIO_Init(void)
 {
   GPIO_InitTypeDef GPIO_InitStruct = {0};
@@ -162,8 +151,6 @@ void USB_CDC_RxHandler(uint8_t *Buf, uint32_t Len)
   CDC_Transmit_FS(Buf, Len);
 }
 
-
-
 /**
  * @brief  This function is executed in case of error occurrence.
  * @param  None
@@ -176,6 +163,7 @@ void Error_Handler(void)
   while (1)
   {
     CDC_Transmit_FS((uint8_t *)str_hal_error, strlen(str_hal_error));
+    HAL_Delay(100);
   }
   /* USER CODE END Error_Handler */
 }
