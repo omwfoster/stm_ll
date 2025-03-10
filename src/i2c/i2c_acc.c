@@ -119,6 +119,7 @@ uint8_t ICM20948_isI2cAddress2(I2C_HandleTypeDef * hi2c) {
 HAL_StatusTypeDef ICM20948_init(I2C_HandleTypeDef * hi2c, uint8_t const selectI2cAddress, uint8_t const selectGyroSensitivity) {
 	HAL_StatusTypeDef status = HAL_OK;
 
+	
 	status = _ICM20948_SelectUserBank(hi2c, selectI2cAddress, USER_BANK_0);
 
 	status = _ICM20948_WriteByte(
@@ -333,6 +334,10 @@ void ICM20948_readMagnetometer_allAxises(I2C_HandleTypeDef * hi2c, int16_t readi
 	readings[Y] *= MAG_SENSITIVITY_SCALE_FACTOR;
 	readings[Z] *= MAG_SENSITIVITY_SCALE_FACTOR;
 }
+
+
+
+
 
 
 
