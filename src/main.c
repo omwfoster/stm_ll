@@ -60,9 +60,8 @@ int main(void)
   SystemClock_Config();
   MX_GPIO_Init();
   MX_USB_DEVICE_Init();
-
   MX_I2C_Init(&hi2c_see);
-  //  HAL_I2C_MspInit(&hi2c_see);
+ 
 
   visInit();
 
