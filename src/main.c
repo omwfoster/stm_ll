@@ -46,7 +46,7 @@ uint16_t WrBuffer[WR_BUFFER_SIZE];
 uint8_t frameBuffer[3 * 60];
 uint8_t frameBuffer2[3 * 20];
 
-I2C_HandleTypeDef hi2c1;
+I2C_HandleTypeDef hi2c_acc;
 I2C_HandleTypeDef hi2c_see;
 
 int16_t gy_readings[3];
@@ -54,27 +54,29 @@ Audio_BufferTypeDef BufferCtl;
 
 int main(void)
 {
+  hi2c_acc.Instance = I2C1;
+  hi2c_see.Instance = I2C2;
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
   SystemClock_Config();
   MX_GPIO_Init();
   MX_USB_DEVICE_Init();
-  MX_I2C_Init(&hi2c_see);
+  MX_I2C_Init(&hi2c_acc);
  
 
   visInit();
 
-  // ICM20948_init(&hi2c_see,0,GYRO_FULL_SCALE_2000DPS);
+  ICM20948_init(&hi2c_see,0,GYRO_FULL_SCALE_2000DPS);
 
   HAL_Delay(5000);
 
   while (1)
   {
-    // ICM20948_readGyroscope_allAxises(&hi2c1,0x69,GYRO_FULL_SCALE_2000DPS,&gy_readings[0]);
+    ICM20948_readGyroscope_allAxises(&hi2c_see,0x69,GYRO_FULL_SCALE_2000DPS,&gy_readings[0]);
     visHandle();
-    // output_cdc_page(1,1,&gy_readings[0]);
-    HAL_Delay(1000);
+    output_cdc_page(1,1,&gy_readings[0]);
+    
   }
 }
 
