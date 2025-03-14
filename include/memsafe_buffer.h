@@ -5,6 +5,9 @@
 #define MEMSAFE_STRING(name, str) \
     static const char name[] = str;
 
+#define DBG_STRING(name) \
+    CDC_Transmit_FS((uint8_t *)name, sizeof(name));
+
 
 size_t safe_strlen(const char *str, size_t max_len) ;
 size_t safe_append(char *buffer, size_t buffer_size, const char *append_str);

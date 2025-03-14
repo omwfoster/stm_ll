@@ -65,24 +65,31 @@ int main(void)
 
   HAL_Delay(10000);
   MX_I2C_Init(&hi2c_acc);
-  
-  //check if accelerometer is connected to 
-  
-  if(ICM20948_isI2cAddress2(&hi2c_acc)==1) 
+
+  // check if accelerometer is connected to
+
+  if (ICM20948_isI2cAddress2(&hi2c_acc) == 1)
   {
-  CDC_Transmit_FS(i2c_connect,sizeof(i2c_connect));
+    DBG_STRING(i2c_connect);
   }
- 
+
   visInit();
-  ICM20948_init(&hi2c_see,0x69,GYRO_FULL_SCALE_2000DPS);
+
+  
+  if (ICM20948_init(&hi2c_see, 0x69, GYRO_FULL_SCALE_2000DPS) == HAL_OK)
+  {
+    DBG_STRING(str_hal_ok);
+  }
+  else{
+    DBG_STRING(str_hal_error);
+  }
 
   while (1)
   {
-    ICM20948_readGyroscope_allAxises(&hi2c_see,0x69,GYRO_FULL_SCALE_2000DPS,&gy_readings[0]);
+    ICM20948_readGyroscope_allAxises(&hi2c_see, 0x69, GYRO_FULL_SCALE_2000DPS, &gy_readings[0]);
     visHandle();
-    output_cdc_page(1,1,&gy_readings[0]);
+    output_cdc_page(1, 1, &gy_readings[0]);
     HAL_Delay(1000);
-    
   }
 }
 

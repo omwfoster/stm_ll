@@ -62,8 +62,8 @@ void output_cdc_page(int pagIni, int pagFin,int16_t * gy_readings);
 
 HAL_StatusTypeDef _ICM20948_BrustRead(I2C_HandleTypeDef * hi2c, uint8_t const selectI2cAddress, uint8_t const startAddress, uint16_t const amountOfRegistersToRead, uint8_t * readData);
 HAL_StatusTypeDef _AK09918_BrustRead(I2C_HandleTypeDef * hi2c, uint8_t const startAddress, uint16_t const amountOfRegistersToRead, uint8_t * readData);
-uint8_t ICM20948_isI2cAddress1(I2C_HandleTypeDef * hi2c);
-uint8_t ICM20948_isI2cAddress2(I2C_HandleTypeDef * hi2c);
+HAL_StatusTypeDef ICM20948_isI2cAddress1(I2C_HandleTypeDef * hi2c);
+HAL_StatusTypeDef ICM20948_isI2cAddress2(I2C_HandleTypeDef * hi2c);
 HAL_StatusTypeDef _AK09918_WriteByte(I2C_HandleTypeDef * hi2c, uint8_t const registerAddress, uint8_t writeData);
 HAL_StatusTypeDef ICM20948_init(I2C_HandleTypeDef * hi2c, uint8_t const selectI2cAddress, uint8_t const selectGyroSensitivity);
 void ICM20948_readGyroscope_allAxises(I2C_HandleTypeDef * hi2c, uint8_t const selectI2cAddress, uint8_t const selectGyroSensitivity, int16_t readings[3]);

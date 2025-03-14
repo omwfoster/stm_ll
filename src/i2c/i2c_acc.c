@@ -98,28 +98,14 @@ HAL_StatusTypeDef _ICM20948_BrustRead(I2C_HandleTypeDef *hi2c, uint8_t const sel
 	return status;
 }
 
-uint8_t ICM20948_isI2cAddress1(I2C_HandleTypeDef *hi2c)
+HAL_StatusTypeDef ICM20948_isI2cAddress1(I2C_HandleTypeDef *hi2c)
 {
-	HAL_StatusTypeDef addressStatus = HAL_I2C_IsDeviceReady(hi2c, ICM20948__I2C_SLAVE_ADDRESS_1 << 1, 2, 10);
-
-	if (addressStatus == HAL_OK)
-	{
-		return 1;
-	}
-
-	return 0;
+	return HAL_I2C_IsDeviceReady(hi2c, ICM20948__I2C_SLAVE_ADDRESS_1 << 1, 2, 10);
 }
 
-uint8_t ICM20948_isI2cAddress2(I2C_HandleTypeDef *hi2c)
+HAL_StatusTypeDef ICM20948_isI2cAddress2(I2C_HandleTypeDef *hi2c)
 {
-	HAL_StatusTypeDef addressStatus = HAL_I2C_IsDeviceReady(hi2c, ICM20948__I2C_SLAVE_ADDRESS_2 << 1, 2, 10);
-
-	if (addressStatus == HAL_OK)
-	{
-		return 1;
-	}
-
-	return 0;
+	return HAL_I2C_IsDeviceReady(hi2c, ICM20948__I2C_SLAVE_ADDRESS_2 << 1, 2, 10);
 }
 
 HAL_StatusTypeDef ICM20948_init(I2C_HandleTypeDef *hi2c, uint8_t const selectI2cAddress, uint8_t const selectGyroSensitivity)
@@ -352,7 +338,6 @@ void ICM20948_readMagnetometer_allAxises(I2C_HandleTypeDef *hi2c, int16_t readin
 
 void output_cdc_page(int pagIni, int pagFin, int16_t *gy_readings)
 {
-	
 
 	uint8_t *data =
 		(uint8_t *)"Reading : \n";
