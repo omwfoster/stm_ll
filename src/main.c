@@ -43,7 +43,7 @@ typedef struct Audio_BufferType
 uint16_t WrBuffer[WR_BUFFER_SIZE];
 
 // RGB Framebuffers
-uint8_t frameBuffer[3 * 60];
+uint8_t frameBuffer[3 * 20];
 uint8_t frameBuffer2[3 * 20];
 
 I2C_HandleTypeDef hi2c_acc;
@@ -73,12 +73,8 @@ int main(void)
   CDC_Transmit_FS(i2c_connect,sizeof(i2c_connect));
   }
  
-
   visInit();
-
   ICM20948_init(&hi2c_see,0x69,GYRO_FULL_SCALE_2000DPS);
-
- 
 
   while (1)
   {
