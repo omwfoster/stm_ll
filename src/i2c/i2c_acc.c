@@ -114,6 +114,8 @@ HAL_StatusTypeDef ICM20948_init(I2C_HandleTypeDef *hi2c, uint8_t const selectI2c
 
 	status = _ICM20948_SelectUserBank(hi2c, selectI2cAddress, USER_BANK_0);
 
+	DBG_STATUS(status);
+
 	status = _ICM20948_WriteByte(
 		hi2c,
 		selectI2cAddress,
@@ -121,6 +123,7 @@ HAL_StatusTypeDef ICM20948_init(I2C_HandleTypeDef *hi2c, uint8_t const selectI2c
 		ICM20948_RESET);
 
 	HAL_Delay(200);
+	DBG_STATUS(status);
 
 	status = _ICM20948_WriteByte(
 		hi2c,
@@ -133,6 +136,7 @@ HAL_StatusTypeDef ICM20948_init(I2C_HandleTypeDef *hi2c, uint8_t const selectI2c
 			ICM20948__USER_BANK_0__PWR_MGMT_2__REGISTER,
 			ICM20948_DISABLE_SENSORS); */
 	// For some reason this needs to be tested
+	DBG_STATUS(status);
 
 	// disable accelerometer
 	status = _ICM20948_WriteByte(
@@ -140,14 +144,19 @@ HAL_StatusTypeDef ICM20948_init(I2C_HandleTypeDef *hi2c, uint8_t const selectI2c
 		selectI2cAddress,
 		ICM20948__USER_BANK_0__PWR_MGMT_2__REGISTER,
 		0x38);
+	DBG_STATUS(status);
 
 	status = _ICM20948_SelectUserBank(hi2c, selectI2cAddress, USER_BANK_2);
+
+	DBG_STATUS(status);
 
 	status = _ICM20948_WriteByte(
 		hi2c,
 		selectI2cAddress,
 		ICM20948__USER_BANK_2__GYRO_CONFIG_1__REGISTER,
 		3 << GYRO_DLPFCFG_BIT | selectGyroSensitivity << BIT_1 | EN_GRYO_DLPF << GYRO_FCHOICE_BIT);
+
+	DBG_STATUS(status);
 
 	//	status = _ICM20948_WriteByte(
 	//			hi2c,
@@ -160,6 +169,8 @@ HAL_StatusTypeDef ICM20948_init(I2C_HandleTypeDef *hi2c, uint8_t const selectI2c
 		selectI2cAddress,
 		ICM20948__USER_BANK_2__GYRO_SMPLRT_DIV__REGISTER,
 		0x04); // Don't understand how this works
+
+	DBG_STATUS(status);
 
 	//	status = _ICM20948_WriteByte(
 	//			hi2c,
@@ -175,11 +186,15 @@ HAL_StatusTypeDef ICM20948_init(I2C_HandleTypeDef *hi2c, uint8_t const selectI2c
 
 	status = _ICM20948_SelectUserBank(hi2c, selectI2cAddress, USER_BANK_0);
 	//
+	DBG_STATUS(status);
+
 	status = _ICM20948_WriteByte(
 		hi2c,
 		selectI2cAddress,
 		ICM20948__USER_BANK_0__INT_PIN_CFG__REGISTER,
-		0x02); // Don't understand how this works
+		0x02); // Don't understand how this work
+
+	DBG_STATUS(status);
 
 	//	status = _AK09918_WriteByte(hi2c, AK09916__CNTL2__REGISTER, 0x08);
 
