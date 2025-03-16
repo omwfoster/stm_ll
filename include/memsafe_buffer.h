@@ -13,6 +13,7 @@ MEMSAFE_STRING(str_hal_timeout, "HAL_TIMEOUT\r");
 MEMSAFE_STRING(i2c_connect, "connected\r");
 MEMSAFE_STRING(i2c_not_connect, "not connected\r");
 MEMSAFE_STRING(init_step, "init\r");
+MEMSAFE_STRING(dbg_loop, "loop\r");
 
 #define DBG_STRING(name) \
     CDC_Transmit_FS((uint8_t *)name, sizeof(name));

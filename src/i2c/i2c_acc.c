@@ -209,7 +209,7 @@ void ICM20948_readGyroscope_allAxises(I2C_HandleTypeDef *hi2c, uint8_t const sel
 	//	status = _ICM20948_SelectUserBank(hi2c, selectI2cAddress, USER_BANK_0);
 
 	//	status =
-	_ICM20948_BrustRead(hi2c, selectI2cAddress, ICM20948__USER_BANK_0__GYRO_XOUT_H__REGISTER, 6, readData);
+	DBG_STATUS(_ICM20948_BrustRead(hi2c, selectI2cAddress, ICM20948__USER_BANK_0__GYRO_XOUT_H__REGISTER, 6, readData));
 
 	readings[X] = readData[X_HIGH_BYTE] << 8 | readData[X_LOW_BYTE];
 	readings[Y] = readData[Y_HIGH_BYTE] << 8 | readData[Y_LOW_BYTE];
@@ -351,21 +351,21 @@ void ICM20948_readMagnetometer_allAxises(I2C_HandleTypeDef *hi2c, int16_t readin
 	readings[Z] *= MAG_SENSITIVITY_SCALE_FACTOR;
 }
 
-void output_cdc_page(int pagIni, int pagFin, int16_t *gy_readings)
+void output_cdc_page(int pagIni, int pagFin, int16_t gy_readings[3])
 {
 
-	uint8_t *data =
-		(uint8_t *)"Reading : \n";
-	CDC_Transmit_FS(data, strlen((char *)data));
+	char data[50];
 
-	sprintf((char *)data, " %i: %i %i \n", gy_readings[0], gy_readings[1], gy_readings[2]);
-	CDC_Transmit_FS(data, strlen((char *)data));
-	pagIni += 3;
-	// delay per evitar errors al rebre els missatges USB.
+	sprintf(data, "%d %d %d \n", gy_readings[0], gy_readings[1], gy_readings[2]);
+	CDC_Transmit_FS((uint8_t *)data, strlen(data));
+
 	HAL_Delay(100);
 
 	CDC_Transmit_FS(
 		(uint8_t *)"\n-----------------------------------------------\n", 51);
+
+
+
 }
 
 /*

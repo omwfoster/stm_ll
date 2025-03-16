@@ -56,6 +56,7 @@ int main(void)
 {
   hi2c_acc.Instance = I2C1;
   hi2c_see.Instance = I2C2;
+  
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
@@ -68,21 +69,25 @@ int main(void)
 
   // check if accelerometer is connected to
 
+
   DBG_STATUS(ICM20948_isI2cAddress2(&hi2c_acc));
 
 
   visInit();
 
   
-  DBG_STATUS(ICM20948_init(&hi2c_acc, 0x69, GYRO_FULL_SCALE_2000DPS));
+  DBG_STATUS(ICM20948_init(&hi2c_acc, 1, GYRO_FULL_SCALE_2000DPS));
 
 
   while (1)
   {
-    ICM20948_readGyroscope_allAxises(&hi2c_acc, 0x69, GYRO_FULL_SCALE_2000DPS, &gy_readings[0]);
+    DBG_STRING(dbg_loop);
+    HAL_Delay(20);
+    ICM20948_readGyroscope_allAxises(&hi2c_acc, 1, GYRO_FULL_SCALE_2000DPS, &gy_readings[0]);
     visHandle();
+    
     output_cdc_page(1, 1, &gy_readings[0]);
-    HAL_Delay(1000);
+    HAL_Delay(100);
   }
 }
 
