@@ -209,7 +209,8 @@ void ICM20948_readGyroscope_allAxises(I2C_HandleTypeDef *hi2c, uint8_t const sel
 	//	status = _ICM20948_SelectUserBank(hi2c, selectI2cAddress, USER_BANK_0);
 
 	//	status =
-	DBG_STATUS(_ICM20948_BrustRead(hi2c, selectI2cAddress, ICM20948__USER_BANK_0__GYRO_XOUT_H__REGISTER, 6, readData));
+	//DBG_STATUS(
+	_ICM20948_BrustRead(hi2c, selectI2cAddress, ICM20948__USER_BANK_0__GYRO_XOUT_H__REGISTER, 6, readData);
 
 	readings[X] = readData[X_HIGH_BYTE] << 8 | readData[X_LOW_BYTE];
 	readings[Y] = readData[Y_HIGH_BYTE] << 8 | readData[Y_LOW_BYTE];
@@ -355,14 +356,19 @@ void output_cdc_page(int pagIni, int pagFin, int16_t gy_readings[3])
 {
 
 	char data[50];
-
-	sprintf(data, "%d %d %d \n", gy_readings[0], gy_readings[1], gy_readings[2]);
+	// better serial plotter data is tab deliniated
+	sprintf(data, "%d\t%d\t%d\n", gy_readings[0], gy_readings[1], gy_readings[2]);
 	CDC_Transmit_FS((uint8_t *)data, strlen(data));
 
-	HAL_Delay(100);
+
+}
+
+void output_text_bar()
+{
 
 	CDC_Transmit_FS(
 		(uint8_t *)"\n-----------------------------------------------\n", 51);
+
 
 
 

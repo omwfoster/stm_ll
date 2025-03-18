@@ -81,13 +81,14 @@ int main(void)
 
   while (1)
   {
-    DBG_STRING(dbg_loop);
-    HAL_Delay(20);
+    //DBG_STRING(dbg_loop);
+    
     ICM20948_readGyroscope_allAxises(&hi2c_acc, 1, GYRO_FULL_SCALE_2000DPS, &gy_readings[0]);
     visHandle();
     
     output_cdc_page(1, 1, &gy_readings[0]);
-    HAL_Delay(100);
+    HAL_Delay(50);
+    
   }
 }
 
