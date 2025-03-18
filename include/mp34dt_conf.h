@@ -40,8 +40,10 @@ modification in the application layer developed with the older versions of the d
 
 
 #define N_MS (N_MS_PER_INTERRUPT)
+#define USE_SPI3
+#define AUDIO_RESOLUTION_16K 1U
 
-#define AUDIO_IN_CHANNELS            4
+#define AUDIO_IN_CHANNELS            1
 #define AUDIO_IN_SAMPLING_FREQUENCY  16000
 
 #define AUDIO_IN_BUFFER_SIZE         DEFAULT_AUDIO_IN_BUFFER_SIZE

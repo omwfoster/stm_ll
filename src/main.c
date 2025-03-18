@@ -2,6 +2,9 @@
 #include <arm_math.h>
 #include "stm32f4xx_hal.h"
 #include <viseffect/visEffect.h>
+#include "mp34dt_spi.h"
+#include "mp34dt_conf.h"
+
 
 #include "usb_device.h"
 #include "usbd_cdc_if.h"
@@ -10,6 +13,19 @@
 #include "i2c/i2c_acc.h"
 #include <i2c/i2c_see.h>
 #include <memsafe_buffer.h>
+
+/* Audio In states */
+#define AUDIO_IN_STATE_RESET     0U
+#define AUDIO_IN_STATE_RECORDING 1U
+#define AUDIO_IN_STATE_STOP      2U
+#define AUDIO_IN_STATE_PAUSE     3U
+
+/* Audio In instances number:
+   Instance 0 is SAI-I2S / SPI path
+   Instance 1 is DFSDM path
+   Instance 2 is PDM path
+ */
+#define AUDIO_IN_INSTANCES_NBR 1U
 
 // GPIO clock peripheral enable command
 #define WS2812B_GPIO_CLK_ENABLE() __HAL_RCC_GPIOC_CLK_ENABLE()
@@ -39,6 +55,8 @@ typedef struct Audio_BufferType
   int32_t offset;
   uint32_t fptr;
 } Audio_BufferTypeDef;
+
+
 
 uint16_t WrBuffer[WR_BUFFER_SIZE];
 

@@ -1,11 +1,15 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "mp34dt_spi.h"
-#include "cca02m2_conf.h"
-#include "audio.h"
+#include "mp34dt_conf.h"
+
 
 #include "arm_math.h"
 #include "pdm2pcm_glo.h"
+#include "errno.h"
+
+
+AUDIO_IN_Ctx_t AudioInCtx[1] = {0};
 
 #define SaturaLH(N, L, H) (((N) < (L)) ? (L) : (((N) > (H)) ? (H) : (N)))
 
@@ -46,6 +50,36 @@ static uint8_t Channel_Demux[128] =
 static __IO uint32_t RecBuffTrigger = 0;
 static __IO uint32_t RecBuffHalf = 0;
 static __IO uint32_t MicBuffIndex[4];
+
+
+static void SPI_MspInit(SPI_HandleTypeDef *hspi)
+{
+    UNUSED(hspi);
+    GPIO_InitTypeDef GPIO_InitStruct;
+
+    /* Enable GPIO TX/RX clock */
+    AUDIO_IN_SPI_SCK_GPIO_CLK_ENABLE();
+    AUDIO_IN_SPI_MISO_GPIO_CLK_ENABLE();
+    AUDIO_IN_SPI_MOSI_GPIO_CLK_ENABLE();
+    /* Enable SPI3 clock */
+    AUDIO_IN_SPI_CLK_ENABLE();
+    /* Enable DMA1 clock */
+    AUDIO_IN_SPI_DMAx_CLK_ENABLE();
+
+    /*##-2- Configure peripheral GPIO ##########################################*/
+    /* SPI SCK GPIO pin configuration  */
+    GPIO_InitStruct.Pin = AUDIO_IN_SPI_SCK_PIN;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_PULLUP;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FAST;
+    GPIO_InitStruct.Alternate = AUDIO_IN_SPI_SCK_AF;
+    HAL_GPIO_Init(AUDIO_IN_SPI_SCK_GPIO_PORT, &GPIO_InitStruct);
+
+    /* SPI MOSI GPIO pin configuration  */
+    GPIO_InitStruct.Pin = AUDIO_IN_SPI_MOSI_PIN;
+    GPIO_InitStruct.Alternate = AUDIO_IN_SPI_MOSI_AF;
+    HAL_GPIO_Init(AUDIO_IN_SPI_MOSI_GPIO_PORT, &GPIO_InitStruct);
+}
 
 __weak int32_t CCA02M2_AUDIO_IN_Init(uint32_t Instance, CCA02M2_AUDIO_Init_t *AudioInit)
 {
@@ -131,100 +165,7 @@ __weak int32_t CCA02M2_AUDIO_IN_Init(uint32_t Instance, CCA02M2_AUDIO_Init_t *Au
     }
 }
 
-/**
- * @brief  Initialize the PDM library.
- * @param Instance    AUDIO IN Instance
- * @param  AudioFreq  Audio sampling frequency
- * @param  ChnlNbrIn  Number of input audio channels in the PDM buffer
- * @param  ChnlNbrOut Number of desired output audio channels in the  resulting PCM buffer
- * @retval BSP status
- */
-__weak int32_t CCA02M2_AUDIO_IN_PDMToPCM_Init(uint32_t Instance, uint32_t AudioFreq, uint32_t ChnlNbrIn,
-                                              uint32_t ChnlNbrOut)
-{
-    if (Instance != 0U)
-    {
-        return BSP_ERROR_WRONG_PARAM;
-    }
-    else
-    {
 
-        uint32_t index;
-
-        /* Enable CRC peripheral to unlock the PDM library */
-        __HAL_RCC_CRC_CLK_ENABLE();
-
-        for (index = 0; index < ChnlNbrIn; index++)
-        {
-            volatile uint32_t error = 0;
-            /* Init PDM filters */
-            PDM2PCMHandler[index].bit_order = PDM_FILTER_BIT_ORDER_MSB;
-            if (ChnlNbrIn == 1U)
-            {
-                PDM2PCMHandler[index].endianness = PDM_FILTER_ENDIANNESS_BE; /* For WB this should be LE, TODO after bugfix in PDMlib */
-            }
-            else
-            {
-                PDM2PCMHandler[index].endianness = PDM_FILTER_ENDIANNESS_LE;
-            }
-            PDM2PCMHandler[index].high_pass_tap = 2122358088;
-            PDM2PCMHandler[index].out_ptr_channels = (uint16_t)ChnlNbrOut;
-            PDM2PCMHandler[index].in_ptr_channels = (uint16_t)ChnlNbrIn;
-
-            /* PDM lib config phase */
-            PDM2PCMConfig[index].output_samples_number = (uint16_t)((AudioFreq / 1000U) * N_MS_PER_INTERRUPT);
-            PDM2PCMConfig[index].mic_gain = 24;
-
-            switch (AudioInCtx[0].DecimationFactor)
-            {
-
-            case 16:
-                PDM2PCMConfig[index].decimation_factor = PDM_FILTER_DEC_FACTOR_16;
-                break;
-            case 24:
-                PDM2PCMConfig[index].decimation_factor = PDM_FILTER_DEC_FACTOR_24;
-                break;
-            case 32:
-                PDM2PCMConfig[index].decimation_factor = PDM_FILTER_DEC_FACTOR_32;
-                break;
-            case 48:
-                PDM2PCMConfig[index].decimation_factor = PDM_FILTER_DEC_FACTOR_48;
-                break;
-            case 64:
-                PDM2PCMConfig[index].decimation_factor = PDM_FILTER_DEC_FACTOR_64;
-                break;
-            case 80:
-                PDM2PCMConfig[index].decimation_factor = PDM_FILTER_DEC_FACTOR_80;
-                break;
-            case 128:
-                PDM2PCMConfig[index].decimation_factor = PDM_FILTER_DEC_FACTOR_128;
-                break;
-            case 160:
-                PDM2PCMConfig[index].decimation_factor = PDM_FILTER_DEC_FACTOR_80;
-                PDM2PCMConfig[index].output_samples_number *= 2U;
-                PDM2PCMHandler[index].out_ptr_channels = 1;
-                (void)arm_fir_decimate_init_q15(&ARM_Decimator_State[index], DECIMATOR_NUM_TAPS, DECIMATOR_FACTOR,
-                                                aCoeffs, aState_ARM[index], DECIMATOR_BLOCK_SIZE);
-                break;
-
-            default:
-                break;
-            }
-
-            error = PDM2PCM_init((PDM2PCM_Handler_t *)(&PDM2PCMHandler[index]));
-            if (error != 0U)
-            {
-                return BSP_ERROR_NO_INIT;
-            }
-            error = PDM2PCM_setConfig((PDM2PCM_Handler_t *)&PDM2PCMHandler[index], &PDM2PCMConfig[index]);
-            if (error != 0U)
-            {
-                return BSP_ERROR_NO_INIT;
-            }
-        }
-    }
-    return BSP_ERROR_NONE;
-}
 
 /**
  * @brief  Converts audio format from PDM to PCM.
@@ -233,54 +174,7 @@ __weak int32_t CCA02M2_AUDIO_IN_PDMToPCM_Init(uint32_t Instance, uint32_t AudioF
  * @param  PCMBuf    Pointer to PCM buffer data
  * @retval BSP status
  */
-__weak int32_t CCA02M2_AUDIO_IN_PDMToPCM(uint32_t Instance, uint16_t *PDMBuf, uint16_t *PCMBuf)
-{
-    if (Instance != 0U)
-    {
-        return BSP_ERROR_WRONG_PARAM;
-    }
-    else
-    {
 
-        uint32_t index;
-
-        for (index = 0; index < AudioInCtx[Instance].ChannelsNbr; index++)
-        {
-            if (AudioInCtx[Instance].SampleRate == 8000U)
-            {
-                uint16_t Decimate_Out[8U * N_MS_PER_INTERRUPT];
-                uint32_t ii;
-                uint16_t PDM2PCM_Out[16U * N_MS_PER_INTERRUPT];
-
-                (void)PDM2PCM_process(&PDM2PCMHandler[index], &((uint8_t *)(PDMBuf))[index], PDM2PCM_Out);
-                (void)arm_fir_decimate_q15(&ARM_Decimator_State[index], (q15_t *)&(PDM2PCM_Out), (q15_t *)&(Decimate_Out),
-                                           DECIMATOR_BLOCK_SIZE);
-                for (ii = 0; ii < (8U * N_MS_PER_INTERRUPT); ii++)
-                {
-                    PCMBuf[(ii * AudioInCtx[Instance].ChannelsNbr) + index] = Decimate_Out[ii];
-                }
-            }
-            else
-            {
-                switch (AudioInCtx[Instance].BitsPerSample)
-                {
-                case AUDIO_RESOLUTION_16b:
-                    (void)PDM2PCM_process(&PDM2PCMHandler[index], &((uint8_t *)(PDMBuf))[index], (uint16_t *)&(PCMBuf[index]));
-                    break;
-                case AUDIO_RESOLUTION_24b:
-                    (void)PDM2PCM_process(&PDM2PCMHandler[index], &((uint8_t *)(PDMBuf))[index], &((uint8_t *)(PCMBuf))[3U * index]);
-                    break;
-                case AUDIO_RESOLUTION_32b:
-                    (void)PDM2PCM_process(&PDM2PCMHandler[index], &((uint8_t *)(PDMBuf))[index], (uint32_t *)&(PCMBuf[index]));
-                    break;
-                default:
-                    break;
-                }
-            }
-        }
-    }
-    return BSP_ERROR_NONE;
-}
 
 /**
  * @brief  Start audio recording.
@@ -310,18 +204,7 @@ int32_t CCA02M2_AUDIO_IN_Record(uint32_t Instance, uint8_t *pBuf, uint32_t NbrOf
                 }
             }
 
-            if (AudioInCtx[Instance].ChannelsNbr != 1U)
-            {
-                if (AUDIO_IN_Timer_Start() != HAL_OK)
-                {
-                    return BSP_ERROR_PERIPH_FAILURE;
-                }
-            }
-
-            if (HAL_I2S_Receive_DMA(&hAudioInI2s, I2S_InternalBuffer, (uint16_t)AudioInCtx[Instance].Size / 2U) != HAL_OK)
-            {
-                return BSP_ERROR_PERIPH_FAILURE;
-            }
+ 
 
             /* Update BSP AUDIO IN state */
             AudioInCtx[Instance].State = AUDIO_IN_STATE_RECORDING;
@@ -375,46 +258,7 @@ int32_t CCA02M2_AUDIO_IN_Stop(uint32_t Instance)
     return BSP_ERROR_NONE;
 }
 
-/**
- * @brief  Resume the audio file stream
- * @param  Instance  AUDIO IN Instance. It can be 1(DFSDM used)
- * @param  Device    Digital mic to be resumed
- * @retval BSP status
- */
-int32_t CCA02M2_AUDIO_IN_ResumeChannels(uint32_t Instance, uint32_t Device)
-{
-    if ((Instance != 1U) || ((Device < AUDIO_IN_DIGITAL_MIC1) && (Device > AUDIO_IN_DIGITAL_MIC_LAST)))
-    {
-        return BSP_ERROR_WRONG_PARAM;
-    }
-    else
-    {
-#ifdef USE_STM32L4XX_NUCLEO
 
-        uint32_t audio_in_digital_mic = AUDIO_IN_DIGITAL_MIC_LAST;
-        int8_t i;
-        for (i = 0; i < DFSDM_MIC_NUMBER; i++)
-        {
-            if ((Device & audio_in_digital_mic) == audio_in_digital_mic)
-            {
-                /* Start selected device channel */
-                if (HAL_DFSDM_FilterRegularMsbStart_DMA(&hAudioInDfsdmFilter[POS_VAL(audio_in_digital_mic)],
-                                                        (int16_t *)AudioInCtx[Instance].pMultiBuff[POS_VAL(audio_in_digital_mic)], AudioInCtx[Instance].Size) != HAL_OK)
-                {
-                    return BSP_ERROR_PERIPH_FAILURE;
-                }
-            }
-            audio_in_digital_mic = audio_in_digital_mic >> 1;
-        }
-        /* Update BSP AUDIO IN state */
-        AudioInCtx[Instance].State = AUDIO_IN_STATE_RECORDING;
-        /* Return BSP status */
-        return BSP_ERROR_NONE;
-#else
-        return BSP_ERROR_WRONG_PARAM;
-#endif
-    }
-}
 
 /**
  * @brief  Start audio recording.
@@ -711,7 +555,7 @@ int32_t CCA02M2_AUDIO_IN_SetVolume(uint32_t Instance, uint32_t Volume)
         if (PDM2PCMConfig[index].mic_gain != VolumeGain[Volume])
         {
             PDM2PCMConfig[index].mic_gain = VolumeGain[Volume];
-            (void)PDM2PCM_setConfig((PDM2PCM_Handler_t *)&PDM2PCMHandler[index], &PDM2PCMConfig[index]);
+            (void)PDM2PCM_setConfig((PDM_Filter_Handler_t *)&PDM2PCMHandler[index], &PDM2PCMConfig[index]);
         }
     }
 
@@ -805,34 +649,7 @@ __weak void CCA02M2_AUDIO_IN_Error_CallBack(uint32_t Instance)
     error occurs. */
 }
 
-static void SPI_MspInit(SPI_HandleTypeDef *hspi)
-{
-    UNUSED(hspi);
-    GPIO_InitTypeDef GPIO_InitStruct;
 
-    /* Enable GPIO TX/RX clock */
-    AUDIO_IN_SPI_SCK_GPIO_CLK_ENABLE();
-    AUDIO_IN_SPI_MISO_GPIO_CLK_ENABLE();
-    AUDIO_IN_SPI_MOSI_GPIO_CLK_ENABLE();
-    /* Enable SPI3 clock */
-    AUDIO_IN_SPI_CLK_ENABLE();
-    /* Enable DMA1 clock */
-    AUDIO_IN_SPI_DMAx_CLK_ENABLE();
-
-    /*##-2- Configure peripheral GPIO ##########################################*/
-    /* SPI SCK GPIO pin configuration  */
-    GPIO_InitStruct.Pin = AUDIO_IN_SPI_SCK_PIN;
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_PULLUP;
-    GPIO_InitStruct.Speed = GPIO_SPEED_FAST;
-    GPIO_InitStruct.Alternate = AUDIO_IN_SPI_SCK_AF;
-    HAL_GPIO_Init(AUDIO_IN_SPI_SCK_GPIO_PORT, &GPIO_InitStruct);
-
-    /* SPI MOSI GPIO pin configuration  */
-    GPIO_InitStruct.Pin = AUDIO_IN_SPI_MOSI_PIN;
-    GPIO_InitStruct.Alternate = AUDIO_IN_SPI_MOSI_AF;
-    HAL_GPIO_Init(AUDIO_IN_SPI_MOSI_GPIO_PORT, &GPIO_InitStruct);
-}
 
 /**
  * @brief Audio Timer Init
@@ -907,23 +724,4 @@ static HAL_StatusTypeDef AUDIO_IN_Timer_Init(void)
     return ret;
 }
 
-/**
- * @brief Audio Timer Start
- * @param None
- * @retval None
- */
-static HAL_StatusTypeDef AUDIO_IN_Timer_Start(void)
-{
-    HAL_StatusTypeDef ret = HAL_OK;
-    if (HAL_TIM_IC_Start(&TimDividerHandle, TIM_CHANNEL_1) != HAL_OK)
-    {
-        ret = HAL_ERROR;
-    }
-    /* Start the Output Compare */
-    if (HAL_TIM_OC_Start(&TimDividerHandle, TIM_CHANNEL_2) != HAL_OK)
-    {
-        ret = HAL_ERROR;
-    }
 
-    return ret;
-}
