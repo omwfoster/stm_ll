@@ -13,6 +13,7 @@
 #include "i2c/i2c_acc.h"
 #include <i2c/i2c_see.h>
 #include <memsafe_buffer.h>
+#include "errno.h"
 
 /* Audio In states */
 #define AUDIO_IN_STATE_RESET     0U
@@ -69,6 +70,7 @@ I2C_HandleTypeDef hi2c_see;
 
 int16_t gy_readings[3];
 Audio_BufferTypeDef BufferCtl;
+CCA02M2_AUDIO_Init_t MicParams;
 
 int main(void)
 {
@@ -95,6 +97,17 @@ int main(void)
 
   
   DBG_STATUS(ICM20948_init(&hi2c_acc, 1, GYRO_FULL_SCALE_2000DPS));
+
+  MicParams.BitsPerSample = 16;
+  MicParams.ChannelsNbr = 1;
+  MicParams.Device = 1;
+  MicParams.SampleRate = AUDIO_FREQUENCY_16K;
+  MicParams.Volume = AUDIO_VOLUME_INPUT;
+
+  if (CCA02M2_AUDIO_IN_Init(CCA02M2_AUDIO_INSTANCE, &MicParams) != BSP_ERROR_NONE)
+  {
+    Error_Handler();
+  }
 
 
   while (1)

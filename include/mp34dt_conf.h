@@ -57,6 +57,8 @@ modification in the application layer developed with the older versions of the d
 #define MAX_DECIMATION_FACTOR 128
 #endif
 
+#define N_MS_PER_INTERRUPT 10
+
 
 /*  If you want to customize the length of the buffers used into the BSP, uncomment and modify these defines.
   Change the values according to the max PDM clock you want to customize and number of microphones you want to use

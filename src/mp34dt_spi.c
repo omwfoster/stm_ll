@@ -4,9 +4,11 @@
 #include "mp34dt_conf.h"
 
 
-#include "arm_math.h"
+
 #include "pdm2pcm_glo.h"
 #include "errno.h"
+#include "stdint.h"
+#include "arm_math.h"
 
 
 AUDIO_IN_Ctx_t AudioInCtx[1] = {0};
@@ -17,15 +19,18 @@ AUDIO_IN_Ctx_t AudioInCtx[1] = {0};
 #define DECIMATOR_BLOCK_SIZE (16U * N_MS_PER_INTERRUPT)
 #define DECIMATOR_FACTOR (2U)
 #define DECIMATOR_STATE_LENGTH (DECIMATOR_BLOCK_SIZE + (DECIMATOR_NUM_TAPS) - 1U)
-static arm_fir_decimate_instance_q15 ARM_Decimator_State[4];
+
 
 /* PDM filters params */
-static PDM_Filter_Handler_t PDM2PCMHandler[4];
-static PDM_Filter_Config_t PDM2PCMConfig[4];
+static PDM_Filter_Handler_t PDM2PCMHandler;
+static PDM_Filter_Config_t PDM2PCMConfig;
 
 static SPI_HandleTypeDef hAudioInSPI;
 static TIM_HandleTypeDef TimDividerHandle;
 static uint16_t SPI_InternalBuffer[PDM_INTERNAL_BUFFER_SIZE_SPI];
+
+uint16_t * PDMBuf;
+uint16_t * PCMBuf;
 
 static uint8_t Channel_Demux[128] =
     {
@@ -50,6 +55,50 @@ static uint8_t Channel_Demux[128] =
 static __IO uint32_t RecBuffTrigger = 0;
 static __IO uint32_t RecBuffHalf = 0;
 static __IO uint32_t MicBuffIndex[4];
+
+HAL_StatusTypeDef MX_SPI_Init(SPI_HandleTypeDef *hspi, MX_SPI_Config *MXConfig)
+{
+  static DMA_HandleTypeDef hdma_rx;
+  HAL_StatusTypeDef ret = HAL_OK;
+
+  hspi->Init.BaudRatePrescaler = MXConfig->BaudRatePrescaler;
+  hspi->Init.Direction         = MXConfig->Direction;
+  hspi->Init.CLKPhase          = MXConfig->CLKPhase;
+  hspi->Init.CLKPolarity       = MXConfig->CLKPolarity;
+  hspi->Init.CRCCalculation    = MXConfig->CRCCalculation;
+  hspi->Init.CRCPolynomial     = MXConfig->CRCPolynomial;
+  hspi->Init.DataSize          = MXConfig->DataSize;
+  hspi->Init.FirstBit          = MXConfig->FirstBit;
+  hspi->Init.NSS               = MXConfig->NSS;
+  hspi->Init.TIMode            = MXConfig->TIMode;
+  hspi->Init.Mode              = MXConfig->Mode;
+
+  /* Configure the DMA handler for Transmission process */
+  hdma_rx.Instance                 = AUDIO_IN_SPI_RX_DMA_STREAM;
+  hdma_rx.Init.Channel             = AUDIO_IN_SPI_RX_DMA_CHANNEL;
+  hdma_rx.Init.Direction           = DMA_PERIPH_TO_MEMORY;
+  hdma_rx.Init.PeriphInc           = DMA_PINC_DISABLE;
+  hdma_rx.Init.MemInc              = DMA_MINC_ENABLE;
+  hdma_rx.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
+  hdma_rx.Init.MemDataAlignment    = DMA_MDATAALIGN_HALFWORD;
+  hdma_rx.Init.Mode                = DMA_CIRCULAR;
+  hdma_rx.Init.Priority            = DMA_PRIORITY_HIGH;
+  hdma_rx.Init.FIFOMode            = DMA_FIFOMODE_DISABLE;
+  hdma_rx.Init.FIFOThreshold       = DMA_FIFO_THRESHOLD_FULL;
+  hdma_rx.Init.MemBurst            = DMA_MBURST_INC4;
+  hdma_rx.Init.PeriphBurst         = DMA_PBURST_INC4;
+
+  /* Configure the DMA Stream */
+  if (HAL_DMA_Init(&hdma_rx) != HAL_OK)
+  {
+    ret = HAL_ERROR;
+  }
+
+  /* Associate the initialized DMA handle to the the SPI handle */
+  __HAL_LINKDMA(hspi, hdmarx, hdma_rx);
+
+  return ret;
+}
 
 
 static void SPI_MspInit(SPI_HandleTypeDef *hspi)
@@ -81,7 +130,7 @@ static void SPI_MspInit(SPI_HandleTypeDef *hspi)
     HAL_GPIO_Init(AUDIO_IN_SPI_MOSI_GPIO_PORT, &GPIO_InitStruct);
 }
 
-__weak int32_t CCA02M2_AUDIO_IN_Init(uint32_t Instance, CCA02M2_AUDIO_Init_t *AudioInit)
+int32_t CCA02M2_AUDIO_IN_Init(uint32_t Instance, CCA02M2_AUDIO_Init_t *AudioInit)
 {
 
     /* Store the audio record context */
@@ -158,12 +207,27 @@ __weak int32_t CCA02M2_AUDIO_IN_Init(uint32_t Instance, CCA02M2_AUDIO_Init_t *Au
         }
     }
 
-    if (CCA02M2_AUDIO_IN_PDMToPCM_Init(Instance, AudioInCtx[0].SampleRate, AudioInCtx[0].ChannelsNbr,
-                                       AudioInCtx[0].ChannelsNbr) != BSP_ERROR_NONE)
-    {
-        return BSP_ERROR_NO_INIT;
-    }
+    uint32_t PDM_Filter_Init(pHandler);
 }
+
+int32_t AUDIO_IN_PDMToPCM(uint32_t Instance, uint16_t *PDMBuf, uint16_t *PCMBuf)
+{
+
+
+  PDM_Filter(PDMBuf, PCMBuf, &PDM2PCMHandler);
+  return BSP_ERROR_NONE;
+}
+
+
+uint8_t PDM2PCM_Process(uint16_t *PDMBuf, uint16_t *PCMBuf)
+{
+  
+  //return BSP_AUDIO_IN_PDMToPCM(PDMBuf, PCMBuf);
+  PDM_Filter(PDMBuf, PCMBuf, &PDM2PCMHandler);
+
+
+}
+
 
 
 
@@ -552,10 +616,10 @@ int32_t CCA02M2_AUDIO_IN_SetVolume(uint32_t Instance, uint32_t Volume)
             29, 29, 29, 29, 30, 30, 30, 30, 30, 30, 30, 31};
     for (index = 0; index < AudioInCtx[Instance].ChannelsNbr; index++)
     {
-        if (PDM2PCMConfig[index].mic_gain != VolumeGain[Volume])
+        if (PDM2PCMConfig.mic_gain != VolumeGain[Volume])
         {
-            PDM2PCMConfig[index].mic_gain = VolumeGain[Volume];
-            (void)PDM2PCM_setConfig((PDM_Filter_Handler_t *)&PDM2PCMHandler[index], &PDM2PCMConfig[index]);
+            PDM2PCMConfig.mic_gain = VolumeGain[Volume];
+            (void)PDM2PCM_setConfig((PDM_Filter_Handler_t *)&PDM2PCMHandler, &PDM2PCMConfig);
         }
     }
 

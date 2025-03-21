@@ -209,7 +209,9 @@ void AUDIO_IN_HalfTransfer_CallBack(uint32_t Instance);
    error occurs. */
 void AUDIO_IN_Error_CallBack(uint32_t Instance);
 
-//HAL_StatusTypeDef MX_SPI_Init(SPI_HandleTypeDef *hspi, MX_SPI_Config *MXConfig);
+HAL_StatusTypeDef MX_SPI_Init(SPI_HandleTypeDef *hspi, MX_SPI_Config *MXConfig);
+int32_t CCA02M2_AUDIO_IN_Init(uint32_t Instance, CCA02M2_AUDIO_Init_t *AudioInit);
+uint8_t PDM2PCM_Process(uint16_t *PDMBuf, uint16_t *PCMBuf);
 
 
 

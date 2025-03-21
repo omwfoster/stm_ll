@@ -8,6 +8,10 @@ Archive member included to satisfy reference by file (symbol)
                               .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_ctlreq.o) (USBD_CtlSendData)
 .pio/build/adafruit_feather_f405/lib5fe/libCDC.a(usbd_cdc.o)
                               .pio/build/adafruit_feather_f405/src/usb_device.o (USBD_CDC_RegisterInterface)
+opt/libPDMFilter.a(pdm_filter.o)
+                              .pio/build/adafruit_feather_f405/src/mp34dt_spi.o (PDM_Filter)
+opt/libPDMFilter.a(stm32_crc_lock.o)
+                              opt/libPDMFilter.a(pdm_filter.o) (CRC_Lock)
 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-exit.o)
                               /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/crt0.o (exit)
 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-impure.o)
@@ -62,6 +66,16 @@ Archive member included to satisfy reference by file (symbol)
                               /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/libgcc.a(_aeabi_ldivmod.o) (__udivmoddi4)
 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/libgcc.a(_dvmd_tls.o)
                               /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/libgcc.a(_aeabi_ldivmod.o) (__aeabi_ldiv0)
+/Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-sf_pow.o)
+                              opt/libPDMFilter.a(pdm_filter.o) (powf)
+/Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-sf_pow_log2_data.o)
+                              /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-sf_pow.o) (__powf_log2_data)
+/Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-sf_round.o)
+                              opt/libPDMFilter.a(pdm_filter.o) (roundf)
+/Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-math_errf.o)
+                              /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-sf_pow.o) (__math_uflowf)
+/Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-sf_exp2_data.o)
+                              /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-sf_pow.o) (__exp2f_data)
 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libnosys.a(sbrk.o)
                               /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-sbrkr.o) (_sbrk)
 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libnosys.a(_exit.o)
@@ -70,6 +84,12 @@ Archive member included to satisfy reference by file (symbol)
                               (Reset_Handler)
 .pio/build/adafruit_feather_f405/libFrameworkCMSISDevice.a(system_stm32f4xx.o)
                               .pio/build/adafruit_feather_f405/libFrameworkCMSISDevice.a(startup_stm32f405xx.o) (SystemInit)
+/Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-errno.o)
+                              /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-math_errf.o) (__errno)
+/Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/libgcc.a(_arm_cmpdf2.o)
+                              /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-sf_pow.o) (__aeabi_dcmplt)
+/Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/libgcc.a(_arm_truncdfsf2.o)
+                              /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-sf_pow.o) (__aeabi_d2f)
 
 Allocating common symbols
 Common symbol       size              file
@@ -90,7 +110,10 @@ uwTick              0x4               .pio/build/adafruit_feather_f405/Framework
 pFlash              0x20              .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_flash.o
 UserRxBufferFS      0x800             .pio/build/adafruit_feather_f405/src/usbd_cdc_if.o
 hi2c_see            0x54              .pio/build/adafruit_feather_f405/src/main.o
+MicParams           0x14              .pio/build/adafruit_feather_f405/src/main.o
+PCMBuf              0x4               .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
 tim_period          0x4               .pio/build/adafruit_feather_f405/src/ws2812b/src/ws2812b.o
+PDMBuf              0x4               .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
 UserTxBufferFS      0x800             .pio/build/adafruit_feather_f405/src/usbd_cdc_if.o
 ws2812b             0x4c              .pio/build/adafruit_feather_f405/src/viseffect/visEffect.o
 dmaCC1              0x60              .pio/build/adafruit_feather_f405/src/ws2812b/src/ws2812b.o
@@ -1816,10 +1839,6 @@ Discarded input sections
                 0x0000000000000000       0x58 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_spi.o
  .text.SPI_EndRxTransaction
                 0x0000000000000000       0x5c .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_spi.o
- .text.HAL_SPI_MspInit
-                0x0000000000000000        0x2 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_spi.o
- .text.HAL_SPI_Init
-                0x0000000000000000       0xc2 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_spi.o
  .text.HAL_SPI_MspDeInit
                 0x0000000000000000        0x2 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_spi.o
  .text.HAL_SPI_DeInit
@@ -1924,9 +1943,6 @@ Discarded input sections
                 0x0000000000000000        0x6 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_spi.o
  .text.HAL_SPI_GetError
                 0x0000000000000000        0x4 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_spi.o
- .comment       0x0000000000000000       0x7f .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_spi.o
- .ARM.attributes
-                0x0000000000000000       0x39 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_spi.o
  .text          0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_sram.o
  .data          0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_sram.o
  .bss           0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_sram.o
@@ -2829,6 +2845,62 @@ Discarded input sections
  .comment       0x0000000000000000       0x7f .pio/build/adafruit_feather_f405/src/memsafe_buffer.o
  .ARM.attributes
                 0x0000000000000000       0x39 .pio/build/adafruit_feather_f405/src/memsafe_buffer.o
+ .text          0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+ .data          0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+ .bss           0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+ .text.AUDIO_IN_PDMToPCM
+                0x0000000000000000       0x14 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+ .text.PDM2PCM_Process
+                0x0000000000000000       0x10 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+ .text.CCA02M2_AUDIO_IN_Record
+                0x0000000000000000       0x48 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+ .text.CCA02M2_AUDIO_IN_Stop
+                0x0000000000000000       0x40 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+ .text.CCA02M2_AUDIO_IN_RecordPDM
+                0x0000000000000000        0x6 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+ .text.CCA02M2_AUDIO_IN_SetDevice
+                0x0000000000000000       0x4c .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+ .text.CCA02M2_AUDIO_IN_GetDevice
+                0x0000000000000000       0x20 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+ .text.CCA02M2_AUDIO_IN_SetSampleRate
+                0x0000000000000000       0x50 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+ .text.CCA02M2_AUDIO_IN_GetSampleRate
+                0x0000000000000000       0x20 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+ .text.CCA02M2_AUDIO_IN_SetBitsPerSample
+                0x0000000000000000       0x50 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+ .text.CCA02M2_AUDIO_IN_GetBitsPerSample
+                0x0000000000000000       0x20 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+ .text.CCA02M2_AUDIO_IN_SetChannelsNbr
+                0x0000000000000000       0x20 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+ .text.CCA02M2_AUDIO_IN_GetChannelsNbr
+                0x0000000000000000       0x20 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+ .text.CCA02M2_AUDIO_IN_SetVolume
+                0x0000000000000000       0x48 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+ .text.CCA02M2_AUDIO_IN_GetVolume
+                0x0000000000000000       0x20 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+ .text.CCA02M2_AUDIO_IN_GetState
+                0x0000000000000000       0x20 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+ .text.CCA02M2_AUDIO_IN_TransferComplete_CallBack
+                0x0000000000000000        0x2 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+ .text.CCA02M2_AUDIO_IN_HalfTransfer_CallBack
+                0x0000000000000000        0x2 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+ .text.CCA02M2_AUDIO_IN_Error_CallBack
+                0x0000000000000000        0x2 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+ .bss.MicBuffIndex
+                0x0000000000000000       0x10 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+ .bss.PDM2PCMConfig
+                0x0000000000000000        0x6 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+ .bss.PDM2PCMHandler
+                0x0000000000000000       0x4c .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+ .bss.RecBuffHalf
+                0x0000000000000000        0x4 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+ .bss.RecBuffTrigger
+                0x0000000000000000        0x4 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+ .bss.SPI_InternalBuffer
+                0x0000000000000000        0x2 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+ .rodata.VolumeGain.14744
+                0x0000000000000000      0x102 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+ COMMON         0x0000000000000000        0x8 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
  .text          0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/src/stm32f4xx_it.o
  .data          0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/src/stm32f4xx_it.o
  .bss           0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/src/stm32f4xx_it.o
@@ -2882,6 +2954,57 @@ Discarded input sections
  .text          0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/lib5fe/libCDC.a(usbd_cdc.o)
  .data          0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/lib5fe/libCDC.a(usbd_cdc.o)
  .bss           0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/lib5fe/libCDC.a(usbd_cdc.o)
+ .text          0x0000000000000000        0x0 opt/libPDMFilter.a(pdm_filter.o)
+ .data          0x0000000000000000      0x400 opt/libPDMFilter.a(pdm_filter.o)
+ .bss           0x0000000000000000        0x1 opt/libPDMFilter.a(pdm_filter.o)
+ .text.D16_GENERIC
+                0x0000000000000000      0x120 opt/libPDMFilter.a(pdm_filter.o)
+ .text.D24_GENERIC
+                0x0000000000000000      0x190 opt/libPDMFilter.a(pdm_filter.o)
+ .text.D32_GENERIC
+                0x0000000000000000      0x198 opt/libPDMFilter.a(pdm_filter.o)
+ .text.D48_GENERIC
+                0x0000000000000000      0x1ec opt/libPDMFilter.a(pdm_filter.o)
+ .text.D64_GENERIC
+                0x0000000000000000      0x220 opt/libPDMFilter.a(pdm_filter.o)
+ .text.D80_GENERIC
+                0x0000000000000000      0x2a0 opt/libPDMFilter.a(pdm_filter.o)
+ .text.D128_GENERIC
+                0x0000000000000000      0x3f0 opt/libPDMFilter.a(pdm_filter.o)
+ .text.D16_1CH_HTONS_VOL_HP
+                0x0000000000000000       0xe4 opt/libPDMFilter.a(pdm_filter.o)
+ .text.D24_1CH_HTONS_VOL_HP
+                0x0000000000000000      0x138 opt/libPDMFilter.a(pdm_filter.o)
+ .text.D32_1CH_HTONS_VOL_HP
+                0x0000000000000000      0x144 opt/libPDMFilter.a(pdm_filter.o)
+ .text.D48_1CH_HTONS_VOL_HP
+                0x0000000000000000      0x16c opt/libPDMFilter.a(pdm_filter.o)
+ .text.D64_1CH_HTONS_VOL_HP
+                0x0000000000000000      0x1b8 opt/libPDMFilter.a(pdm_filter.o)
+ .text.D80_1CH_HTONS_VOL_HP
+                0x0000000000000000      0x214 opt/libPDMFilter.a(pdm_filter.o)
+ .text.D128_1CH_HTONS_VOL_HP
+                0x0000000000000000      0x324 opt/libPDMFilter.a(pdm_filter.o)
+ .text.PDM_Filter_Init
+                0x0000000000000000      0x114 opt/libPDMFilter.a(pdm_filter.o)
+ .text.PDM_Filter_setConfig
+                0x0000000000000000      0x1e4 opt/libPDMFilter.a(pdm_filter.o)
+ .text.PDM_Filter_getConfig
+                0x0000000000000000       0x1c opt/libPDMFilter.a(pdm_filter.o)
+ .text.PDM_Filter
+                0x0000000000000000       0x38 opt/libPDMFilter.a(pdm_filter.o)
+ .rodata        0x0000000000000000       0x38 opt/libPDMFilter.a(pdm_filter.o)
+ .comment       0x0000000000000000       0x80 opt/libPDMFilter.a(pdm_filter.o)
+ .ARM.attributes
+                0x0000000000000000       0x39 opt/libPDMFilter.a(pdm_filter.o)
+ .text          0x0000000000000000        0x0 opt/libPDMFilter.a(stm32_crc_lock.o)
+ .data          0x0000000000000000        0x0 opt/libPDMFilter.a(stm32_crc_lock.o)
+ .bss           0x0000000000000000        0x0 opt/libPDMFilter.a(stm32_crc_lock.o)
+ .text.CRC_Lock
+                0x0000000000000000       0x7c opt/libPDMFilter.a(stm32_crc_lock.o)
+ .comment       0x0000000000000000       0x80 opt/libPDMFilter.a(stm32_crc_lock.o)
+ .ARM.attributes
+                0x0000000000000000       0x39 opt/libPDMFilter.a(stm32_crc_lock.o)
  .text          0x0000000000000000        0x0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-exit.o)
  .data          0x0000000000000000        0x0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-exit.o)
  .bss           0x0000000000000000        0x0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-exit.o)
@@ -2975,6 +3098,53 @@ Discarded input sections
  .ARM.extab     0x0000000000000000        0x0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/libgcc.a(_udivmoddi4.o)
  .data          0x0000000000000000        0x0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/libgcc.a(_dvmd_tls.o)
  .bss           0x0000000000000000        0x0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/libgcc.a(_dvmd_tls.o)
+ .text          0x0000000000000000        0x0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-sf_pow.o)
+ .data          0x0000000000000000        0x0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-sf_pow.o)
+ .bss           0x0000000000000000        0x0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-sf_pow.o)
+ .text.powf     0x0000000000000000      0x3a8 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-sf_pow.o)
+ .debug_frame   0x0000000000000000       0x9c /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-sf_pow.o)
+ .ARM.attributes
+                0x0000000000000000       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-sf_pow.o)
+ .text          0x0000000000000000        0x0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-sf_pow_log2_data.o)
+ .data          0x0000000000000000        0x0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-sf_pow_log2_data.o)
+ .bss           0x0000000000000000        0x0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-sf_pow_log2_data.o)
+ .rodata.__powf_log2_data
+                0x0000000000000000      0x128 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-sf_pow_log2_data.o)
+ .ARM.attributes
+                0x0000000000000000       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-sf_pow_log2_data.o)
+ .text          0x0000000000000000        0x0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-sf_round.o)
+ .data          0x0000000000000000        0x0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-sf_round.o)
+ .bss           0x0000000000000000        0x0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-sf_round.o)
+ .text.roundf   0x0000000000000000       0x60 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-sf_round.o)
+ .debug_frame   0x0000000000000000       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-sf_round.o)
+ .ARM.attributes
+                0x0000000000000000       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-sf_round.o)
+ .text          0x0000000000000000        0x0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-math_errf.o)
+ .data          0x0000000000000000        0x0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-math_errf.o)
+ .bss           0x0000000000000000        0x0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-math_errf.o)
+ .text.with_errnof
+                0x0000000000000000       0x1c /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-math_errf.o)
+ .text.xflowf   0x0000000000000000       0x20 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-math_errf.o)
+ .text.__math_uflowf
+                0x0000000000000000        0xc /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-math_errf.o)
+ .text.__math_may_uflowf
+                0x0000000000000000        0xc /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-math_errf.o)
+ .text.__math_oflowf
+                0x0000000000000000        0xc /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-math_errf.o)
+ .text.__math_divzerof
+                0x0000000000000000       0x24 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-math_errf.o)
+ .text.__math_invalidf
+                0x0000000000000000       0x20 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-math_errf.o)
+ .debug_frame   0x0000000000000000       0x98 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-math_errf.o)
+ .ARM.attributes
+                0x0000000000000000       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-math_errf.o)
+ .text          0x0000000000000000        0x0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-sf_exp2_data.o)
+ .data          0x0000000000000000        0x0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-sf_exp2_data.o)
+ .bss           0x0000000000000000        0x0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-sf_exp2_data.o)
+ .rodata.__exp2f_data
+                0x0000000000000000      0x148 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-sf_exp2_data.o)
+ .ARM.attributes
+                0x0000000000000000       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libm.a(lib_a-sf_exp2_data.o)
  .text          0x0000000000000000        0x0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libnosys.a(sbrk.o)
  .data          0x0000000000000000        0x0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libnosys.a(sbrk.o)
  .bss           0x0000000000000000        0x0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libnosys.a(sbrk.o)
@@ -2993,6 +3163,25 @@ Discarded input sections
  .bss           0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/libFrameworkCMSISDevice.a(system_stm32f4xx.o)
  .text.SystemCoreClockUpdate
                 0x0000000000000000       0x74 .pio/build/adafruit_feather_f405/libFrameworkCMSISDevice.a(system_stm32f4xx.o)
+ .text          0x0000000000000000        0x0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-errno.o)
+ .data          0x0000000000000000        0x0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-errno.o)
+ .bss           0x0000000000000000        0x0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-errno.o)
+ .text.__errno  0x0000000000000000        0xc /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-errno.o)
+ .debug_frame   0x0000000000000000       0x20 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-errno.o)
+ .ARM.attributes
+                0x0000000000000000       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-errno.o)
+ .text          0x0000000000000000      0x110 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/libgcc.a(_arm_cmpdf2.o)
+ .data          0x0000000000000000        0x0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/libgcc.a(_arm_cmpdf2.o)
+ .bss           0x0000000000000000        0x0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/libgcc.a(_arm_cmpdf2.o)
+ .debug_frame   0x0000000000000000       0xc4 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/libgcc.a(_arm_cmpdf2.o)
+ .ARM.attributes
+                0x0000000000000000       0x22 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/libgcc.a(_arm_cmpdf2.o)
+ .text          0x0000000000000000       0xa0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/libgcc.a(_arm_truncdfsf2.o)
+ .data          0x0000000000000000        0x0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/libgcc.a(_arm_truncdfsf2.o)
+ .bss           0x0000000000000000        0x0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/libgcc.a(_arm_truncdfsf2.o)
+ .debug_frame   0x0000000000000000       0x24 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/libgcc.a(_arm_truncdfsf2.o)
+ .ARM.attributes
+                0x0000000000000000       0x22 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/libgcc.a(_arm_truncdfsf2.o)
  .text          0x0000000000000000        0x0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtend.o
  .data          0x0000000000000000        0x0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtend.o
  .bss           0x0000000000000000        0x0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtend.o
@@ -3111,6 +3300,7 @@ LOAD .pio/build/adafruit_feather_f405/src/i2c/i2c_init.o
 LOAD .pio/build/adafruit_feather_f405/src/i2c/i2c_see.o
 LOAD .pio/build/adafruit_feather_f405/src/main.o
 LOAD .pio/build/adafruit_feather_f405/src/memsafe_buffer.o
+LOAD .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
 LOAD .pio/build/adafruit_feather_f405/src/stm32f4xx_it.o
 LOAD .pio/build/adafruit_feather_f405/src/usb_device.o
 LOAD .pio/build/adafruit_feather_f405/src/usbd_cdc_if.o
@@ -3159,7 +3349,7 @@ LOAD /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0
                 0x0000000008000000                g_pfnVectors
                 0x0000000008000188                . = ALIGN (0x4)
 
-.text           0x0000000008000190     0x66a4
+.text           0x0000000008000190     0x6994
                 0x0000000008000190                . = ALIGN (0x4)
  *(.text)
  .text          0x0000000008000190       0x40 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
@@ -3399,745 +3589,758 @@ LOAD /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0
  .text.HAL_RCC_GetPCLK1Freq
                 0x0000000008002f6c       0x20 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_rcc.o
                 0x0000000008002f6c                HAL_RCC_GetPCLK1Freq
+ .text.HAL_SPI_MspInit
+                0x0000000008002f8c        0x2 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_spi.o
+                0x0000000008002f8c                HAL_SPI_MspInit
+ .text.HAL_SPI_Init
+                0x0000000008002f8e       0xc2 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_spi.o
+                0x0000000008002f8e                HAL_SPI_Init
  .text.TIM_OC1_SetConfig
-                0x0000000008002f8c       0x64 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim.o
+                0x0000000008003050       0x64 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim.o
  .text.TIM_OC3_SetConfig
-                0x0000000008002ff0       0x6c .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim.o
+                0x00000000080030b4       0x6c .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim.o
  .text.TIM_OC4_SetConfig
-                0x000000000800305c       0x4c .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim.o
+                0x0000000008003120       0x4c .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim.o
  .text.HAL_TIM_Base_Start
-                0x00000000080030a8       0x6c .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim.o
-                0x00000000080030a8                HAL_TIM_Base_Start
+                0x000000000800316c       0x6c .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim.o
+                0x000000000800316c                HAL_TIM_Base_Start
  .text.HAL_TIM_PWM_MspInit
-                0x0000000008003114        0x2 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim.o
-                0x0000000008003114                HAL_TIM_PWM_MspInit
+                0x00000000080031d8        0x2 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim.o
+                0x00000000080031d8                HAL_TIM_PWM_MspInit
  .text.HAL_TIM_OC_DelayElapsedCallback
-                0x0000000008003116        0x2 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim.o
-                0x0000000008003116                HAL_TIM_OC_DelayElapsedCallback
+                0x00000000080031da        0x2 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim.o
+                0x00000000080031da                HAL_TIM_OC_DelayElapsedCallback
  .text.HAL_TIM_IC_CaptureCallback
-                0x0000000008003118        0x2 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim.o
-                0x0000000008003118                HAL_TIM_IC_CaptureCallback
+                0x00000000080031dc        0x2 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim.o
+                0x00000000080031dc                HAL_TIM_IC_CaptureCallback
  .text.HAL_TIM_PWM_PulseFinishedCallback
-                0x000000000800311a        0x2 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim.o
-                0x000000000800311a                HAL_TIM_PWM_PulseFinishedCallback
+                0x00000000080031de        0x2 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim.o
+                0x00000000080031de                HAL_TIM_PWM_PulseFinishedCallback
  .text.HAL_TIM_TriggerCallback
-                0x000000000800311c        0x2 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim.o
-                0x000000000800311c                HAL_TIM_TriggerCallback
+                0x00000000080031e0        0x2 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim.o
+                0x00000000080031e0                HAL_TIM_TriggerCallback
  .text.HAL_TIM_IRQHandler
-                0x000000000800311e      0x144 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim.o
-                0x000000000800311e                HAL_TIM_IRQHandler
- *fill*         0x0000000008003262        0x2 
+                0x00000000080031e2      0x144 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim.o
+                0x00000000080031e2                HAL_TIM_IRQHandler
+ *fill*         0x0000000008003326        0x2 
  .text.TIM_Base_SetConfig
-                0x0000000008003264       0xcc .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim.o
-                0x0000000008003264                TIM_Base_SetConfig
+                0x0000000008003328       0xcc .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim.o
+                0x0000000008003328                TIM_Base_SetConfig
  .text.HAL_TIM_PWM_Init
-                0x0000000008003330       0x58 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim.o
-                0x0000000008003330                HAL_TIM_PWM_Init
+                0x00000000080033f4       0x58 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim.o
+                0x00000000080033f4                HAL_TIM_PWM_Init
  .text.TIM_OC2_SetConfig
-                0x0000000008003388       0x6c .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim.o
-                0x0000000008003388                TIM_OC2_SetConfig
+                0x000000000800344c       0x6c .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim.o
+                0x000000000800344c                TIM_OC2_SetConfig
  .text.HAL_TIM_PWM_ConfigChannel
-                0x00000000080033f4       0xc0 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim.o
-                0x00000000080033f4                HAL_TIM_PWM_ConfigChannel
+                0x00000000080034b8       0xc0 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim.o
+                0x00000000080034b8                HAL_TIM_PWM_ConfigChannel
  .text.TIM_CCxChannelCmd
-                0x00000000080034b4       0x1c .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim.o
-                0x00000000080034b4                TIM_CCxChannelCmd
+                0x0000000008003578       0x1c .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim.o
+                0x0000000008003578                TIM_CCxChannelCmd
  .text.HAL_TIM_OC_Start
-                0x00000000080034d0       0xcc .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim.o
-                0x00000000080034d0                HAL_TIM_OC_Start
+                0x0000000008003594       0xcc .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim.o
+                0x0000000008003594                HAL_TIM_OC_Start
  .text.HAL_TIM_PWM_Start
-                0x000000000800359c        0x4 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim.o
-                0x000000000800359c                HAL_TIM_PWM_Start
+                0x0000000008003660        0x4 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim.o
+                0x0000000008003660                HAL_TIM_PWM_Start
  .text.HAL_TIMEx_CommutCallback
-                0x00000000080035a0        0x2 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim_ex.o
-                0x00000000080035a0                HAL_TIMEx_CommutCallback
+                0x0000000008003664        0x2 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim_ex.o
+                0x0000000008003664                HAL_TIMEx_CommutCallback
  .text.HAL_TIMEx_BreakCallback
-                0x00000000080035a2        0x2 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim_ex.o
-                0x00000000080035a2                HAL_TIMEx_BreakCallback
+                0x0000000008003666        0x2 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim_ex.o
+                0x0000000008003666                HAL_TIMEx_BreakCallback
  .text.USB_CoreReset
-                0x00000000080035a4       0x48 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
+                0x0000000008003668       0x48 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
  .text.USB_CoreInit
-                0x00000000080035ec       0x80 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
-                0x00000000080035ec                USB_CoreInit
+                0x00000000080036b0       0x80 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
+                0x00000000080036b0                USB_CoreInit
  .text.USB_SetTurnaroundTime
-                0x000000000800366c       0xe8 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
-                0x000000000800366c                USB_SetTurnaroundTime
+                0x0000000008003730       0xe8 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
+                0x0000000008003730                USB_SetTurnaroundTime
  .text.USB_EnableGlobalInt
-                0x0000000008003754        0xc .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
-                0x0000000008003754                USB_EnableGlobalInt
+                0x0000000008003818        0xc .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
+                0x0000000008003818                USB_EnableGlobalInt
  .text.USB_DisableGlobalInt
-                0x0000000008003760        0xc .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
-                0x0000000008003760                USB_DisableGlobalInt
+                0x0000000008003824        0xc .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
+                0x0000000008003824                USB_DisableGlobalInt
  .text.USB_SetCurrentMode
-                0x000000000800376c       0x60 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
-                0x000000000800376c                USB_SetCurrentMode
+                0x0000000008003830       0x60 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
+                0x0000000008003830                USB_SetCurrentMode
  .text.USB_FlushTxFifo
-                0x00000000080037cc       0x30 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
-                0x00000000080037cc                USB_FlushTxFifo
+                0x0000000008003890       0x30 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
+                0x0000000008003890                USB_FlushTxFifo
  .text.USB_FlushRxFifo
-                0x00000000080037fc       0x2c .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
-                0x00000000080037fc                USB_FlushRxFifo
+                0x00000000080038c0       0x2c .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
+                0x00000000080038c0                USB_FlushRxFifo
  .text.USB_SetDevSpeed
-                0x0000000008003828        0xe .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
-                0x0000000008003828                USB_SetDevSpeed
- *fill*         0x0000000008003836        0x2 
+                0x00000000080038ec        0xe .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
+                0x00000000080038ec                USB_SetDevSpeed
+ *fill*         0x00000000080038fa        0x2 
  .text.USB_DevInit
-                0x0000000008003838      0x174 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
-                0x0000000008003838                USB_DevInit
+                0x00000000080038fc      0x174 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
+                0x00000000080038fc                USB_DevInit
  .text.USB_GetDevSpeed
-                0x00000000080039ac       0x16 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
-                0x00000000080039ac                USB_GetDevSpeed
+                0x0000000008003a70       0x16 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
+                0x0000000008003a70                USB_GetDevSpeed
  .text.USB_ActivateEndpoint
-                0x00000000080039c2       0x7c .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
-                0x00000000080039c2                USB_ActivateEndpoint
- *fill*         0x0000000008003a3e        0x2 
+                0x0000000008003a86       0x7c .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
+                0x0000000008003a86                USB_ActivateEndpoint
+ *fill*         0x0000000008003b02        0x2 
  .text.USB_DeactivateEndpoint
-                0x0000000008003a40       0xa4 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
-                0x0000000008003a40                USB_DeactivateEndpoint
+                0x0000000008003b04       0xa4 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
+                0x0000000008003b04                USB_DeactivateEndpoint
  .text.USB_EP0StartXfer
-                0x0000000008003ae4       0xe8 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
-                0x0000000008003ae4                USB_EP0StartXfer
+                0x0000000008003ba8       0xe8 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
+                0x0000000008003ba8                USB_EP0StartXfer
  .text.USB_WritePacket
-                0x0000000008003bcc       0x28 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
-                0x0000000008003bcc                USB_WritePacket
+                0x0000000008003c90       0x28 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
+                0x0000000008003c90                USB_WritePacket
  .text.USB_EPStartXfer
-                0x0000000008003bf4      0x1b0 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
-                0x0000000008003bf4                USB_EPStartXfer
+                0x0000000008003cb8      0x1b0 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
+                0x0000000008003cb8                USB_EPStartXfer
  .text.USB_ReadPacket
-                0x0000000008003da4       0x4a .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
-                0x0000000008003da4                USB_ReadPacket
+                0x0000000008003e68       0x4a .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
+                0x0000000008003e68                USB_ReadPacket
  .text.USB_EPSetStall
-                0x0000000008003dee       0x56 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
-                0x0000000008003dee                USB_EPSetStall
+                0x0000000008003eb2       0x56 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
+                0x0000000008003eb2                USB_EPSetStall
  .text.USB_EPClearStall
-                0x0000000008003e44       0x52 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
-                0x0000000008003e44                USB_EPClearStall
+                0x0000000008003f08       0x52 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
+                0x0000000008003f08                USB_EPClearStall
  .text.USB_SetDevAddress
-                0x0000000008003e96       0x20 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
-                0x0000000008003e96                USB_SetDevAddress
+                0x0000000008003f5a       0x20 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
+                0x0000000008003f5a                USB_SetDevAddress
  .text.USB_DevConnect
-                0x0000000008003eb6       0x1c .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
-                0x0000000008003eb6                USB_DevConnect
+                0x0000000008003f7a       0x1c .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
+                0x0000000008003f7a                USB_DevConnect
  .text.USB_DevDisconnect
-                0x0000000008003ed2       0x1c .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
-                0x0000000008003ed2                USB_DevDisconnect
+                0x0000000008003f96       0x1c .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
+                0x0000000008003f96                USB_DevDisconnect
  .text.USB_ReadInterrupts
-                0x0000000008003eee        0x8 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
-                0x0000000008003eee                USB_ReadInterrupts
+                0x0000000008003fb2        0x8 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
+                0x0000000008003fb2                USB_ReadInterrupts
  .text.USB_ReadDevAllOutEpInterrupt
-                0x0000000008003ef6       0x10 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
-                0x0000000008003ef6                USB_ReadDevAllOutEpInterrupt
+                0x0000000008003fba       0x10 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
+                0x0000000008003fba                USB_ReadDevAllOutEpInterrupt
  .text.USB_ReadDevAllInEpInterrupt
-                0x0000000008003f06       0x10 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
-                0x0000000008003f06                USB_ReadDevAllInEpInterrupt
+                0x0000000008003fca       0x10 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
+                0x0000000008003fca                USB_ReadDevAllInEpInterrupt
  .text.USB_ReadDevOutEPInterrupt
-                0x0000000008003f16       0x12 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
-                0x0000000008003f16                USB_ReadDevOutEPInterrupt
+                0x0000000008003fda       0x12 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
+                0x0000000008003fda                USB_ReadDevOutEPInterrupt
  .text.USB_ReadDevInEPInterrupt
-                0x0000000008003f28       0x24 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
-                0x0000000008003f28                USB_ReadDevInEPInterrupt
+                0x0000000008003fec       0x24 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
+                0x0000000008003fec                USB_ReadDevInEPInterrupt
  .text.USB_GetMode
-                0x0000000008003f4c        0x8 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
-                0x0000000008003f4c                USB_GetMode
+                0x0000000008004010        0x8 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
+                0x0000000008004010                USB_GetMode
  .text.USB_ActivateSetup
-                0x0000000008003f54       0x20 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
-                0x0000000008003f54                USB_ActivateSetup
+                0x0000000008004018       0x20 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
+                0x0000000008004018                USB_ActivateSetup
  .text.USB_EP0_OutStart
-                0x0000000008003f74       0x4c .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
-                0x0000000008003f74                USB_EP0_OutStart
+                0x0000000008004038       0x4c .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
+                0x0000000008004038                USB_EP0_OutStart
  .text._ICM20948_SelectUserBank
-                0x0000000008003fc0       0x2e .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
-                0x0000000008003fc0                _ICM20948_SelectUserBank
+                0x0000000008004084       0x2e .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
+                0x0000000008004084                _ICM20948_SelectUserBank
  .text._ICM20948_WriteByte
-                0x0000000008003fee       0x28 .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
-                0x0000000008003fee                _ICM20948_WriteByte
+                0x00000000080040b2       0x28 .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
+                0x00000000080040b2                _ICM20948_WriteByte
  .text._ICM20948_BrustRead
-                0x0000000008004016       0x26 .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
-                0x0000000008004016                _ICM20948_BrustRead
+                0x00000000080040da       0x26 .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
+                0x00000000080040da                _ICM20948_BrustRead
  .text.ICM20948_isI2cAddress2
-                0x000000000800403c        0xa .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
-                0x000000000800403c                ICM20948_isI2cAddress2
- *fill*         0x0000000008004046        0x2 
+                0x0000000008004100        0xa .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
+                0x0000000008004100                ICM20948_isI2cAddress2
+ *fill*         0x000000000800410a        0x2 
  .text.ICM20948_init
-                0x0000000008004048      0x120 .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
-                0x0000000008004048                ICM20948_init
+                0x000000000800410c      0x120 .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
+                0x000000000800410c                ICM20948_init
+ *fill*         0x000000000800422c        0x4 
  .text.ICM20948_readGyroscope_allAxises
-                0x0000000008004168      0x138 .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
-                0x0000000008004168                ICM20948_readGyroscope_allAxises
+                0x0000000008004230      0x138 .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
+                0x0000000008004230                ICM20948_readGyroscope_allAxises
  .text.output_cdc_page
-                0x00000000080042a0       0x34 .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
-                0x00000000080042a0                output_cdc_page
+                0x0000000008004368       0x34 .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
+                0x0000000008004368                output_cdc_page
  .text.HAL_I2C_MspInit
-                0x00000000080042d4      0x118 .pio/build/adafruit_feather_f405/src/i2c/i2c_init.o
-                0x00000000080042d4                HAL_I2C_MspInit
+                0x000000000800439c      0x118 .pio/build/adafruit_feather_f405/src/i2c/i2c_init.o
+                0x000000000800439c                HAL_I2C_MspInit
  .text.MX_I2C_Init
-                0x00000000080043ec       0x54 .pio/build/adafruit_feather_f405/src/i2c/i2c_init.o
-                0x00000000080043ec                MX_I2C_Init
+                0x00000000080044b4       0x54 .pio/build/adafruit_feather_f405/src/i2c/i2c_init.o
+                0x00000000080044b4                MX_I2C_Init
  .text.Error_Handler
-                0x0000000008004440       0x18 .pio/build/adafruit_feather_f405/src/main.o
-                0x0000000008004440                Error_Handler
+                0x0000000008004508       0x18 .pio/build/adafruit_feather_f405/src/main.o
+                0x0000000008004508                Error_Handler
  .text.SystemClock_Config
-                0x0000000008004458       0xa0 .pio/build/adafruit_feather_f405/src/main.o
-                0x0000000008004458                SystemClock_Config
+                0x0000000008004520       0xa0 .pio/build/adafruit_feather_f405/src/main.o
+                0x0000000008004520                SystemClock_Config
  .text.startup.main
-                0x00000000080044f8      0x110 .pio/build/adafruit_feather_f405/src/main.o
-                0x00000000080044f8                main
+                0x00000000080045c0      0x138 .pio/build/adafruit_feather_f405/src/main.o
+                0x00000000080045c0                main
+ .text.MX_SPI_Init
+                0x00000000080046f8       0x8c .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+                0x00000000080046f8                MX_SPI_Init
+ .text.CCA02M2_AUDIO_IN_Init
+                0x0000000008004784      0x174 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+                0x0000000008004784                CCA02M2_AUDIO_IN_Init
  .text.NMI_Handler
-                0x0000000008004608        0x2 .pio/build/adafruit_feather_f405/src/stm32f4xx_it.o
-                0x0000000008004608                NMI_Handler
+                0x00000000080048f8        0x2 .pio/build/adafruit_feather_f405/src/stm32f4xx_it.o
+                0x00000000080048f8                NMI_Handler
  .text.HardFault_Handler
-                0x000000000800460a        0x2 .pio/build/adafruit_feather_f405/src/stm32f4xx_it.o
-                0x000000000800460a                HardFault_Handler
+                0x00000000080048fa        0x2 .pio/build/adafruit_feather_f405/src/stm32f4xx_it.o
+                0x00000000080048fa                HardFault_Handler
  .text.MemManage_Handler
-                0x000000000800460c        0x2 .pio/build/adafruit_feather_f405/src/stm32f4xx_it.o
-                0x000000000800460c                MemManage_Handler
+                0x00000000080048fc        0x2 .pio/build/adafruit_feather_f405/src/stm32f4xx_it.o
+                0x00000000080048fc                MemManage_Handler
  .text.BusFault_Handler
-                0x000000000800460e        0x2 .pio/build/adafruit_feather_f405/src/stm32f4xx_it.o
-                0x000000000800460e                BusFault_Handler
+                0x00000000080048fe        0x2 .pio/build/adafruit_feather_f405/src/stm32f4xx_it.o
+                0x00000000080048fe                BusFault_Handler
  .text.UsageFault_Handler
-                0x0000000008004610        0x2 .pio/build/adafruit_feather_f405/src/stm32f4xx_it.o
-                0x0000000008004610                UsageFault_Handler
+                0x0000000008004900        0x2 .pio/build/adafruit_feather_f405/src/stm32f4xx_it.o
+                0x0000000008004900                UsageFault_Handler
  .text.SVC_Handler
-                0x0000000008004612        0x2 .pio/build/adafruit_feather_f405/src/stm32f4xx_it.o
-                0x0000000008004612                SVC_Handler
+                0x0000000008004902        0x2 .pio/build/adafruit_feather_f405/src/stm32f4xx_it.o
+                0x0000000008004902                SVC_Handler
  .text.DebugMon_Handler
-                0x0000000008004614        0x2 .pio/build/adafruit_feather_f405/src/stm32f4xx_it.o
-                0x0000000008004614                DebugMon_Handler
+                0x0000000008004904        0x2 .pio/build/adafruit_feather_f405/src/stm32f4xx_it.o
+                0x0000000008004904                DebugMon_Handler
  .text.PendSV_Handler
-                0x0000000008004616        0x2 .pio/build/adafruit_feather_f405/src/stm32f4xx_it.o
-                0x0000000008004616                PendSV_Handler
+                0x0000000008004906        0x2 .pio/build/adafruit_feather_f405/src/stm32f4xx_it.o
+                0x0000000008004906                PendSV_Handler
  .text.SysTick_Handler
-                0x0000000008004618        0xe .pio/build/adafruit_feather_f405/src/stm32f4xx_it.o
-                0x0000000008004618                SysTick_Handler
- *fill*         0x0000000008004626        0x2 
+                0x0000000008004908        0xe .pio/build/adafruit_feather_f405/src/stm32f4xx_it.o
+                0x0000000008004908                SysTick_Handler
+ *fill*         0x0000000008004916        0x2 
  .text.OTG_FS_IRQHandler
-                0x0000000008004628        0xc .pio/build/adafruit_feather_f405/src/stm32f4xx_it.o
-                0x0000000008004628                OTG_FS_IRQHandler
+                0x0000000008004918        0xc .pio/build/adafruit_feather_f405/src/stm32f4xx_it.o
+                0x0000000008004918                OTG_FS_IRQHandler
  .text.MX_USB_DEVICE_Init
-                0x0000000008004634       0x50 .pio/build/adafruit_feather_f405/src/usb_device.o
-                0x0000000008004634                MX_USB_DEVICE_Init
+                0x0000000008004924       0x50 .pio/build/adafruit_feather_f405/src/usb_device.o
+                0x0000000008004924                MX_USB_DEVICE_Init
  .text.CDC_DeInit_FS
-                0x0000000008004684        0x4 .pio/build/adafruit_feather_f405/src/usbd_cdc_if.o
+                0x0000000008004974        0x4 .pio/build/adafruit_feather_f405/src/usbd_cdc_if.o
  .text.CDC_Control_FS
-                0x0000000008004688        0x4 .pio/build/adafruit_feather_f405/src/usbd_cdc_if.o
+                0x0000000008004978        0x4 .pio/build/adafruit_feather_f405/src/usbd_cdc_if.o
  .text.CDC_TransmitCplt_FS
-                0x000000000800468c        0x4 .pio/build/adafruit_feather_f405/src/usbd_cdc_if.o
+                0x000000000800497c        0x4 .pio/build/adafruit_feather_f405/src/usbd_cdc_if.o
  .text.CDC_Receive_FS
-                0x0000000008004690       0x1c .pio/build/adafruit_feather_f405/src/usbd_cdc_if.o
+                0x0000000008004980       0x1c .pio/build/adafruit_feather_f405/src/usbd_cdc_if.o
  .text.CDC_Init_FS
-                0x00000000080046ac       0x28 .pio/build/adafruit_feather_f405/src/usbd_cdc_if.o
+                0x000000000800499c       0x28 .pio/build/adafruit_feather_f405/src/usbd_cdc_if.o
  .text.CDC_Transmit_FS
-                0x00000000080046d4       0x2c .pio/build/adafruit_feather_f405/src/usbd_cdc_if.o
-                0x00000000080046d4                CDC_Transmit_FS
+                0x00000000080049c4       0x2c .pio/build/adafruit_feather_f405/src/usbd_cdc_if.o
+                0x00000000080049c4                CDC_Transmit_FS
  .text.PCD_ISOINIncompleteCallback
-                0x0000000008004700        0x8 .pio/build/adafruit_feather_f405/src/usbd_conf.o
+                0x00000000080049f0        0x8 .pio/build/adafruit_feather_f405/src/usbd_conf.o
  .text.PCD_ISOOUTIncompleteCallback
-                0x0000000008004708        0x8 .pio/build/adafruit_feather_f405/src/usbd_conf.o
+                0x00000000080049f8        0x8 .pio/build/adafruit_feather_f405/src/usbd_conf.o
  .text.PCD_DataInStageCallback
-                0x0000000008004710       0x10 .pio/build/adafruit_feather_f405/src/usbd_conf.o
+                0x0000000008004a00       0x10 .pio/build/adafruit_feather_f405/src/usbd_conf.o
  .text.PCD_DataOutStageCallback
-                0x0000000008004720       0x12 .pio/build/adafruit_feather_f405/src/usbd_conf.o
+                0x0000000008004a10       0x12 .pio/build/adafruit_feather_f405/src/usbd_conf.o
  .text.PCD_DisconnectCallback
-                0x0000000008004732        0x8 .pio/build/adafruit_feather_f405/src/usbd_conf.o
+                0x0000000008004a22        0x8 .pio/build/adafruit_feather_f405/src/usbd_conf.o
  .text.PCD_ConnectCallback
-                0x000000000800473a        0x8 .pio/build/adafruit_feather_f405/src/usbd_conf.o
+                0x0000000008004a2a        0x8 .pio/build/adafruit_feather_f405/src/usbd_conf.o
  .text.PCD_ResumeCallback
-                0x0000000008004742        0x8 .pio/build/adafruit_feather_f405/src/usbd_conf.o
+                0x0000000008004a32        0x8 .pio/build/adafruit_feather_f405/src/usbd_conf.o
  .text.PCD_ResetCallback
-                0x000000000800474a       0x26 .pio/build/adafruit_feather_f405/src/usbd_conf.o
+                0x0000000008004a3a       0x26 .pio/build/adafruit_feather_f405/src/usbd_conf.o
  .text.PCD_SetupStageCallback
-                0x0000000008004770        0xc .pio/build/adafruit_feather_f405/src/usbd_conf.o
+                0x0000000008004a60        0xc .pio/build/adafruit_feather_f405/src/usbd_conf.o
  .text.PCD_SOFCallback
-                0x000000000800477c        0x8 .pio/build/adafruit_feather_f405/src/usbd_conf.o
+                0x0000000008004a6c        0x8 .pio/build/adafruit_feather_f405/src/usbd_conf.o
  .text.PCD_SuspendCallback
-                0x0000000008004784       0x30 .pio/build/adafruit_feather_f405/src/usbd_conf.o
+                0x0000000008004a74       0x30 .pio/build/adafruit_feather_f405/src/usbd_conf.o
  .text.HAL_PCD_MspInit
-                0x00000000080047b4       0x84 .pio/build/adafruit_feather_f405/src/usbd_conf.o
-                0x00000000080047b4                HAL_PCD_MspInit
+                0x0000000008004aa4       0x84 .pio/build/adafruit_feather_f405/src/usbd_conf.o
+                0x0000000008004aa4                HAL_PCD_MspInit
  .text.USBD_LL_Init
-                0x0000000008004838       0xf0 .pio/build/adafruit_feather_f405/src/usbd_conf.o
-                0x0000000008004838                USBD_LL_Init
+                0x0000000008004b28       0xf0 .pio/build/adafruit_feather_f405/src/usbd_conf.o
+                0x0000000008004b28                USBD_LL_Init
  .text.USBD_LL_Start
-                0x0000000008004928       0x1c .pio/build/adafruit_feather_f405/src/usbd_conf.o
-                0x0000000008004928                USBD_LL_Start
+                0x0000000008004c18       0x1c .pio/build/adafruit_feather_f405/src/usbd_conf.o
+                0x0000000008004c18                USBD_LL_Start
  .text.USBD_LL_OpenEP
-                0x0000000008004944       0x20 .pio/build/adafruit_feather_f405/src/usbd_conf.o
-                0x0000000008004944                USBD_LL_OpenEP
+                0x0000000008004c34       0x20 .pio/build/adafruit_feather_f405/src/usbd_conf.o
+                0x0000000008004c34                USBD_LL_OpenEP
  .text.USBD_LL_CloseEP
-                0x0000000008004964       0x1c .pio/build/adafruit_feather_f405/src/usbd_conf.o
-                0x0000000008004964                USBD_LL_CloseEP
+                0x0000000008004c54       0x1c .pio/build/adafruit_feather_f405/src/usbd_conf.o
+                0x0000000008004c54                USBD_LL_CloseEP
  .text.USBD_LL_StallEP
-                0x0000000008004980       0x1c .pio/build/adafruit_feather_f405/src/usbd_conf.o
-                0x0000000008004980                USBD_LL_StallEP
+                0x0000000008004c70       0x1c .pio/build/adafruit_feather_f405/src/usbd_conf.o
+                0x0000000008004c70                USBD_LL_StallEP
  .text.USBD_LL_ClearStallEP
-                0x000000000800499c       0x1c .pio/build/adafruit_feather_f405/src/usbd_conf.o
-                0x000000000800499c                USBD_LL_ClearStallEP
+                0x0000000008004c8c       0x1c .pio/build/adafruit_feather_f405/src/usbd_conf.o
+                0x0000000008004c8c                USBD_LL_ClearStallEP
  .text.USBD_LL_IsStallEP
-                0x00000000080049b8       0x26 .pio/build/adafruit_feather_f405/src/usbd_conf.o
-                0x00000000080049b8                USBD_LL_IsStallEP
- *fill*         0x00000000080049de        0x2 
+                0x0000000008004ca8       0x26 .pio/build/adafruit_feather_f405/src/usbd_conf.o
+                0x0000000008004ca8                USBD_LL_IsStallEP
+ *fill*         0x0000000008004cce        0x2 
  .text.USBD_LL_SetUSBAddress
-                0x00000000080049e0       0x1c .pio/build/adafruit_feather_f405/src/usbd_conf.o
-                0x00000000080049e0                USBD_LL_SetUSBAddress
+                0x0000000008004cd0       0x1c .pio/build/adafruit_feather_f405/src/usbd_conf.o
+                0x0000000008004cd0                USBD_LL_SetUSBAddress
  .text.USBD_LL_Transmit
-                0x00000000080049fc       0x1c .pio/build/adafruit_feather_f405/src/usbd_conf.o
-                0x00000000080049fc                USBD_LL_Transmit
+                0x0000000008004cec       0x1c .pio/build/adafruit_feather_f405/src/usbd_conf.o
+                0x0000000008004cec                USBD_LL_Transmit
  .text.USBD_LL_PrepareReceive
-                0x0000000008004a18       0x1c .pio/build/adafruit_feather_f405/src/usbd_conf.o
-                0x0000000008004a18                USBD_LL_PrepareReceive
+                0x0000000008004d08       0x1c .pio/build/adafruit_feather_f405/src/usbd_conf.o
+                0x0000000008004d08                USBD_LL_PrepareReceive
  .text.USBD_LL_GetRxDataSize
-                0x0000000008004a34        0x8 .pio/build/adafruit_feather_f405/src/usbd_conf.o
-                0x0000000008004a34                USBD_LL_GetRxDataSize
+                0x0000000008004d24        0x8 .pio/build/adafruit_feather_f405/src/usbd_conf.o
+                0x0000000008004d24                USBD_LL_GetRxDataSize
  .text.USBD_static_malloc
-                0x0000000008004a3c        0x8 .pio/build/adafruit_feather_f405/src/usbd_conf.o
-                0x0000000008004a3c                USBD_static_malloc
+                0x0000000008004d2c        0x8 .pio/build/adafruit_feather_f405/src/usbd_conf.o
+                0x0000000008004d2c                USBD_static_malloc
  .text.USBD_static_free
-                0x0000000008004a44        0x2 .pio/build/adafruit_feather_f405/src/usbd_conf.o
-                0x0000000008004a44                USBD_static_free
- *fill*         0x0000000008004a46        0x2 
+                0x0000000008004d34        0x2 .pio/build/adafruit_feather_f405/src/usbd_conf.o
+                0x0000000008004d34                USBD_static_free
+ *fill*         0x0000000008004d36        0x2 
  .text.USBD_FS_DeviceDescriptor
-                0x0000000008004a48        0xc .pio/build/adafruit_feather_f405/src/usbd_desc.o
-                0x0000000008004a48                USBD_FS_DeviceDescriptor
+                0x0000000008004d38        0xc .pio/build/adafruit_feather_f405/src/usbd_desc.o
+                0x0000000008004d38                USBD_FS_DeviceDescriptor
  .text.USBD_FS_LangIDStrDescriptor
-                0x0000000008004a54        0xc .pio/build/adafruit_feather_f405/src/usbd_desc.o
-                0x0000000008004a54                USBD_FS_LangIDStrDescriptor
+                0x0000000008004d44        0xc .pio/build/adafruit_feather_f405/src/usbd_desc.o
+                0x0000000008004d44                USBD_FS_LangIDStrDescriptor
  .text.IntToUnicode
-                0x0000000008004a60       0x2a .pio/build/adafruit_feather_f405/src/usbd_desc.o
- *fill*         0x0000000008004a8a        0x2 
+                0x0000000008004d50       0x2a .pio/build/adafruit_feather_f405/src/usbd_desc.o
+ *fill*         0x0000000008004d7a        0x2 
  .text.USBD_FS_SerialStrDescriptor
-                0x0000000008004a8c       0x40 .pio/build/adafruit_feather_f405/src/usbd_desc.o
-                0x0000000008004a8c                USBD_FS_SerialStrDescriptor
+                0x0000000008004d7c       0x40 .pio/build/adafruit_feather_f405/src/usbd_desc.o
+                0x0000000008004d7c                USBD_FS_SerialStrDescriptor
  .text.USBD_FS_ManufacturerStrDescriptor
-                0x0000000008004acc       0x1c .pio/build/adafruit_feather_f405/src/usbd_desc.o
-                0x0000000008004acc                USBD_FS_ManufacturerStrDescriptor
+                0x0000000008004dbc       0x1c .pio/build/adafruit_feather_f405/src/usbd_desc.o
+                0x0000000008004dbc                USBD_FS_ManufacturerStrDescriptor
  .text.USBD_FS_ProductStrDescriptor
-                0x0000000008004ae8       0x1c .pio/build/adafruit_feather_f405/src/usbd_desc.o
-                0x0000000008004ae8                USBD_FS_ProductStrDescriptor
+                0x0000000008004dd8       0x1c .pio/build/adafruit_feather_f405/src/usbd_desc.o
+                0x0000000008004dd8                USBD_FS_ProductStrDescriptor
  .text.USBD_FS_ConfigStrDescriptor
-                0x0000000008004b04       0x1c .pio/build/adafruit_feather_f405/src/usbd_desc.o
-                0x0000000008004b04                USBD_FS_ConfigStrDescriptor
+                0x0000000008004df4       0x1c .pio/build/adafruit_feather_f405/src/usbd_desc.o
+                0x0000000008004df4                USBD_FS_ConfigStrDescriptor
  .text.USBD_FS_InterfaceStrDescriptor
-                0x0000000008004b20       0x1c .pio/build/adafruit_feather_f405/src/usbd_desc.o
-                0x0000000008004b20                USBD_FS_InterfaceStrDescriptor
- .text.Wheel    0x0000000008004b3c       0x42 .pio/build/adafruit_feather_f405/src/viseffect/visEffect.o
-                0x0000000008004b3c                Wheel
- *fill*         0x0000000008004b7e        0x2 
+                0x0000000008004e10       0x1c .pio/build/adafruit_feather_f405/src/usbd_desc.o
+                0x0000000008004e10                USBD_FS_InterfaceStrDescriptor
+ .text.Wheel    0x0000000008004e2c       0x42 .pio/build/adafruit_feather_f405/src/viseffect/visEffect.o
+                0x0000000008004e2c                Wheel
+ *fill*         0x0000000008004e6e        0x2 
  .text.visRainbow
-                0x0000000008004b80       0x48 .pio/build/adafruit_feather_f405/src/viseffect/visEffect.o
-                0x0000000008004b80                visRainbow
- .text.visDots  0x0000000008004bc8       0x7e .pio/build/adafruit_feather_f405/src/viseffect/visEffect.o
-                0x0000000008004bc8                visDots
- *fill*         0x0000000008004c46        0x2 
+                0x0000000008004e70       0x48 .pio/build/adafruit_feather_f405/src/viseffect/visEffect.o
+                0x0000000008004e70                visRainbow
+ .text.visDots  0x0000000008004eb8       0x7e .pio/build/adafruit_feather_f405/src/viseffect/visEffect.o
+                0x0000000008004eb8                visDots
+ *fill*         0x0000000008004f36        0x2 
  .text.visHandle2
-                0x0000000008004c48       0x40 .pio/build/adafruit_feather_f405/src/viseffect/visEffect.o
-                0x0000000008004c48                visHandle2
- .text.visInit  0x0000000008004c88       0x3c .pio/build/adafruit_feather_f405/src/viseffect/visEffect.o
-                0x0000000008004c88                visInit
+                0x0000000008004f38       0x40 .pio/build/adafruit_feather_f405/src/viseffect/visEffect.o
+                0x0000000008004f38                visHandle2
+ .text.visInit  0x0000000008004f78       0x3c .pio/build/adafruit_feather_f405/src/viseffect/visEffect.o
+                0x0000000008004f78                visInit
  .text.visHandle
-                0x0000000008004cc4       0x24 .pio/build/adafruit_feather_f405/src/viseffect/visEffect.o
-                0x0000000008004cc4                visHandle
+                0x0000000008004fb4       0x24 .pio/build/adafruit_feather_f405/src/viseffect/visEffect.o
+                0x0000000008004fb4                visHandle
  .text.DMA_TransferError
-                0x0000000008004ce8       0x10 .pio/build/adafruit_feather_f405/src/ws2812b/src/ws2812b.o
-                0x0000000008004ce8                DMA_TransferError
+                0x0000000008004fd8       0x10 .pio/build/adafruit_feather_f405/src/ws2812b/src/ws2812b.o
+                0x0000000008004fd8                DMA_TransferError
  .text.ws2812b_set_pixel
-                0x0000000008004cf8       0xbc .pio/build/adafruit_feather_f405/src/ws2812b/src/ws2812b.o
+                0x0000000008004fe8       0xbc .pio/build/adafruit_feather_f405/src/ws2812b/src/ws2812b.o
  .text.loadNextFramebufferData
-                0x0000000008004db4       0x30 .pio/build/adafruit_feather_f405/src/ws2812b/src/ws2812b.o
+                0x00000000080050a4       0x30 .pio/build/adafruit_feather_f405/src/ws2812b/src/ws2812b.o
  .text.DMA_TransferCompleteHandler
-                0x0000000008004de4       0xec .pio/build/adafruit_feather_f405/src/ws2812b/src/ws2812b.o
-                0x0000000008004de4                DMA_TransferCompleteHandler
+                0x00000000080050d4       0xec .pio/build/adafruit_feather_f405/src/ws2812b/src/ws2812b.o
+                0x00000000080050d4                DMA_TransferCompleteHandler
  .text.DMA_TransferHalfHandler
-                0x0000000008004ed0       0x50 .pio/build/adafruit_feather_f405/src/ws2812b/src/ws2812b.o
-                0x0000000008004ed0                DMA_TransferHalfHandler
+                0x00000000080051c0       0x50 .pio/build/adafruit_feather_f405/src/ws2812b/src/ws2812b.o
+                0x00000000080051c0                DMA_TransferHalfHandler
  .text.DMA2_Stream2_IRQHandler
-                0x0000000008004f20       0x20 .pio/build/adafruit_feather_f405/src/ws2812b/src/ws2812b.o
-                0x0000000008004f20                DMA2_Stream2_IRQHandler
+                0x0000000008005210       0x20 .pio/build/adafruit_feather_f405/src/ws2812b/src/ws2812b.o
+                0x0000000008005210                DMA2_Stream2_IRQHandler
  .text.TIM1_UP_TIM10_IRQHandler
-                0x0000000008004f40       0x20 .pio/build/adafruit_feather_f405/src/ws2812b/src/ws2812b.o
-                0x0000000008004f40                TIM1_UP_TIM10_IRQHandler
+                0x0000000008005230       0x20 .pio/build/adafruit_feather_f405/src/ws2812b/src/ws2812b.o
+                0x0000000008005230                TIM1_UP_TIM10_IRQHandler
  .text.HAL_TIM_PeriodElapsedCallback
-                0x0000000008004f60       0x3c .pio/build/adafruit_feather_f405/src/ws2812b/src/ws2812b.o
-                0x0000000008004f60                HAL_TIM_PeriodElapsedCallback
+                0x0000000008005250       0x3c .pio/build/adafruit_feather_f405/src/ws2812b/src/ws2812b.o
+                0x0000000008005250                HAL_TIM_PeriodElapsedCallback
  .text.ws2812b_init
-                0x0000000008004f9c      0x2a8 .pio/build/adafruit_feather_f405/src/ws2812b/src/ws2812b.o
-                0x0000000008004f9c                ws2812b_init
+                0x000000000800528c      0x2a8 .pio/build/adafruit_feather_f405/src/ws2812b/src/ws2812b.o
+                0x000000000800528c                ws2812b_init
  .text.ws2812b_handle
-                0x0000000008005244      0x148 .pio/build/adafruit_feather_f405/src/ws2812b/src/ws2812b.o
-                0x0000000008005244                ws2812b_handle
+                0x0000000008005534      0x148 .pio/build/adafruit_feather_f405/src/ws2812b/src/ws2812b.o
+                0x0000000008005534                ws2812b_handle
  .text.USBD_Init
-                0x000000000800538c       0x26 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_core.o)
-                0x000000000800538c                USBD_Init
+                0x000000000800567c       0x26 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_core.o)
+                0x000000000800567c                USBD_Init
  .text.USBD_RegisterClass
-                0x00000000080053b2       0x2c .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_core.o)
-                0x00000000080053b2                USBD_RegisterClass
+                0x00000000080056a2       0x2c .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_core.o)
+                0x00000000080056a2                USBD_RegisterClass
  .text.USBD_Start
-                0x00000000080053de        0x4 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_core.o)
-                0x00000000080053de                USBD_Start
+                0x00000000080056ce        0x4 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_core.o)
+                0x00000000080056ce                USBD_Start
  .text.USBD_SetClassConfig
-                0x00000000080053e2        0xe .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_core.o)
-                0x00000000080053e2                USBD_SetClassConfig
+                0x00000000080056d2        0xe .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_core.o)
+                0x00000000080056d2                USBD_SetClassConfig
  .text.USBD_ClrClassConfig
-                0x00000000080053f0       0x10 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_core.o)
-                0x00000000080053f0                USBD_ClrClassConfig
+                0x00000000080056e0       0x10 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_core.o)
+                0x00000000080056e0                USBD_ClrClassConfig
  .text.USBD_LL_SetupStage
-                0x0000000008005400       0x60 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_core.o)
-                0x0000000008005400                USBD_LL_SetupStage
+                0x00000000080056f0       0x60 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_core.o)
+                0x00000000080056f0                USBD_LL_SetupStage
  .text.USBD_LL_DataOutStage
-                0x0000000008005460       0x64 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_core.o)
-                0x0000000008005460                USBD_LL_DataOutStage
+                0x0000000008005750       0x64 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_core.o)
+                0x0000000008005750                USBD_LL_DataOutStage
  .text.USBD_LL_DataInStage
-                0x00000000080054c4       0x9a .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_core.o)
-                0x00000000080054c4                USBD_LL_DataInStage
+                0x00000000080057b4       0x9a .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_core.o)
+                0x00000000080057b4                USBD_LL_DataInStage
  .text.USBD_LL_Reset
-                0x000000000800555e       0x58 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_core.o)
-                0x000000000800555e                USBD_LL_Reset
+                0x000000000800584e       0x58 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_core.o)
+                0x000000000800584e                USBD_LL_Reset
  .text.USBD_LL_SetSpeed
-                0x00000000080055b6        0x6 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_core.o)
-                0x00000000080055b6                USBD_LL_SetSpeed
+                0x00000000080058a6        0x6 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_core.o)
+                0x00000000080058a6                USBD_LL_SetSpeed
  .text.USBD_LL_Suspend
-                0x00000000080055bc       0x14 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_core.o)
-                0x00000000080055bc                USBD_LL_Suspend
+                0x00000000080058ac       0x14 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_core.o)
+                0x00000000080058ac                USBD_LL_Suspend
  .text.USBD_LL_Resume
-                0x00000000080055d0       0x16 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_core.o)
-                0x00000000080055d0                USBD_LL_Resume
+                0x00000000080058c0       0x16 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_core.o)
+                0x00000000080058c0                USBD_LL_Resume
  .text.USBD_LL_SOF
-                0x00000000080055e6       0x22 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_core.o)
-                0x00000000080055e6                USBD_LL_SOF
+                0x00000000080058d6       0x22 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_core.o)
+                0x00000000080058d6                USBD_LL_SOF
  .text.USBD_LL_IsoINIncomplete
-                0x0000000008005608       0x22 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_core.o)
-                0x0000000008005608                USBD_LL_IsoINIncomplete
+                0x00000000080058f8       0x22 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_core.o)
+                0x00000000080058f8                USBD_LL_IsoINIncomplete
  .text.USBD_LL_IsoOUTIncomplete
-                0x000000000800562a       0x22 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_core.o)
-                0x000000000800562a                USBD_LL_IsoOUTIncomplete
+                0x000000000800591a       0x22 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_core.o)
+                0x000000000800591a                USBD_LL_IsoOUTIncomplete
  .text.USBD_LL_DevConnected
-                0x000000000800564c        0x4 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_core.o)
-                0x000000000800564c                USBD_LL_DevConnected
+                0x000000000800593c        0x4 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_core.o)
+                0x000000000800593c                USBD_LL_DevConnected
  .text.USBD_LL_DevDisconnected
-                0x0000000008005650       0x18 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_core.o)
-                0x0000000008005650                USBD_LL_DevDisconnected
+                0x0000000008005940       0x18 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_core.o)
+                0x0000000008005940                USBD_LL_DevDisconnected
  .text.USBD_CtlError.constprop.1
-                0x0000000008005668       0x16 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_ctlreq.o)
- *fill*         0x000000000800567e        0x2 
+                0x0000000008005958       0x16 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_ctlreq.o)
+ *fill*         0x000000000800596e        0x2 
  .text.USBD_StdDevReq
-                0x0000000008005680      0x288 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_ctlreq.o)
-                0x0000000008005680                USBD_StdDevReq
+                0x0000000008005970      0x288 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_ctlreq.o)
+                0x0000000008005970                USBD_StdDevReq
  .text.USBD_StdItfReq
-                0x0000000008005908       0x4e .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_ctlreq.o)
-                0x0000000008005908                USBD_StdItfReq
+                0x0000000008005bf8       0x4e .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_ctlreq.o)
+                0x0000000008005bf8                USBD_StdItfReq
  .text.USBD_StdEPReq
-                0x0000000008005956      0x11a .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_ctlreq.o)
-                0x0000000008005956                USBD_StdEPReq
+                0x0000000008005c46      0x11a .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_ctlreq.o)
+                0x0000000008005c46                USBD_StdEPReq
  .text.USBD_ParseSetupRequest
-                0x0000000008005a70       0x28 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_ctlreq.o)
-                0x0000000008005a70                USBD_ParseSetupRequest
+                0x0000000008005d60       0x28 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_ctlreq.o)
+                0x0000000008005d60                USBD_ParseSetupRequest
  .text.USBD_CtlError
-                0x0000000008005a98       0x16 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_ctlreq.o)
-                0x0000000008005a98                USBD_CtlError
+                0x0000000008005d88       0x16 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_ctlreq.o)
+                0x0000000008005d88                USBD_CtlError
  .text.USBD_GetString
-                0x0000000008005aae       0x38 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_ctlreq.o)
-                0x0000000008005aae                USBD_GetString
+                0x0000000008005d9e       0x38 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_ctlreq.o)
+                0x0000000008005d9e                USBD_GetString
  .text.USBD_CtlSendData
-                0x0000000008005ae6       0x1a .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_ioreq.o)
-                0x0000000008005ae6                USBD_CtlSendData
+                0x0000000008005dd6       0x1a .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_ioreq.o)
+                0x0000000008005dd6                USBD_CtlSendData
  .text.USBD_CtlContinueSendData
-                0x0000000008005b00       0x10 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_ioreq.o)
-                0x0000000008005b00                USBD_CtlContinueSendData
+                0x0000000008005df0       0x10 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_ioreq.o)
+                0x0000000008005df0                USBD_CtlContinueSendData
  .text.USBD_CtlPrepareRx
-                0x0000000008005b10       0x1e .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_ioreq.o)
-                0x0000000008005b10                USBD_CtlPrepareRx
+                0x0000000008005e00       0x1e .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_ioreq.o)
+                0x0000000008005e00                USBD_CtlPrepareRx
  .text.USBD_CtlContinueRx
-                0x0000000008005b2e       0x10 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_ioreq.o)
-                0x0000000008005b2e                USBD_CtlContinueRx
+                0x0000000008005e1e       0x10 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_ioreq.o)
+                0x0000000008005e1e                USBD_CtlContinueRx
  .text.USBD_CtlSendStatus
-                0x0000000008005b3e       0x16 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_ioreq.o)
-                0x0000000008005b3e                USBD_CtlSendStatus
+                0x0000000008005e2e       0x16 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_ioreq.o)
+                0x0000000008005e2e                USBD_CtlSendStatus
  .text.USBD_CtlReceiveStatus
-                0x0000000008005b54       0x16 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_ioreq.o)
-                0x0000000008005b54                USBD_CtlReceiveStatus
+                0x0000000008005e44       0x16 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_ioreq.o)
+                0x0000000008005e44                USBD_CtlReceiveStatus
  .text.USBD_CDC_EP0_RxReady
-                0x0000000008005b6a       0x2e .pio/build/adafruit_feather_f405/lib5fe/libCDC.a(usbd_cdc.o)
+                0x0000000008005e5a       0x2e .pio/build/adafruit_feather_f405/lib5fe/libCDC.a(usbd_cdc.o)
  .text.USBD_CDC_GetFSCfgDesc
-                0x0000000008005b98        0xc .pio/build/adafruit_feather_f405/lib5fe/libCDC.a(usbd_cdc.o)
+                0x0000000008005e88        0xc .pio/build/adafruit_feather_f405/lib5fe/libCDC.a(usbd_cdc.o)
  .text.USBD_CDC_GetHSCfgDesc
-                0x0000000008005ba4        0xc .pio/build/adafruit_feather_f405/lib5fe/libCDC.a(usbd_cdc.o)
+                0x0000000008005e94        0xc .pio/build/adafruit_feather_f405/lib5fe/libCDC.a(usbd_cdc.o)
  .text.USBD_CDC_GetOtherSpeedCfgDesc
-                0x0000000008005bb0        0xc .pio/build/adafruit_feather_f405/lib5fe/libCDC.a(usbd_cdc.o)
+                0x0000000008005ea0        0xc .pio/build/adafruit_feather_f405/lib5fe/libCDC.a(usbd_cdc.o)
  .text.USBD_CDC_GetDeviceQualifierDescriptor
-                0x0000000008005bbc        0xc .pio/build/adafruit_feather_f405/lib5fe/libCDC.a(usbd_cdc.o)
-                0x0000000008005bbc                USBD_CDC_GetDeviceQualifierDescriptor
+                0x0000000008005eac        0xc .pio/build/adafruit_feather_f405/lib5fe/libCDC.a(usbd_cdc.o)
+                0x0000000008005eac                USBD_CDC_GetDeviceQualifierDescriptor
  .text.USBD_CDC_DataOut
-                0x0000000008005bc8       0x2a .pio/build/adafruit_feather_f405/lib5fe/libCDC.a(usbd_cdc.o)
+                0x0000000008005eb8       0x2a .pio/build/adafruit_feather_f405/lib5fe/libCDC.a(usbd_cdc.o)
  .text.USBD_CDC_DataIn
-                0x0000000008005bf2       0x60 .pio/build/adafruit_feather_f405/lib5fe/libCDC.a(usbd_cdc.o)
- *fill*         0x0000000008005c52        0x2 
+                0x0000000008005ee2       0x60 .pio/build/adafruit_feather_f405/lib5fe/libCDC.a(usbd_cdc.o)
+ *fill*         0x0000000008005f42        0x2 
  .text.USBD_CDC_Setup
-                0x0000000008005c54       0xec .pio/build/adafruit_feather_f405/lib5fe/libCDC.a(usbd_cdc.o)
+                0x0000000008005f44       0xec .pio/build/adafruit_feather_f405/lib5fe/libCDC.a(usbd_cdc.o)
  .text.USBD_CDC_DeInit
-                0x0000000008005d40       0x42 .pio/build/adafruit_feather_f405/lib5fe/libCDC.a(usbd_cdc.o)
+                0x0000000008006030       0x42 .pio/build/adafruit_feather_f405/lib5fe/libCDC.a(usbd_cdc.o)
  .text.USBD_CDC_Init
-                0x0000000008005d82       0xb2 .pio/build/adafruit_feather_f405/lib5fe/libCDC.a(usbd_cdc.o)
+                0x0000000008006072       0xb2 .pio/build/adafruit_feather_f405/lib5fe/libCDC.a(usbd_cdc.o)
  .text.USBD_CDC_RegisterInterface
-                0x0000000008005e34        0xe .pio/build/adafruit_feather_f405/lib5fe/libCDC.a(usbd_cdc.o)
-                0x0000000008005e34                USBD_CDC_RegisterInterface
+                0x0000000008006124        0xe .pio/build/adafruit_feather_f405/lib5fe/libCDC.a(usbd_cdc.o)
+                0x0000000008006124                USBD_CDC_RegisterInterface
  .text.USBD_CDC_SetTxBuffer
-                0x0000000008005e42       0x16 .pio/build/adafruit_feather_f405/lib5fe/libCDC.a(usbd_cdc.o)
-                0x0000000008005e42                USBD_CDC_SetTxBuffer
+                0x0000000008006132       0x16 .pio/build/adafruit_feather_f405/lib5fe/libCDC.a(usbd_cdc.o)
+                0x0000000008006132                USBD_CDC_SetTxBuffer
  .text.USBD_CDC_SetRxBuffer
-                0x0000000008005e58       0x12 .pio/build/adafruit_feather_f405/lib5fe/libCDC.a(usbd_cdc.o)
-                0x0000000008005e58                USBD_CDC_SetRxBuffer
+                0x0000000008006148       0x12 .pio/build/adafruit_feather_f405/lib5fe/libCDC.a(usbd_cdc.o)
+                0x0000000008006148                USBD_CDC_SetRxBuffer
  .text.USBD_CDC_TransmitPacket
-                0x0000000008005e6a       0x30 .pio/build/adafruit_feather_f405/lib5fe/libCDC.a(usbd_cdc.o)
-                0x0000000008005e6a                USBD_CDC_TransmitPacket
+                0x000000000800615a       0x30 .pio/build/adafruit_feather_f405/lib5fe/libCDC.a(usbd_cdc.o)
+                0x000000000800615a                USBD_CDC_TransmitPacket
  .text.USBD_CDC_ReceivePacket
-                0x0000000008005e9a       0x26 .pio/build/adafruit_feather_f405/lib5fe/libCDC.a(usbd_cdc.o)
-                0x0000000008005e9a                USBD_CDC_ReceivePacket
+                0x000000000800618a       0x26 .pio/build/adafruit_feather_f405/lib5fe/libCDC.a(usbd_cdc.o)
+                0x000000000800618a                USBD_CDC_ReceivePacket
  .text.__libc_init_array
-                0x0000000008005ec0       0x48 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-init.o)
-                0x0000000008005ec0                __libc_init_array
- .text.memset   0x0000000008005f08       0x10 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-memset.o)
-                0x0000000008005f08                memset
- .text.rand     0x0000000008005f18       0x68 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-rand.o)
-                0x0000000008005f18                rand
- .text.sprintf  0x0000000008005f80       0x40 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-sprintf.o)
-                0x0000000008005f80                sprintf
-                0x0000000008005f80                siprintf
- .text.malloc   0x0000000008005fc0       0x10 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-malloc.o)
-                0x0000000008005fc0                malloc
- .text._free_r  0x0000000008005fd0       0x9c /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-freer.o)
-                0x0000000008005fd0                _free_r
+                0x00000000080061b0       0x48 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-init.o)
+                0x00000000080061b0                __libc_init_array
+ .text.memset   0x00000000080061f8       0x10 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-memset.o)
+                0x00000000080061f8                memset
+ .text.rand     0x0000000008006208       0x68 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-rand.o)
+                0x0000000008006208                rand
+ .text.sprintf  0x0000000008006270       0x40 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-sprintf.o)
+                0x0000000008006270                sprintf
+                0x0000000008006270                siprintf
+ .text.malloc   0x00000000080062b0       0x10 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-malloc.o)
+                0x00000000080062b0                malloc
+ .text._free_r  0x00000000080062c0       0x9c /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-freer.o)
+                0x00000000080062c0                _free_r
  .text._malloc_r
-                0x000000000800606c       0xb4 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-mallocr.o)
-                0x000000000800606c                _malloc_r
+                0x000000000800635c       0xb4 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-mallocr.o)
+                0x000000000800635c                _malloc_r
  .text.__ssputs_r
-                0x0000000008006120       0xb4 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-svfprintf.o)
-                0x0000000008006120                __ssputs_r
+                0x0000000008006410       0xb4 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-svfprintf.o)
+                0x0000000008006410                __ssputs_r
  .text._svfprintf_r
-                0x00000000080061d4      0x1ec /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-svfprintf.o)
-                0x00000000080061d4                _svfprintf_r
-                0x00000000080061d4                _svfiprintf_r
+                0x00000000080064c4      0x1ec /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-svfprintf.o)
+                0x00000000080064c4                _svfprintf_r
+                0x00000000080064c4                _svfiprintf_r
  .text._printf_common
-                0x00000000080063c0       0xea /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-vfprintf_i.o)
-                0x00000000080063c0                _printf_common
- *fill*         0x00000000080064aa        0x2 
+                0x00000000080066b0       0xea /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-vfprintf_i.o)
+                0x00000000080066b0                _printf_common
+ *fill*         0x000000000800679a        0x2 
  .text._printf_i
-                0x00000000080064ac      0x224 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-vfprintf_i.o)
-                0x00000000080064ac                _printf_i
- .text._sbrk_r  0x00000000080066d0       0x20 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-sbrkr.o)
-                0x00000000080066d0                _sbrk_r
- .text.memcpy   0x00000000080066f0       0x16 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-memcpy-stub.o)
-                0x00000000080066f0                memcpy
- .text.memmove  0x0000000008006706       0x32 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-memmove.o)
-                0x0000000008006706                memmove
+                0x000000000800679c      0x224 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-vfprintf_i.o)
+                0x000000000800679c                _printf_i
+ .text._sbrk_r  0x00000000080069c0       0x20 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-sbrkr.o)
+                0x00000000080069c0                _sbrk_r
+ .text.memcpy   0x00000000080069e0       0x16 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-memcpy-stub.o)
+                0x00000000080069e0                memcpy
+ .text.memmove  0x00000000080069f6       0x32 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-memmove.o)
+                0x00000000080069f6                memmove
  .text.__malloc_lock
-                0x0000000008006738        0x2 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-mlock.o)
-                0x0000000008006738                __malloc_lock
+                0x0000000008006a28        0x2 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-mlock.o)
+                0x0000000008006a28                __malloc_lock
  .text.__malloc_unlock
-                0x000000000800673a        0x2 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-mlock.o)
-                0x000000000800673a                __malloc_unlock
+                0x0000000008006a2a        0x2 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-mlock.o)
+                0x0000000008006a2a                __malloc_unlock
  .text._realloc_r
-                0x000000000800673c       0x4c /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-reallocr.o)
-                0x000000000800673c                _realloc_r
+                0x0000000008006a2c       0x4c /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-reallocr.o)
+                0x0000000008006a2c                _realloc_r
  .text._malloc_usable_size_r
-                0x0000000008006788       0x10 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-msizer.o)
-                0x0000000008006788                _malloc_usable_size_r
- .text._sbrk    0x0000000008006798       0x1c /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libnosys.a(sbrk.o)
-                0x0000000008006798                _sbrk
+                0x0000000008006a78       0x10 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-msizer.o)
+                0x0000000008006a78                _malloc_usable_size_r
+ .text._sbrk    0x0000000008006a88       0x1c /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libnosys.a(sbrk.o)
+                0x0000000008006a88                _sbrk
  .text.Reset_Handler
-                0x00000000080067b4       0x50 .pio/build/adafruit_feather_f405/libFrameworkCMSISDevice.a(startup_stm32f405xx.o)
-                0x00000000080067b4                Reset_Handler
+                0x0000000008006aa4       0x50 .pio/build/adafruit_feather_f405/libFrameworkCMSISDevice.a(startup_stm32f405xx.o)
+                0x0000000008006aa4                Reset_Handler
  .text.Default_Handler
-                0x0000000008006804        0x2 .pio/build/adafruit_feather_f405/libFrameworkCMSISDevice.a(startup_stm32f405xx.o)
-                0x0000000008006804                DMA1_Stream3_IRQHandler
-                0x0000000008006804                HASH_RNG_IRQHandler
-                0x0000000008006804                EXTI2_IRQHandler
-                0x0000000008006804                TIM8_CC_IRQHandler
-                0x0000000008006804                TIM1_CC_IRQHandler
-                0x0000000008006804                DMA2_Stream5_IRQHandler
-                0x0000000008006804                DMA1_Stream5_IRQHandler
-                0x0000000008006804                PVD_IRQHandler
-                0x0000000008006804                SDIO_IRQHandler
-                0x0000000008006804                TAMP_STAMP_IRQHandler
-                0x0000000008006804                CAN2_RX1_IRQHandler
-                0x0000000008006804                EXTI3_IRQHandler
-                0x0000000008006804                TIM8_TRG_COM_TIM14_IRQHandler
-                0x0000000008006804                TIM8_UP_TIM13_IRQHandler
-                0x0000000008006804                I2C3_ER_IRQHandler
-                0x0000000008006804                EXTI0_IRQHandler
-                0x0000000008006804                I2C2_EV_IRQHandler
-                0x0000000008006804                DMA1_Stream2_IRQHandler
-                0x0000000008006804                CAN1_RX0_IRQHandler
-                0x0000000008006804                FPU_IRQHandler
-                0x0000000008006804                OTG_HS_WKUP_IRQHandler
-                0x0000000008006804                CAN2_SCE_IRQHandler
-                0x0000000008006804                SPI1_IRQHandler
-                0x0000000008006804                TIM6_DAC_IRQHandler
-                0x0000000008006804                TIM1_BRK_TIM9_IRQHandler
-                0x0000000008006804                CAN2_RX0_IRQHandler
-                0x0000000008006804                DMA2_Stream3_IRQHandler
-                0x0000000008006804                USART6_IRQHandler
-                0x0000000008006804                USART3_IRQHandler
-                0x0000000008006804                CAN1_RX1_IRQHandler
-                0x0000000008006804                UART5_IRQHandler
-                0x0000000008006804                DMA2_Stream0_IRQHandler
-                0x0000000008006804                TIM4_IRQHandler
-                0x0000000008006804                I2C1_EV_IRQHandler
-                0x0000000008006804                DMA1_Stream6_IRQHandler
-                0x0000000008006804                DMA1_Stream1_IRQHandler
-                0x0000000008006804                UART4_IRQHandler
-                0x0000000008006804                TIM3_IRQHandler
-                0x0000000008006804                RCC_IRQHandler
-                0x0000000008006804                TIM8_BRK_TIM12_IRQHandler
-                0x0000000008006804                Default_Handler
-                0x0000000008006804                EXTI15_10_IRQHandler
-                0x0000000008006804                ADC_IRQHandler
-                0x0000000008006804                DMA1_Stream7_IRQHandler
-                0x0000000008006804                TIM7_IRQHandler
-                0x0000000008006804                CAN2_TX_IRQHandler
-                0x0000000008006804                TIM5_IRQHandler
-                0x0000000008006804                DMA2_Stream7_IRQHandler
-                0x0000000008006804                I2C3_EV_IRQHandler
-                0x0000000008006804                EXTI9_5_IRQHandler
-                0x0000000008006804                RTC_WKUP_IRQHandler
-                0x0000000008006804                SPI2_IRQHandler
-                0x0000000008006804                OTG_HS_EP1_IN_IRQHandler
-                0x0000000008006804                DMA1_Stream0_IRQHandler
-                0x0000000008006804                CAN1_TX_IRQHandler
-                0x0000000008006804                EXTI4_IRQHandler
-                0x0000000008006804                FSMC_IRQHandler
-                0x0000000008006804                OTG_HS_EP1_OUT_IRQHandler
-                0x0000000008006804                WWDG_IRQHandler
-                0x0000000008006804                TIM2_IRQHandler
-                0x0000000008006804                OTG_FS_WKUP_IRQHandler
-                0x0000000008006804                TIM1_TRG_COM_TIM11_IRQHandler
-                0x0000000008006804                OTG_HS_IRQHandler
-                0x0000000008006804                EXTI1_IRQHandler
-                0x0000000008006804                USART2_IRQHandler
-                0x0000000008006804                I2C2_ER_IRQHandler
-                0x0000000008006804                DMA2_Stream1_IRQHandler
-                0x0000000008006804                CAN1_SCE_IRQHandler
-                0x0000000008006804                FLASH_IRQHandler
-                0x0000000008006804                DMA2_Stream4_IRQHandler
-                0x0000000008006804                USART1_IRQHandler
-                0x0000000008006804                SPI3_IRQHandler
-                0x0000000008006804                DMA1_Stream4_IRQHandler
-                0x0000000008006804                I2C1_ER_IRQHandler
-                0x0000000008006804                DMA2_Stream6_IRQHandler
-                0x0000000008006804                RTC_Alarm_IRQHandler
- *fill*         0x0000000008006806        0x2 
+                0x0000000008006af4        0x2 .pio/build/adafruit_feather_f405/libFrameworkCMSISDevice.a(startup_stm32f405xx.o)
+                0x0000000008006af4                DMA1_Stream3_IRQHandler
+                0x0000000008006af4                HASH_RNG_IRQHandler
+                0x0000000008006af4                EXTI2_IRQHandler
+                0x0000000008006af4                TIM8_CC_IRQHandler
+                0x0000000008006af4                TIM1_CC_IRQHandler
+                0x0000000008006af4                DMA2_Stream5_IRQHandler
+                0x0000000008006af4                DMA1_Stream5_IRQHandler
+                0x0000000008006af4                PVD_IRQHandler
+                0x0000000008006af4                SDIO_IRQHandler
+                0x0000000008006af4                TAMP_STAMP_IRQHandler
+                0x0000000008006af4                CAN2_RX1_IRQHandler
+                0x0000000008006af4                EXTI3_IRQHandler
+                0x0000000008006af4                TIM8_TRG_COM_TIM14_IRQHandler
+                0x0000000008006af4                TIM8_UP_TIM13_IRQHandler
+                0x0000000008006af4                I2C3_ER_IRQHandler
+                0x0000000008006af4                EXTI0_IRQHandler
+                0x0000000008006af4                I2C2_EV_IRQHandler
+                0x0000000008006af4                DMA1_Stream2_IRQHandler
+                0x0000000008006af4                CAN1_RX0_IRQHandler
+                0x0000000008006af4                FPU_IRQHandler
+                0x0000000008006af4                OTG_HS_WKUP_IRQHandler
+                0x0000000008006af4                CAN2_SCE_IRQHandler
+                0x0000000008006af4                SPI1_IRQHandler
+                0x0000000008006af4                TIM6_DAC_IRQHandler
+                0x0000000008006af4                TIM1_BRK_TIM9_IRQHandler
+                0x0000000008006af4                CAN2_RX0_IRQHandler
+                0x0000000008006af4                DMA2_Stream3_IRQHandler
+                0x0000000008006af4                USART6_IRQHandler
+                0x0000000008006af4                USART3_IRQHandler
+                0x0000000008006af4                CAN1_RX1_IRQHandler
+                0x0000000008006af4                UART5_IRQHandler
+                0x0000000008006af4                DMA2_Stream0_IRQHandler
+                0x0000000008006af4                TIM4_IRQHandler
+                0x0000000008006af4                I2C1_EV_IRQHandler
+                0x0000000008006af4                DMA1_Stream6_IRQHandler
+                0x0000000008006af4                DMA1_Stream1_IRQHandler
+                0x0000000008006af4                UART4_IRQHandler
+                0x0000000008006af4                TIM3_IRQHandler
+                0x0000000008006af4                RCC_IRQHandler
+                0x0000000008006af4                TIM8_BRK_TIM12_IRQHandler
+                0x0000000008006af4                Default_Handler
+                0x0000000008006af4                EXTI15_10_IRQHandler
+                0x0000000008006af4                ADC_IRQHandler
+                0x0000000008006af4                DMA1_Stream7_IRQHandler
+                0x0000000008006af4                TIM7_IRQHandler
+                0x0000000008006af4                CAN2_TX_IRQHandler
+                0x0000000008006af4                TIM5_IRQHandler
+                0x0000000008006af4                DMA2_Stream7_IRQHandler
+                0x0000000008006af4                I2C3_EV_IRQHandler
+                0x0000000008006af4                EXTI9_5_IRQHandler
+                0x0000000008006af4                RTC_WKUP_IRQHandler
+                0x0000000008006af4                SPI2_IRQHandler
+                0x0000000008006af4                OTG_HS_EP1_IN_IRQHandler
+                0x0000000008006af4                DMA1_Stream0_IRQHandler
+                0x0000000008006af4                CAN1_TX_IRQHandler
+                0x0000000008006af4                EXTI4_IRQHandler
+                0x0000000008006af4                FSMC_IRQHandler
+                0x0000000008006af4                OTG_HS_EP1_OUT_IRQHandler
+                0x0000000008006af4                WWDG_IRQHandler
+                0x0000000008006af4                TIM2_IRQHandler
+                0x0000000008006af4                OTG_FS_WKUP_IRQHandler
+                0x0000000008006af4                TIM1_TRG_COM_TIM11_IRQHandler
+                0x0000000008006af4                OTG_HS_IRQHandler
+                0x0000000008006af4                EXTI1_IRQHandler
+                0x0000000008006af4                USART2_IRQHandler
+                0x0000000008006af4                I2C2_ER_IRQHandler
+                0x0000000008006af4                DMA2_Stream1_IRQHandler
+                0x0000000008006af4                CAN1_SCE_IRQHandler
+                0x0000000008006af4                FLASH_IRQHandler
+                0x0000000008006af4                DMA2_Stream4_IRQHandler
+                0x0000000008006af4                USART1_IRQHandler
+                0x0000000008006af4                SPI3_IRQHandler
+                0x0000000008006af4                DMA1_Stream4_IRQHandler
+                0x0000000008006af4                I2C1_ER_IRQHandler
+                0x0000000008006af4                DMA2_Stream6_IRQHandler
+                0x0000000008006af4                RTC_Alarm_IRQHandler
+ *fill*         0x0000000008006af6        0x2 
  .text.SystemInit
-                0x0000000008006808       0x14 .pio/build/adafruit_feather_f405/libFrameworkCMSISDevice.a(system_stm32f4xx.o)
-                0x0000000008006808                SystemInit
+                0x0000000008006af8       0x14 .pio/build/adafruit_feather_f405/libFrameworkCMSISDevice.a(system_stm32f4xx.o)
+                0x0000000008006af8                SystemInit
  *(.glue_7)
- .glue_7        0x000000000800681c        0x0 linker stubs
+ .glue_7        0x0000000008006b0c        0x0 linker stubs
  *(.glue_7t)
- .glue_7t       0x000000000800681c        0x0 linker stubs
+ .glue_7t       0x0000000008006b0c        0x0 linker stubs
  *(.eh_frame)
- .eh_frame      0x000000000800681c        0x0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+ .eh_frame      0x0000000008006b0c        0x0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
  *(.init)
- .init          0x000000000800681c        0x4 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crti.o
-                0x000000000800681c                _init
- .init          0x0000000008006820        0x8 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtn.o
+ .init          0x0000000008006b0c        0x4 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crti.o
+                0x0000000008006b0c                _init
+ .init          0x0000000008006b10        0x8 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtn.o
  *(.fini)
- .fini          0x0000000008006828        0x4 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crti.o
-                0x0000000008006828                _fini
- .fini          0x000000000800682c        0x8 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtn.o
-                0x0000000008006834                . = ALIGN (0x4)
-                0x0000000008006834                _etext = .
+ .fini          0x0000000008006b18        0x4 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crti.o
+                0x0000000008006b18                _fini
+ .fini          0x0000000008006b1c        0x8 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtn.o
+                0x0000000008006b24                . = ALIGN (0x4)
+                0x0000000008006b24                _etext = .
 
-.vfp11_veneer   0x0000000008006834        0x0
- .vfp11_veneer  0x0000000008006834        0x0 linker stubs
+.vfp11_veneer   0x0000000008006b24        0x0
+ .vfp11_veneer  0x0000000008006b24        0x0 linker stubs
 
-.v4_bx          0x0000000008006834        0x0
- .v4_bx         0x0000000008006834        0x0 linker stubs
+.v4_bx          0x0000000008006b24        0x0
+ .v4_bx         0x0000000008006b24        0x0 linker stubs
 
-.iplt           0x0000000008006834        0x0
- .iplt          0x0000000008006834        0x0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+.iplt           0x0000000008006b24        0x0
+ .iplt          0x0000000008006b24        0x0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
 
-.rodata         0x0000000008006834      0x1cc
-                0x0000000008006834                . = ALIGN (0x4)
+.rodata         0x0000000008006b24      0x1cc
+                0x0000000008006b24                . = ALIGN (0x4)
  *(.rodata)
  *(.rodata*)
  .rodata.flagBitshiftOffset.11582
-                0x0000000008006834        0x8 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_dma.o
+                0x0000000008006b24        0x8 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_dma.o
  .rodata.output_cdc_page.str1.1
-                0x000000000800683c        0xa .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
+                0x0000000008006b2c        0xa .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
  .rodata.str_hal_error
-                0x0000000008006846        0xb .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
+                0x0000000008006b36        0xb .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
  .rodata.str_hal_ok
-                0x0000000008006851        0x8 .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
+                0x0000000008006b41        0x8 .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
  .rodata.str_hal_error
-                0x0000000008006859        0xb .pio/build/adafruit_feather_f405/src/main.o
+                0x0000000008006b49        0xb .pio/build/adafruit_feather_f405/src/main.o
  .rodata.str_hal_ok
-                0x0000000008006864        0x8 .pio/build/adafruit_feather_f405/src/main.o
+                0x0000000008006b54        0x8 .pio/build/adafruit_feather_f405/src/main.o
  .rodata.CSWTCH.23
-                0x000000000800686c        0x4 .pio/build/adafruit_feather_f405/src/usbd_conf.o
+                0x0000000008006b5c        0x4 .pio/build/adafruit_feather_f405/src/usbd_conf.o
  .rodata.USBD_FS_ConfigStrDescriptor.str1.1
-                0x0000000008006870        0xb .pio/build/adafruit_feather_f405/src/usbd_desc.o
+                0x0000000008006b60        0xb .pio/build/adafruit_feather_f405/src/usbd_desc.o
  .rodata.USBD_FS_InterfaceStrDescriptor.str1.1
-                0x000000000800687b        0xe .pio/build/adafruit_feather_f405/src/usbd_desc.o
+                0x0000000008006b6b        0xe .pio/build/adafruit_feather_f405/src/usbd_desc.o
  .rodata.USBD_FS_ManufacturerStrDescriptor.str1.1
-                0x0000000008006889       0x13 .pio/build/adafruit_feather_f405/src/usbd_desc.o
+                0x0000000008006b79       0x13 .pio/build/adafruit_feather_f405/src/usbd_desc.o
  .rodata.USBD_FS_ProductStrDescriptor.str1.1
-                0x000000000800689c       0x16 .pio/build/adafruit_feather_f405/src/usbd_desc.o
+                0x0000000008006b8c       0x16 .pio/build/adafruit_feather_f405/src/usbd_desc.o
  .rodata.gammaTable
-                0x00000000080068b2      0x100 .pio/build/adafruit_feather_f405/src/ws2812b/src/ws2812b.o
-                0x00000000080068b2                gammaTable
+                0x0000000008006ba2      0x100 .pio/build/adafruit_feather_f405/src/ws2812b/src/ws2812b.o
+                0x0000000008006ba2                gammaTable
  .rodata._svfprintf_r.str1.1
-                0x00000000080069b2       0x11 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-svfprintf.o)
+                0x0000000008006ca2       0x11 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-svfprintf.o)
  .rodata._printf_i.str1.1
-                0x00000000080069c3       0x22 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-vfprintf_i.o)
+                0x0000000008006cb3       0x22 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-vfprintf_i.o)
  .rodata.AHBPrescTable
-                0x00000000080069e5       0x10 .pio/build/adafruit_feather_f405/libFrameworkCMSISDevice.a(system_stm32f4xx.o)
-                0x00000000080069e5                AHBPrescTable
+                0x0000000008006cd5       0x10 .pio/build/adafruit_feather_f405/libFrameworkCMSISDevice.a(system_stm32f4xx.o)
+                0x0000000008006cd5                AHBPrescTable
  .rodata.APBPrescTable
-                0x00000000080069f5        0x8 .pio/build/adafruit_feather_f405/libFrameworkCMSISDevice.a(system_stm32f4xx.o)
-                0x00000000080069f5                APBPrescTable
-                0x0000000008006a00                . = ALIGN (0x4)
- *fill*         0x00000000080069fd        0x3 
+                0x0000000008006ce5        0x8 .pio/build/adafruit_feather_f405/libFrameworkCMSISDevice.a(system_stm32f4xx.o)
+                0x0000000008006ce5                APBPrescTable
+                0x0000000008006cf0                . = ALIGN (0x4)
+ *fill*         0x0000000008006ced        0x3 
 
-.ARM.extab      0x0000000008006a00        0x0
-                0x0000000008006a00                . = ALIGN (0x4)
+.ARM.extab      0x0000000008006cf0        0x0
+                0x0000000008006cf0                . = ALIGN (0x4)
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x0000000008006a00                . = ALIGN (0x4)
+                0x0000000008006cf0                . = ALIGN (0x4)
 
-.ARM            0x0000000008006a00        0x8
-                0x0000000008006a00                . = ALIGN (0x4)
-                0x0000000008006a00                __exidx_start = .
+.ARM            0x0000000008006cf0        0x8
+                0x0000000008006cf0                . = ALIGN (0x4)
+                0x0000000008006cf0                __exidx_start = .
  *(.ARM.exidx*)
- .ARM.exidx     0x0000000008006a00        0x8 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/libgcc.a(_udivmoddi4.o)
-                0x0000000008006a08                __exidx_end = .
-                0x0000000008006a08                . = ALIGN (0x4)
+ .ARM.exidx     0x0000000008006cf0        0x8 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/libgcc.a(_udivmoddi4.o)
+                0x0000000008006cf8                __exidx_end = .
+                0x0000000008006cf8                . = ALIGN (0x4)
 
-.rel.dyn        0x0000000008006a08        0x0
- .rel.iplt      0x0000000008006a08        0x0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+.rel.dyn        0x0000000008006cf8        0x0
+ .rel.iplt      0x0000000008006cf8        0x0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
 
-.preinit_array  0x0000000008006a08        0x0
-                0x0000000008006a08                . = ALIGN (0x4)
-                0x0000000008006a08                PROVIDE (__preinit_array_start, .)
+.preinit_array  0x0000000008006cf8        0x0
+                0x0000000008006cf8                . = ALIGN (0x4)
+                0x0000000008006cf8                PROVIDE (__preinit_array_start, .)
  *(.preinit_array*)
-                0x0000000008006a08                PROVIDE (__preinit_array_end, .)
-                0x0000000008006a08                . = ALIGN (0x4)
+                0x0000000008006cf8                PROVIDE (__preinit_array_end, .)
+                0x0000000008006cf8                . = ALIGN (0x4)
 
-.init_array     0x0000000008006a08        0x4
-                0x0000000008006a08                . = ALIGN (0x4)
-                0x0000000008006a08                PROVIDE (__init_array_start, .)
+.init_array     0x0000000008006cf8        0x4
+                0x0000000008006cf8                . = ALIGN (0x4)
+                0x0000000008006cf8                PROVIDE (__init_array_start, .)
  *(SORT_BY_NAME(.init_array.*))
  *(.init_array*)
- .init_array    0x0000000008006a08        0x4 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
-                0x0000000008006a0c                PROVIDE (__init_array_end, .)
-                0x0000000008006a0c                . = ALIGN (0x4)
+ .init_array    0x0000000008006cf8        0x4 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+                0x0000000008006cfc                PROVIDE (__init_array_end, .)
+                0x0000000008006cfc                . = ALIGN (0x4)
 
-.fini_array     0x0000000008006a0c        0x4
-                0x0000000008006a0c                . = ALIGN (0x4)
+.fini_array     0x0000000008006cfc        0x4
+                0x0000000008006cfc                . = ALIGN (0x4)
                 [!provide]                        PROVIDE (__fini_array_start, .)
  *(SORT_BY_NAME(.fini_array.*))
  *(.fini_array*)
- .fini_array    0x0000000008006a0c        0x4 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+ .fini_array    0x0000000008006cfc        0x4 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
                 [!provide]                        PROVIDE (__fini_array_end, .)
-                0x0000000008006a10                . = ALIGN (0x4)
-                0x0000000008006a10                _sidata = LOADADDR (.data)
+                0x0000000008006d00                . = ALIGN (0x4)
+                0x0000000008006d00                _sidata = LOADADDR (.data)
 
-.data           0x0000000020000000      0x1ec load address 0x0000000008006a10
+.data           0x0000000020000000      0x1ec load address 0x0000000008006d00
                 0x0000000020000000                . = ALIGN (0x4)
                 0x0000000020000000                _sdata = .
  *(.data)
@@ -4198,12 +4401,12 @@ LOAD /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0
  *(.RamFunc*)
                 0x00000000200001ec                . = ALIGN (0x4)
                 0x00000000200001ec                _edata = .
-                0x0000000008006bfc                _siccmram = LOADADDR (.ccmram)
+                0x0000000008006eec                _siccmram = LOADADDR (.ccmram)
 
-.igot.plt       0x00000000200001ec        0x0 load address 0x0000000008006bfc
+.igot.plt       0x00000000200001ec        0x0 load address 0x0000000008006eec
  .igot.plt      0x00000000200001ec        0x0 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
 
-.ccmram         0x0000000010000000        0x0 load address 0x0000000008006bfc
+.ccmram         0x0000000010000000        0x0 load address 0x0000000008006eec
                 0x0000000010000000                . = ALIGN (0x4)
                 0x0000000010000000                _sccmram = .
  *(.ccmram)
@@ -4212,79 +4415,87 @@ LOAD /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0
                 0x0000000010000000                _eccmram = .
                 0x0000000010000000                . = ALIGN (0x4)
 
-.bss            0x00000000200001ec     0x23b0
+.bss            0x00000000200001ec     0x24e0
                 0x00000000200001ec                _sbss = .
                 0x00000000200001ec                __bss_start__ = _sbss
  *(.bss)
  .bss           0x00000000200001ec       0x1c /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
  *(.bss*)
+ .bss.AudioInCtx
+                0x0000000020000208       0x64 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+                0x0000000020000208                AudioInCtx
+ .bss.hAudioInSPI
+                0x000000002000026c       0x58 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+ .bss.hdma_rx.14657
+                0x00000000200002c4       0x60 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
  .bss.mem.13568
-                0x0000000020000208      0x220 .pio/build/adafruit_feather_f405/src/usbd_conf.o
+                0x0000000020000324      0x220 .pio/build/adafruit_feather_f405/src/usbd_conf.o
  .bss.timestamp.12130
-                0x0000000020000428        0x4 .pio/build/adafruit_feather_f405/src/viseffect/visEffect.o
- .bss.x.12113   0x000000002000042c        0x1 .pio/build/adafruit_feather_f405/src/viseffect/visEffect.o
+                0x0000000020000544        0x4 .pio/build/adafruit_feather_f405/src/viseffect/visEffect.o
+ .bss.x.12113   0x0000000020000548        0x1 .pio/build/adafruit_feather_f405/src/viseffect/visEffect.o
  .bss.cfgidx.13499
-                0x000000002000042d        0x1 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_ctlreq.o)
- *fill*         0x000000002000042e        0x2 
+                0x0000000020000549        0x1 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_ctlreq.o)
+ *fill*         0x000000002000054a        0x2 
  .bss.__malloc_free_list
-                0x0000000020000430        0x4 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-mallocr.o)
-                0x0000000020000430                __malloc_free_list
+                0x000000002000054c        0x4 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-mallocr.o)
+                0x000000002000054c                __malloc_free_list
  .bss.__malloc_sbrk_start
-                0x0000000020000434        0x4 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-mallocr.o)
-                0x0000000020000434                __malloc_sbrk_start
+                0x0000000020000550        0x4 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-mallocr.o)
+                0x0000000020000550                __malloc_sbrk_start
  .bss.heap_end.5377
-                0x0000000020000438        0x4 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libnosys.a(sbrk.o)
+                0x0000000020000554        0x4 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libnosys.a(sbrk.o)
  *(COMMON)
- COMMON         0x000000002000043c        0x4 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal.o
-                0x000000002000043c                uwTick
- COMMON         0x0000000020000440      0x538 .pio/build/adafruit_feather_f405/src/main.o
-                0x0000000020000440                hpcd_USB_OTG_HS
-                0x0000000020000884                frameBuffer2
-                0x00000000200008c0                BufferCtl
-                0x00000000200008c8                hi2c_see
-                0x000000002000091c                WrBuffer
-                0x000000002000091e                gy_readings
-                0x0000000020000924                hi2c_acc
- COMMON         0x0000000020000978      0x2d0 .pio/build/adafruit_feather_f405/src/usb_device.o
-                0x0000000020000978                hUsbDeviceFS
- COMMON         0x0000000020000c48     0x1000 .pio/build/adafruit_feather_f405/src/usbd_cdc_if.o
-                0x0000000020000c48                UserRxBufferFS
-                0x0000000020001448                UserTxBufferFS
- COMMON         0x0000000020001c48      0x444 .pio/build/adafruit_feather_f405/src/usbd_conf.o
-                0x0000000020001c48                hpcd_USB_OTG_FS
- COMMON         0x000000002000208c      0x200 .pio/build/adafruit_feather_f405/src/usbd_desc.o
-                0x000000002000208c                USBD_StrDesc
- COMMON         0x000000002000228c      0x100 .pio/build/adafruit_feather_f405/src/viseffect/visEffect.o
-                0x000000002000228c                ws2812b
-                0x00000000200022d8                frameBuffer
- COMMON         0x000000002000238c      0x20c .pio/build/adafruit_feather_f405/src/ws2812b/src/ws2812b.o
-                0x000000002000238c                tim2OC2
-                0x00000000200023a8                timer_reset_pulse_period
-                0x00000000200023ac                dmaCC2
-                0x000000002000240c                tim2OC1
-                0x0000000020002428                TIM1_handle
-                0x0000000020002470                tim_period
-                0x0000000020002474                dmaCC1
-                0x00000000200024d4                dummy
-                0x00000000200024d8                ws2812bDmaBitBuffer
-                0x0000000020002538                dmaUpdate
- COMMON         0x0000000020002598        0x4 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-reent.o)
-                0x0000000020002598                errno
-                0x000000002000259c                . = ALIGN (0x4)
-                0x000000002000259c                _ebss = .
-                0x000000002000259c                __bss_end__ = _ebss
+ COMMON         0x0000000020000558        0x4 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal.o
+                0x0000000020000558                uwTick
+ COMMON         0x000000002000055c      0x54c .pio/build/adafruit_feather_f405/src/main.o
+                0x000000002000055c                hpcd_USB_OTG_HS
+                0x00000000200009a0                frameBuffer2
+                0x00000000200009dc                BufferCtl
+                0x00000000200009e4                hi2c_see
+                0x0000000020000a38                MicParams
+                0x0000000020000a4c                WrBuffer
+                0x0000000020000a4e                gy_readings
+                0x0000000020000a54                hi2c_acc
+ COMMON         0x0000000020000aa8      0x2d0 .pio/build/adafruit_feather_f405/src/usb_device.o
+                0x0000000020000aa8                hUsbDeviceFS
+ COMMON         0x0000000020000d78     0x1000 .pio/build/adafruit_feather_f405/src/usbd_cdc_if.o
+                0x0000000020000d78                UserRxBufferFS
+                0x0000000020001578                UserTxBufferFS
+ COMMON         0x0000000020001d78      0x444 .pio/build/adafruit_feather_f405/src/usbd_conf.o
+                0x0000000020001d78                hpcd_USB_OTG_FS
+ COMMON         0x00000000200021bc      0x200 .pio/build/adafruit_feather_f405/src/usbd_desc.o
+                0x00000000200021bc                USBD_StrDesc
+ COMMON         0x00000000200023bc      0x100 .pio/build/adafruit_feather_f405/src/viseffect/visEffect.o
+                0x00000000200023bc                ws2812b
+                0x0000000020002408                frameBuffer
+ COMMON         0x00000000200024bc      0x20c .pio/build/adafruit_feather_f405/src/ws2812b/src/ws2812b.o
+                0x00000000200024bc                tim2OC2
+                0x00000000200024d8                timer_reset_pulse_period
+                0x00000000200024dc                dmaCC2
+                0x000000002000253c                tim2OC1
+                0x0000000020002558                TIM1_handle
+                0x00000000200025a0                tim_period
+                0x00000000200025a4                dmaCC1
+                0x0000000020002604                dummy
+                0x0000000020002608                ws2812bDmaBitBuffer
+                0x0000000020002668                dmaUpdate
+ COMMON         0x00000000200026c8        0x4 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-reent.o)
+                0x00000000200026c8                errno
+                0x00000000200026cc                . = ALIGN (0x4)
+                0x00000000200026cc                _ebss = .
+                0x00000000200026cc                __bss_end__ = _ebss
 
 ._user_heap_stack
-                0x000000002000259c      0x604
-                0x00000000200025a0                . = ALIGN (0x8)
- *fill*         0x000000002000259c        0x4 
-                0x00000000200025a0                PROVIDE (end, .)
+                0x00000000200026cc      0x604
+                0x00000000200026d0                . = ALIGN (0x8)
+ *fill*         0x00000000200026cc        0x4 
+                0x00000000200026d0                PROVIDE (end, .)
                 [!provide]                        PROVIDE (_end, .)
-                0x00000000200027a0                . = (. + _Min_Heap_Size)
- *fill*         0x00000000200025a0      0x200 
-                0x0000000020002ba0                . = (. + _Min_Stack_Size)
- *fill*         0x00000000200027a0      0x400 
-                0x0000000020002ba0                . = ALIGN (0x8)
+                0x00000000200028d0                . = (. + _Min_Heap_Size)
+ *fill*         0x00000000200026d0      0x200 
+                0x0000000020002cd0                . = (. + _Min_Stack_Size)
+ *fill*         0x00000000200028d0      0x400 
+                0x0000000020002cd0                . = ALIGN (0x8)
 
 /DISCARD/
  libc.a(*)
@@ -4315,97 +4526,101 @@ LOAD /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0
  .ARM.attributes
                 0x00000000000001e5       0x39 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_rcc.o
  .ARM.attributes
-                0x000000000000021e       0x39 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim.o
+                0x000000000000021e       0x39 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_spi.o
  .ARM.attributes
-                0x0000000000000257       0x39 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim_ex.o
+                0x0000000000000257       0x39 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim.o
  .ARM.attributes
-                0x0000000000000290       0x39 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
+                0x0000000000000290       0x39 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim_ex.o
  .ARM.attributes
-                0x00000000000002c9       0x39 .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
+                0x00000000000002c9       0x39 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
  .ARM.attributes
-                0x0000000000000302       0x39 .pio/build/adafruit_feather_f405/src/i2c/i2c_init.o
+                0x0000000000000302       0x39 .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
  .ARM.attributes
-                0x000000000000033b       0x39 .pio/build/adafruit_feather_f405/src/main.o
+                0x000000000000033b       0x39 .pio/build/adafruit_feather_f405/src/i2c/i2c_init.o
  .ARM.attributes
-                0x0000000000000374       0x39 .pio/build/adafruit_feather_f405/src/stm32f4xx_it.o
+                0x0000000000000374       0x39 .pio/build/adafruit_feather_f405/src/main.o
  .ARM.attributes
-                0x00000000000003ad       0x39 .pio/build/adafruit_feather_f405/src/usb_device.o
+                0x00000000000003ad       0x39 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
  .ARM.attributes
-                0x00000000000003e6       0x39 .pio/build/adafruit_feather_f405/src/usbd_cdc_if.o
+                0x00000000000003e6       0x39 .pio/build/adafruit_feather_f405/src/stm32f4xx_it.o
  .ARM.attributes
-                0x000000000000041f       0x39 .pio/build/adafruit_feather_f405/src/usbd_conf.o
+                0x000000000000041f       0x39 .pio/build/adafruit_feather_f405/src/usb_device.o
  .ARM.attributes
-                0x0000000000000458       0x39 .pio/build/adafruit_feather_f405/src/usbd_desc.o
+                0x0000000000000458       0x39 .pio/build/adafruit_feather_f405/src/usbd_cdc_if.o
  .ARM.attributes
-                0x0000000000000491       0x39 .pio/build/adafruit_feather_f405/src/viseffect/visEffect.o
+                0x0000000000000491       0x39 .pio/build/adafruit_feather_f405/src/usbd_conf.o
  .ARM.attributes
-                0x00000000000004ca       0x39 .pio/build/adafruit_feather_f405/src/ws2812b/src/ws2812b.o
+                0x00000000000004ca       0x39 .pio/build/adafruit_feather_f405/src/usbd_desc.o
  .ARM.attributes
-                0x0000000000000503       0x39 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_core.o)
+                0x0000000000000503       0x39 .pio/build/adafruit_feather_f405/src/viseffect/visEffect.o
  .ARM.attributes
-                0x000000000000053c       0x39 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_ctlreq.o)
+                0x000000000000053c       0x39 .pio/build/adafruit_feather_f405/src/ws2812b/src/ws2812b.o
  .ARM.attributes
-                0x0000000000000575       0x39 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_ioreq.o)
+                0x0000000000000575       0x39 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_core.o)
  .ARM.attributes
-                0x00000000000005ae       0x39 .pio/build/adafruit_feather_f405/lib5fe/libCDC.a(usbd_cdc.o)
+                0x00000000000005ae       0x39 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_ctlreq.o)
  .ARM.attributes
-                0x00000000000005e7       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-impure.o)
+                0x00000000000005e7       0x39 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_ioreq.o)
  .ARM.attributes
-                0x000000000000061b       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-init.o)
+                0x0000000000000620       0x39 .pio/build/adafruit_feather_f405/lib5fe/libCDC.a(usbd_cdc.o)
  .ARM.attributes
-                0x000000000000064f       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-memset.o)
+                0x0000000000000659       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-impure.o)
  .ARM.attributes
-                0x0000000000000683       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-rand.o)
+                0x000000000000068d       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-init.o)
  .ARM.attributes
-                0x00000000000006b7       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-sprintf.o)
+                0x00000000000006c1       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-memset.o)
  .ARM.attributes
-                0x00000000000006eb       0x1b /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-strlen.o)
+                0x00000000000006f5       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-rand.o)
  .ARM.attributes
-                0x0000000000000706       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-malloc.o)
+                0x0000000000000729       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-sprintf.o)
  .ARM.attributes
-                0x000000000000073a       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-freer.o)
+                0x000000000000075d       0x1b /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-strlen.o)
  .ARM.attributes
-                0x000000000000076e       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-mallocr.o)
+                0x0000000000000778       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-malloc.o)
  .ARM.attributes
-                0x00000000000007a2       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-svfprintf.o)
+                0x00000000000007ac       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-freer.o)
  .ARM.attributes
-                0x00000000000007d6       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-vfprintf_i.o)
+                0x00000000000007e0       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-mallocr.o)
  .ARM.attributes
-                0x000000000000080a       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-sbrkr.o)
+                0x0000000000000814       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-svfprintf.o)
  .ARM.attributes
-                0x000000000000083e       0x20 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-memchr.o)
+                0x0000000000000848       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-vfprintf_i.o)
  .ARM.attributes
-                0x000000000000085e       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-memcpy-stub.o)
+                0x000000000000087c       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-sbrkr.o)
  .ARM.attributes
-                0x0000000000000892       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-memmove.o)
+                0x00000000000008b0       0x20 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-memchr.o)
  .ARM.attributes
-                0x00000000000008c6       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-mlock.o)
+                0x00000000000008d0       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-memcpy-stub.o)
  .ARM.attributes
-                0x00000000000008fa       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-reallocr.o)
+                0x0000000000000904       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-memmove.o)
  .ARM.attributes
-                0x000000000000092e       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-reent.o)
+                0x0000000000000938       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-mlock.o)
  .ARM.attributes
-                0x0000000000000962       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-msizer.o)
+                0x000000000000096c       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-reallocr.o)
  .ARM.attributes
-                0x0000000000000996       0x22 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/libgcc.a(_arm_addsubdf3.o)
+                0x00000000000009a0       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-reent.o)
  .ARM.attributes
-                0x00000000000009b8       0x22 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/libgcc.a(_arm_muldivdf3.o)
+                0x00000000000009d4       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-msizer.o)
  .ARM.attributes
-                0x00000000000009da       0x22 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/libgcc.a(_arm_fixdfsi.o)
+                0x0000000000000a08       0x22 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/libgcc.a(_arm_addsubdf3.o)
  .ARM.attributes
-                0x00000000000009fc       0x22 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/libgcc.a(_aeabi_uldivmod.o)
+                0x0000000000000a2a       0x22 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/libgcc.a(_arm_muldivdf3.o)
  .ARM.attributes
-                0x0000000000000a1e       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/libgcc.a(_udivmoddi4.o)
+                0x0000000000000a4c       0x22 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/libgcc.a(_arm_fixdfsi.o)
  .ARM.attributes
-                0x0000000000000a52       0x22 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/libgcc.a(_dvmd_tls.o)
+                0x0000000000000a6e       0x22 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/libgcc.a(_aeabi_uldivmod.o)
  .ARM.attributes
-                0x0000000000000a74       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libnosys.a(sbrk.o)
+                0x0000000000000a90       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/libgcc.a(_udivmoddi4.o)
  .ARM.attributes
-                0x0000000000000aa8       0x21 .pio/build/adafruit_feather_f405/libFrameworkCMSISDevice.a(startup_stm32f405xx.o)
+                0x0000000000000ac4       0x22 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/libgcc.a(_dvmd_tls.o)
  .ARM.attributes
-                0x0000000000000ac9       0x39 .pio/build/adafruit_feather_f405/libFrameworkCMSISDevice.a(system_stm32f4xx.o)
+                0x0000000000000ae6       0x34 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libnosys.a(sbrk.o)
  .ARM.attributes
-                0x0000000000000b02       0x22 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtn.o
+                0x0000000000000b1a       0x21 .pio/build/adafruit_feather_f405/libFrameworkCMSISDevice.a(startup_stm32f405xx.o)
+ .ARM.attributes
+                0x0000000000000b3b       0x39 .pio/build/adafruit_feather_f405/libFrameworkCMSISDevice.a(system_stm32f4xx.o)
+ .ARM.attributes
+                0x0000000000000b74       0x22 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtn.o
 OUTPUT(.pio/build/adafruit_feather_f405/firmware.elf elf32-littlearm)
 
 .comment        0x0000000000000000       0x7e
@@ -4418,12 +4633,14 @@ OUTPUT(.pio/build/adafruit_feather_f405/firmware.elf elf32-littlearm)
  .comment       0x000000000000007e       0x7f .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_pcd.o
  .comment       0x000000000000007e       0x7f .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_pcd_ex.o
  .comment       0x000000000000007e       0x7f .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_rcc.o
+ .comment       0x000000000000007e       0x7f .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_spi.o
  .comment       0x000000000000007e       0x7f .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim.o
  .comment       0x000000000000007e       0x7f .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal_tim_ex.o
  .comment       0x000000000000007e       0x7f .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_ll_usb.o
  .comment       0x000000000000007e       0x7f .pio/build/adafruit_feather_f405/src/i2c/i2c_acc.o
  .comment       0x000000000000007e       0x7f .pio/build/adafruit_feather_f405/src/i2c/i2c_init.o
  .comment       0x000000000000007e       0x7f .pio/build/adafruit_feather_f405/src/main.o
+ .comment       0x000000000000007e       0x7f .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
  .comment       0x000000000000007e       0x7f .pio/build/adafruit_feather_f405/src/stm32f4xx_it.o
  .comment       0x000000000000007e       0x7f .pio/build/adafruit_feather_f405/src/usb_device.o
  .comment       0x000000000000007e       0x7f .pio/build/adafruit_feather_f405/src/usbd_cdc_if.o
