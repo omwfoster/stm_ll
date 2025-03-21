@@ -11,7 +11,7 @@
 #include "arm_math.h"
 
 
-AUDIO_IN_Ctx_t AudioInCtx[1] = {0};
+AUDIO_IN_Ctx_t AudioInCtx = {0};
 
 #define SaturaLH(N, L, H) (((N) < (L)) ? (L) : (((N) > (H)) ? (H) : (N)))
 
@@ -29,7 +29,7 @@ static SPI_HandleTypeDef hAudioInSPI;
 static TIM_HandleTypeDef TimDividerHandle;
 static uint16_t SPI_InternalBuffer[PDM_INTERNAL_BUFFER_SIZE_SPI];
 
-uint16_t * PDMBuf;
+uint16_t * PDMBuf = SPI_InternalBuffer;
 uint16_t * PCMBuf;
 
 static uint8_t Channel_Demux[128] =
@@ -134,12 +134,12 @@ int32_t CCA02M2_AUDIO_IN_Init(uint32_t Instance, CCA02M2_AUDIO_Init_t *AudioInit
 {
 
     /* Store the audio record context */
-    AudioInCtx[Instance].Device = AudioInit->Device;
-    AudioInCtx[Instance].ChannelsNbr = AudioInit->ChannelsNbr;
-    AudioInCtx[Instance].SampleRate = AudioInit->SampleRate;
-    AudioInCtx[Instance].BitsPerSample = AudioInit->BitsPerSample;
-    AudioInCtx[Instance].Volume = AudioInit->Volume;
-    AudioInCtx[Instance].State = AUDIO_IN_STATE_RESET;
+    AudioInCtx.Device = AudioInit->Device;
+    AudioInCtx.ChannelsNbr = AudioInit->ChannelsNbr;
+    AudioInCtx.SampleRate = AudioInit->SampleRate;
+    AudioInCtx.BitsPerSample = AudioInit->BitsPerSample;
+    AudioInCtx.Volume = AudioInit->Volume;
+    AudioInCtx.State = AUDIO_IN_STATE_RESET;
 
     if (Instance == 0U)
     {
@@ -174,9 +174,9 @@ int32_t CCA02M2_AUDIO_IN_Init(uint32_t Instance, CCA02M2_AUDIO_Init_t *AudioInit
             return BSP_ERROR_WRONG_PARAM;
         }
 
-        AudioInCtx[Instance].DecimationFactor = (PDM_Clock_Freq * 1000U) / AudioInit->SampleRate;
+        AudioInCtx.DecimationFactor = (PDM_Clock_Freq * 1000U) / AudioInit->SampleRate;
         /* Double buffer for 1 microphone */
-        AudioInCtx[Instance].Size = (PDM_Clock_Freq / 8U) * 2U * N_MS_PER_INTERRUPT;
+        AudioInCtx.Size = (PDM_Clock_Freq / 8U) * 2U * N_MS_PER_INTERRUPT;
 
         /* Set the SPI parameters */
         hAudioInSPI.Instance = AUDIO_IN_SPI_INSTANCE;
@@ -255,14 +255,14 @@ int32_t CCA02M2_AUDIO_IN_Record(uint32_t Instance, uint8_t *pBuf, uint32_t NbrOf
     }
     else
     {
-        AudioInCtx[Instance].pBuff = (uint16_t *)pBuf;
+        AudioInCtx.pBuff = (uint16_t *)pBuf;
 
         if (Instance == 0U)
         {
 
-            if (AudioInCtx[Instance].ChannelsNbr > 2U)
+            if (AudioInCtx.ChannelsNbr > 2U)
             {
-                if (HAL_SPI_Receive_DMA(&hAudioInSPI, (uint8_t *)SPI_InternalBuffer, (uint16_t)AudioInCtx[Instance].Size) != HAL_OK)
+                if (HAL_SPI_Receive_DMA(&hAudioInSPI, (uint8_t *)SPI_InternalBuffer, (uint16_t)AudioInCtx.Size) != HAL_OK)
                 {
                     return BSP_ERROR_PERIPH_FAILURE;
                 }
@@ -271,7 +271,7 @@ int32_t CCA02M2_AUDIO_IN_Record(uint32_t Instance, uint8_t *pBuf, uint32_t NbrOf
  
 
             /* Update BSP AUDIO IN state */
-            AudioInCtx[Instance].State = AUDIO_IN_STATE_RECORDING;
+            AudioInCtx.State = AUDIO_IN_STATE_RECORDING;
         }
         else
         {
@@ -299,7 +299,7 @@ int32_t CCA02M2_AUDIO_IN_Stop(uint32_t Instance)
 
 
 
-            if (AudioInCtx[Instance].ChannelsNbr > 2U)
+            if (AudioInCtx.ChannelsNbr > 2U)
             {
                 if (HAL_SPI_DMAStop(&hAudioInSPI) != HAL_OK)
                 {
@@ -316,7 +316,7 @@ int32_t CCA02M2_AUDIO_IN_Stop(uint32_t Instance)
 
         }
         /* Update BSP AUDIO IN state */
-        AudioInCtx[Instance].State = AUDIO_IN_STATE_STOP;
+        AudioInCtx.State = AUDIO_IN_STATE_STOP;
     }
     /* Return BSP status */
     return BSP_ERROR_NONE;
@@ -360,16 +360,16 @@ int32_t CCA02M2_AUDIO_IN_SetDevice(uint32_t Instance, uint32_t Device)
     {
         return BSP_ERROR_WRONG_PARAM;
     }
-    else if (AudioInCtx[Instance].State == AUDIO_IN_STATE_STOP)
+    else if (AudioInCtx.State == AUDIO_IN_STATE_STOP)
     {
         if (Instance == 1U)
         {
         }
         audio_init.Device = Device;
-        audio_init.ChannelsNbr = AudioInCtx[Instance].ChannelsNbr;
-        audio_init.SampleRate = AudioInCtx[Instance].SampleRate;
-        audio_init.BitsPerSample = AudioInCtx[Instance].BitsPerSample;
-        audio_init.Volume = AudioInCtx[Instance].Volume;
+        audio_init.ChannelsNbr = AudioInCtx.ChannelsNbr;
+        audio_init.SampleRate = AudioInCtx.SampleRate;
+        audio_init.BitsPerSample = AudioInCtx.BitsPerSample;
+        audio_init.Volume = AudioInCtx.Volume;
 
         if (CCA02M2_AUDIO_IN_Init(Instance, &audio_init) != BSP_ERROR_NONE)
         {
@@ -399,7 +399,7 @@ int32_t CCA02M2_AUDIO_IN_GetDevice(uint32_t Instance, uint32_t *Device)
     else
     {
         /* Return audio Input Device */
-        *Device = AudioInCtx[Instance].Device;
+        *Device = AudioInCtx.Device;
     }
     return BSP_ERROR_NONE;
 }
@@ -418,7 +418,7 @@ int32_t CCA02M2_AUDIO_IN_SetSampleRate(uint32_t Instance, uint32_t SampleRate)
     {
         return BSP_ERROR_WRONG_PARAM;
     }
-    else if (AudioInCtx[Instance].State == AUDIO_IN_STATE_STOP)
+    else if (AudioInCtx.State == AUDIO_IN_STATE_STOP)
     {
         if (Instance == 1U)
         {
@@ -427,7 +427,7 @@ int32_t CCA02M2_AUDIO_IN_SetSampleRate(uint32_t Instance, uint32_t SampleRate)
             int8_t i;
             for (i = 0; i < DFSDM_MIC_NUMBER; i++)
             {
-                if (((AudioInCtx[Instance].Device >> (uint8_t)i) & AUDIO_IN_DIGITAL_MIC1) == AUDIO_IN_DIGITAL_MIC1)
+                if (((AudioInCtx.Device >> (uint8_t)i) & AUDIO_IN_DIGITAL_MIC1) == AUDIO_IN_DIGITAL_MIC1)
                 {
                     if (HAL_DFSDM_ChannelDeInit(&hAudioInDfsdmChannel[i]) != HAL_OK)
                     {
@@ -443,11 +443,11 @@ int32_t CCA02M2_AUDIO_IN_SetSampleRate(uint32_t Instance, uint32_t SampleRate)
             return BSP_ERROR_WRONG_PARAM;
 #endif
         }
-        audio_init.Device = AudioInCtx[Instance].Device;
-        audio_init.ChannelsNbr = AudioInCtx[Instance].ChannelsNbr;
+        audio_init.Device = AudioInCtx.Device;
+        audio_init.ChannelsNbr = AudioInCtx.ChannelsNbr;
         audio_init.SampleRate = SampleRate;
-        audio_init.BitsPerSample = AudioInCtx[Instance].BitsPerSample;
-        audio_init.Volume = AudioInCtx[Instance].Volume;
+        audio_init.BitsPerSample = AudioInCtx.BitsPerSample;
+        audio_init.Volume = AudioInCtx.Volume;
         if (CCA02M2_AUDIO_IN_Init(Instance, &audio_init) != BSP_ERROR_NONE)
         {
             return BSP_ERROR_NO_INIT;
@@ -476,7 +476,7 @@ int32_t CCA02M2_AUDIO_IN_GetSampleRate(uint32_t Instance, uint32_t *SampleRate)
     else
     {
         /* Return audio in frequency */
-        *SampleRate = AudioInCtx[Instance].SampleRate;
+        *SampleRate = AudioInCtx.SampleRate;
     }
     /* Return BSP status */
     return BSP_ERROR_NONE;
@@ -496,7 +496,7 @@ int32_t CCA02M2_AUDIO_IN_SetBitsPerSample(uint32_t Instance, uint32_t BitsPerSam
     {
         return BSP_ERROR_WRONG_PARAM;
     }
-    else if (AudioInCtx[Instance].State == AUDIO_IN_STATE_STOP)
+    else if (AudioInCtx.State == AUDIO_IN_STATE_STOP)
     {
         if (Instance == 1U)
         {
@@ -505,7 +505,7 @@ int32_t CCA02M2_AUDIO_IN_SetBitsPerSample(uint32_t Instance, uint32_t BitsPerSam
             int8_t i;
             for (i = 0; i < DFSDM_MIC_NUMBER; i++)
             {
-                if (((AudioInCtx[Instance].Device >> (uint8_t)i) & AUDIO_IN_DIGITAL_MIC1) == AUDIO_IN_DIGITAL_MIC1)
+                if (((AudioInCtx.Device >> (uint8_t)i) & AUDIO_IN_DIGITAL_MIC1) == AUDIO_IN_DIGITAL_MIC1)
                 {
                     if (HAL_DFSDM_ChannelDeInit(&hAudioInDfsdmChannel[i]) != HAL_OK)
                     {
@@ -517,11 +517,11 @@ int32_t CCA02M2_AUDIO_IN_SetBitsPerSample(uint32_t Instance, uint32_t BitsPerSam
             return BSP_ERROR_WRONG_PARAM;
 #endif
         }
-        audio_init.Device = AudioInCtx[Instance].Device;
-        audio_init.ChannelsNbr = AudioInCtx[Instance].ChannelsNbr;
-        audio_init.SampleRate = AudioInCtx[Instance].SampleRate;
+        audio_init.Device = AudioInCtx.Device;
+        audio_init.ChannelsNbr = AudioInCtx.ChannelsNbr;
+        audio_init.SampleRate = AudioInCtx.SampleRate;
         audio_init.BitsPerSample = BitsPerSample;
-        audio_init.Volume = AudioInCtx[Instance].Volume;
+        audio_init.Volume = AudioInCtx.Volume;
         if (CCA02M2_AUDIO_IN_Init(Instance, &audio_init) != BSP_ERROR_NONE)
         {
             return BSP_ERROR_NO_INIT;
@@ -550,7 +550,7 @@ int32_t CCA02M2_AUDIO_IN_GetBitsPerSample(uint32_t Instance, uint32_t *BitsPerSa
     else
     {
         /* Return audio in resolution */
-        *BitsPerSample = AudioInCtx[Instance].BitsPerSample;
+        *BitsPerSample = AudioInCtx.BitsPerSample;
     }
     return BSP_ERROR_NONE;
 }
@@ -570,7 +570,7 @@ int32_t CCA02M2_AUDIO_IN_SetChannelsNbr(uint32_t Instance, uint32_t ChannelNbr)
     else
     {
         /* Update AudioIn Context */
-        AudioInCtx[Instance].ChannelsNbr = ChannelNbr;
+        AudioInCtx.ChannelsNbr = ChannelNbr;
     }
     /* Return BSP status */
     return BSP_ERROR_NONE;
@@ -591,7 +591,7 @@ int32_t CCA02M2_AUDIO_IN_GetChannelsNbr(uint32_t Instance, uint32_t *ChannelNbr)
     else
     {
         /* Channel number to be returned */
-        *ChannelNbr = AudioInCtx[Instance].ChannelsNbr;
+        *ChannelNbr = AudioInCtx.ChannelsNbr;
     }
     return BSP_ERROR_NONE;
 }
@@ -614,7 +614,7 @@ int32_t CCA02M2_AUDIO_IN_SetVolume(uint32_t Instance, uint32_t Volume)
             25, 25, 25, 25, 25, 25, 26, 26, 26, 26, 26, 26, 26, 26, 26, 27, 27, 27, 27, 27, 27, 27, 27,
             27, 27, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 29, 29, 29, 29, 29, 29, 29, 29, 29,
             29, 29, 29, 29, 30, 30, 30, 30, 30, 30, 30, 31};
-    for (index = 0; index < AudioInCtx[Instance].ChannelsNbr; index++)
+    for (index = 0; index < AudioInCtx.ChannelsNbr; index++)
     {
         if (PDM2PCMConfig.mic_gain != VolumeGain[Volume])
         {
@@ -625,7 +625,7 @@ int32_t CCA02M2_AUDIO_IN_SetVolume(uint32_t Instance, uint32_t Volume)
 
     {
         /* Update AudioIn Context */
-        AudioInCtx[Instance].Volume = Volume;
+        AudioInCtx.Volume = Volume;
     }
     /* Return BSP status */
     return BSP_ERROR_NONE;
@@ -646,7 +646,7 @@ int32_t CCA02M2_AUDIO_IN_GetVolume(uint32_t Instance, uint32_t *Volume)
     else
     {
         /* Input Volume to be returned */
-        *Volume = AudioInCtx[Instance].Volume;
+        *Volume = AudioInCtx.Volume;
     }
     /* Return BSP status */
     return BSP_ERROR_NONE;
@@ -667,7 +667,7 @@ int32_t CCA02M2_AUDIO_IN_GetState(uint32_t Instance, uint32_t *State)
     else
     {
         /* Input State to be returned */
-        *State = AudioInCtx[Instance].State;
+        *State = AudioInCtx.State;
     }
     return BSP_ERROR_NONE;
 }
@@ -676,7 +676,7 @@ int32_t CCA02M2_AUDIO_IN_GetState(uint32_t Instance, uint32_t *State)
  * @brief  User callback when record buffer is filled.
  * @retval None
  */
-__weak void CCA02M2_AUDIO_IN_TransferComplete_CallBack(uint32_t Instance)
+void CCA02M2_AUDIO_IN_TransferComplete_CallBack(uint32_t Instance)
 {
     /* Prevent unused argument(s) compilation warning */
     UNUSED(Instance);
@@ -690,7 +690,7 @@ __weak void CCA02M2_AUDIO_IN_TransferComplete_CallBack(uint32_t Instance)
  * @brief  Manages the DMA Half Transfer complete event.
  * @retval None
  */
-__weak void CCA02M2_AUDIO_IN_HalfTransfer_CallBack(uint32_t Instance)
+void CCA02M2_AUDIO_IN_HalfTransfer_CallBack(uint32_t Instance)
 {
     /* Prevent unused argument(s) compilation warning */
     UNUSED(Instance);
@@ -704,7 +704,7 @@ __weak void CCA02M2_AUDIO_IN_HalfTransfer_CallBack(uint32_t Instance)
  * @brief  Audio IN Error callback function.
  * @retval None
  */
-__weak void CCA02M2_AUDIO_IN_Error_CallBack(uint32_t Instance)
+void CCA02M2_AUDIO_IN_Error_CallBack(uint32_t Instance)
 {
     /* Prevent unused argument(s) compilation warning */
     UNUSED(Instance);

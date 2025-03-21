@@ -16,7 +16,7 @@
 #define AUDIO_FREQUENCY_8K            ((uint32_t)8000)  
 
 
-#define PDM_INTERNAL_BUFFER_SIZE_SPI 1//((MAX_MIC_FREQ / 8) * MAX_AUDIO_IN_CHANNEL_NBR_PER_IF * N_MS_PER_INTERRUPT)
+#define PDM_INTERNAL_BUFFER_SIZE_SPI ((AUDIO_FREQUENCY_16K / 8) * N_MS_PER_INTERRUPT)
 #define AUDIO_IN_STATE_RESET     0U
 #define AUDIO_IN_STATE_RECORDING 1U
 #define AUDIO_IN_STATE_STOP      2U
@@ -27,7 +27,7 @@
    Instance 1 is DFSDM path
    Instance 2 is PDM path
  */
-#define AUDIO_IN_INSTANCES_NBR 3U
+#define AUDIO_IN_INSTANCES_NBR 1U
 #define PDM_FREQ_16K 1280
 
 
@@ -191,9 +191,7 @@ int32_t AUDIO_IN_SetVolume(uint32_t Instance, uint32_t Volume);
 int32_t AUDIO_IN_GetVolume(uint32_t Instance, uint32_t *Volume);
 int32_t AUDIO_IN_GetState(uint32_t Instance, uint32_t *State);
 
-/* Specific PDM recodr APIs */
-int32_t AUDIO_IN_PDMToPCM_Init(uint32_t Instance, uint32_t AudioFreq, uint32_t ChnlNbrIn, uint32_t ChnlNbrOut);
-int32_t AUDIO_IN_PDMToPCM(uint32_t Instance, uint16_t *PDMBuf, uint16_t *PCMBuf);
+
 int32_t AUDIO_IN_RecordPDM(uint32_t Instance, uint8_t *pBuf, uint32_t NbrOfBytes);
 
 void AUDIO_IN_IRQHandler(uint32_t Instance, uint32_t Device);
