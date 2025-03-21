@@ -174,7 +174,7 @@ int32_t CCA02M2_AUDIO_IN_Init(uint32_t Instance, CCA02M2_AUDIO_Init_t *AudioInit
             return BSP_ERROR_WRONG_PARAM;
         }
 
-        AudioInCtx.DecimationFactor = (PDM_Clock_Freq * 1000U) / AudioInit->SampleRate;
+
         /* Double buffer for 1 microphone */
         AudioInCtx.Size = (PDM_Clock_Freq / 8U) * 2U * N_MS_PER_INTERRUPT;
 
