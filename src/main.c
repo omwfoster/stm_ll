@@ -71,6 +71,9 @@ I2C_HandleTypeDef hi2c_see;
 int16_t gy_readings[3];
 Audio_BufferTypeDef BufferCtl;
 CCA02M2_AUDIO_Init_t MicParams;
+uint8_t audio_buf[128];
+
+
 
 int main(void)
 {
@@ -109,10 +112,11 @@ int main(void)
     Error_Handler();
   }
 
+  AUDIO_IN_Record(CCA02M2_AUDIO_INSTANCE, audio_buf, (uint32_t)128);
 
   while (1)
   {
-    //DBG_STRING(dbg_loop);
+    DBG_STRING(dbg_loop);
     
     ICM20948_readGyroscope_allAxises(&hi2c_acc, 1, GYRO_FULL_SCALE_2000DPS, &gy_readings[0]);
     visHandle();

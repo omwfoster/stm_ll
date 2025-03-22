@@ -9,6 +9,7 @@
 #include "errno.h"
 #include "stdint.h"
 #include "arm_math.h"
+#include "memsafe_buffer.h"
 
 
 AUDIO_IN_Ctx_t AudioInCtx = {0};
@@ -207,25 +208,20 @@ int32_t CCA02M2_AUDIO_IN_Init(uint32_t Instance, CCA02M2_AUDIO_Init_t *AudioInit
         }
     }
 
-    uint32_t PDM_Filter_Init(pHandler);
+    PDM_Filter_Init(&PDM2PCMHandler);
 }
 
 int32_t AUDIO_IN_PDMToPCM(uint32_t Instance, uint16_t *PDMBuf, uint16_t *PCMBuf)
 {
-
-
   PDM_Filter(PDMBuf, PCMBuf, &PDM2PCMHandler);
   return BSP_ERROR_NONE;
 }
 
 
 uint8_t PDM2PCM_Process(uint16_t *PDMBuf, uint16_t *PCMBuf)
-{
-  
+{ 
   //return BSP_AUDIO_IN_PDMToPCM(PDMBuf, PCMBuf);
   PDM_Filter(PDMBuf, PCMBuf, &PDM2PCMHandler);
-
-
 }
 
 
@@ -247,7 +243,7 @@ uint8_t PDM2PCM_Process(uint16_t *PDMBuf, uint16_t *PCMBuf)
  * @param  NbrOfBytes     Size of the record buffer. Parameter not used when Instance is 0
  * @retval BSP status
  */
-int32_t CCA02M2_AUDIO_IN_Record(uint32_t Instance, uint8_t *pBuf, uint32_t NbrOfBytes)
+int32_t AUDIO_IN_Record(uint32_t Instance, uint8_t *pBuf, uint32_t NbrOfBytes)
 {
     if (Instance >= (AUDIO_IN_INSTANCES_NBR - 1U))
     {
@@ -256,6 +252,7 @@ int32_t CCA02M2_AUDIO_IN_Record(uint32_t Instance, uint8_t *pBuf, uint32_t NbrOf
     else
     {
         AudioInCtx.pBuff = (uint16_t *)pBuf;
+        AudioInCtx.Size = NbrOfBytes;
 
         if (Instance == 0U)
         {
@@ -420,29 +417,6 @@ int32_t CCA02M2_AUDIO_IN_SetSampleRate(uint32_t Instance, uint32_t SampleRate)
     }
     else if (AudioInCtx.State == AUDIO_IN_STATE_STOP)
     {
-        if (Instance == 1U)
-        {
-#ifdef USE_STM32L4XX_NUCLEO
-
-            int8_t i;
-            for (i = 0; i < DFSDM_MIC_NUMBER; i++)
-            {
-                if (((AudioInCtx.Device >> (uint8_t)i) & AUDIO_IN_DIGITAL_MIC1) == AUDIO_IN_DIGITAL_MIC1)
-                {
-                    if (HAL_DFSDM_ChannelDeInit(&hAudioInDfsdmChannel[i]) != HAL_OK)
-                    {
-                        return BSP_ERROR_PERIPH_FAILURE;
-                    }
-                    if (HAL_DFSDM_FilterDeInit(&hAudioInDfsdmFilter[i]) != HAL_OK)
-                    {
-                        return BSP_ERROR_PERIPH_FAILURE;
-                    }
-                }
-            }
-#else
-            return BSP_ERROR_WRONG_PARAM;
-#endif
-        }
         audio_init.Device = AudioInCtx.Device;
         audio_init.ChannelsNbr = AudioInCtx.ChannelsNbr;
         audio_init.SampleRate = SampleRate;
@@ -498,25 +472,6 @@ int32_t CCA02M2_AUDIO_IN_SetBitsPerSample(uint32_t Instance, uint32_t BitsPerSam
     }
     else if (AudioInCtx.State == AUDIO_IN_STATE_STOP)
     {
-        if (Instance == 1U)
-        {
-#ifdef USE_STM32L4XX_NUCLEO
-
-            int8_t i;
-            for (i = 0; i < DFSDM_MIC_NUMBER; i++)
-            {
-                if (((AudioInCtx.Device >> (uint8_t)i) & AUDIO_IN_DIGITAL_MIC1) == AUDIO_IN_DIGITAL_MIC1)
-                {
-                    if (HAL_DFSDM_ChannelDeInit(&hAudioInDfsdmChannel[i]) != HAL_OK)
-                    {
-                        return BSP_ERROR_PERIPH_FAILURE;
-                    }
-                }
-            }
-#else
-            return BSP_ERROR_WRONG_PARAM;
-#endif
-        }
         audio_init.Device = AudioInCtx.Device;
         audio_init.ChannelsNbr = AudioInCtx.ChannelsNbr;
         audio_init.SampleRate = AudioInCtx.SampleRate;
@@ -676,10 +631,12 @@ int32_t CCA02M2_AUDIO_IN_GetState(uint32_t Instance, uint32_t *State)
  * @brief  User callback when record buffer is filled.
  * @retval None
  */
-void CCA02M2_AUDIO_IN_TransferComplete_CallBack(uint32_t Instance)
+void AUDIO_IN_TransferComplete_CallBack(uint32_t Instance)
 {
     /* Prevent unused argument(s) compilation warning */
     UNUSED(Instance);
+    CDC_Transmit_FS((uint8_t *)str_hal_ok, strlen(str_hal_ok));
+    
 
     /* This function should be implemented by the user application.
     It is called into this driver when the current buffer is filled
@@ -690,10 +647,11 @@ void CCA02M2_AUDIO_IN_TransferComplete_CallBack(uint32_t Instance)
  * @brief  Manages the DMA Half Transfer complete event.
  * @retval None
  */
-void CCA02M2_AUDIO_IN_HalfTransfer_CallBack(uint32_t Instance)
+void AUDIO_IN_HalfTransfer_CallBack(uint32_t Instance)
 {
     /* Prevent unused argument(s) compilation warning */
     UNUSED(Instance);
+    CDC_Transmit_FS((uint8_t *)str_hal_ok, strlen(str_hal_ok));
 
     /* This function should be implemented by the user application.
     It is called into this driver when the current buffer is filled
@@ -704,10 +662,11 @@ void CCA02M2_AUDIO_IN_HalfTransfer_CallBack(uint32_t Instance)
  * @brief  Audio IN Error callback function.
  * @retval None
  */
-void CCA02M2_AUDIO_IN_Error_CallBack(uint32_t Instance)
+void AUDIO_IN_Error_CallBack(uint32_t Instance)
 {
     /* Prevent unused argument(s) compilation warning */
     UNUSED(Instance);
+    CDC_Transmit_FS((uint8_t *)str_hal_ok, strlen(str_hal_ok));
 
     /* This function is called when an Interrupt due to transfer error on or peripheral
     error occurs. */
