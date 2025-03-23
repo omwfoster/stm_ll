@@ -8,7 +8,7 @@
 void HAL_I2C_MspInit(I2C_HandleTypeDef *hi2c);
 void HAL_I2C_MspDeInit(I2C_HandleTypeDef *hi2c);
 void MX_I2C1_Init(I2C_HandleTypeDef * );
-void output_cdc_page(int pagIni, int pagFin,int16_t * gy_readings);
+
 
 #define GRYO_SENSITIVITY_SCALE_FACTOR_250DPS 131
 #define GRYO_SENSITIVITY_SCALE_FACTOR_500DPS 65.5
@@ -71,3 +71,6 @@ void ICM20948_readGyroscope_Z(I2C_HandleTypeDef * hi2c, uint8_t const selectI2cA
 void ICM20948_readTemperature(I2C_HandleTypeDef * hi2c, uint8_t const selectI2cAddress, int16_t * reading);
 void ICM20948_readAccelerometer_allAxises(I2C_HandleTypeDef * hi2c, uint8_t const selectI2cAddress, uint8_t const selectAccelSensitivity, int16_t readings[3]);
 void ICM20948_readMagnetometer_allAxises(I2C_HandleTypeDef * hi2c, int16_t readings[3]);
+
+
+void output_gyro_cdc(int pagIni, int pagFin,int16_t * gy_readings);

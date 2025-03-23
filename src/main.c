@@ -113,18 +113,15 @@ int main(void)
     Error_Handler();
   }
 
-  AUDIO_IN_Record(CCA02M2_AUDIO_INSTANCE, audio_buf, (uint32_t)128);
+  AUDIO_IN_Record(CCA02M2_AUDIO_INSTANCE, audio_buf, INTERNAL_BUFF_SIZE);
 
   while (1)
   {
-    DBG_STRING(dbg_loop);
-    
+    //DBG_STRING(dbg_loop);
     ICM20948_readGyroscope_allAxises(&hi2c_acc, 1, GYRO_FULL_SCALE_2000DPS, &gy_readings[0]);
     visHandle();
-    
-    output_cdc_page(1, 1, &gy_readings[0]);
-    HAL_Delay(50);
-    
+    output_gyro_cdc(1, 1, &gy_readings[0]);
+    HAL_Delay(200);
   }
 }
 

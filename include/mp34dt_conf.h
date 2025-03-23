@@ -59,6 +59,11 @@ modification in the application layer developed with the older versions of the d
 
 #define N_MS_PER_INTERRUPT 10
 
+#define INTERNAL_BUFF_SIZE                    128*AUDIO_IN_SAMPLING_FREQUENCY/16000*AUDIO_IN_CHANNELS
+/* PCM buffer output size */
+#define PCM_OUT_SIZE                          AUDIO_IN_SAMPLING_FREQUENCY/1000
+#define CHANNEL_DEMUX_MASK                    0x55
+
 
 /*  If you want to customize the length of the buffers used into the BSP, uncomment and modify these defines.
   Change the values according to the max PDM clock you want to customize and number of microphones you want to use
