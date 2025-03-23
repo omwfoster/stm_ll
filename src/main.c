@@ -89,6 +89,7 @@ int main(void)
 
   HAL_Delay(10000);
   MX_I2C_Init(&hi2c_acc);
+  MX_I2C_Init(&hi2c_see);  // added for seesaw
 
   // check if accelerometer is connected to
 

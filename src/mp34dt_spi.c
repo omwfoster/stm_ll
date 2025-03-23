@@ -209,6 +209,7 @@ int32_t CCA02M2_AUDIO_IN_Init(uint32_t Instance, CCA02M2_AUDIO_Init_t *AudioInit
     }
 
     PDM_Filter_Init(&PDM2PCMHandler);
+    return HAL_OK;
 }
 
 int32_t AUDIO_IN_PDMToPCM(uint32_t Instance, uint16_t *PDMBuf, uint16_t *PCMBuf)
@@ -222,6 +223,7 @@ uint8_t PDM2PCM_Process(uint16_t *PDMBuf, uint16_t *PCMBuf)
 { 
   //return BSP_AUDIO_IN_PDMToPCM(PDMBuf, PCMBuf);
   PDM_Filter(PDMBuf, PCMBuf, &PDM2PCMHandler);
+  return HAL_OK;
 }
 
 
@@ -496,7 +498,7 @@ int32_t CCA02M2_AUDIO_IN_SetBitsPerSample(uint32_t Instance, uint32_t BitsPerSam
  * @param  BitsPerSample  Input resolution to be returned
  * @retval BSP status
  */
-int32_t CCA02M2_AUDIO_IN_GetBitsPerSample(uint32_t Instance, uint32_t *BitsPerSample)
+int32_t AUDIO_IN_GetBitsPerSample(uint32_t Instance, uint32_t *BitsPerSample)
 {
     if (Instance >= AUDIO_IN_INSTANCES_NBR)
     {
@@ -516,7 +518,7 @@ int32_t CCA02M2_AUDIO_IN_GetBitsPerSample(uint32_t Instance, uint32_t *BitsPerSa
  * @param  ChannelNbr  Channel number to be used
  * @retval BSP status
  */
-int32_t CCA02M2_AUDIO_IN_SetChannelsNbr(uint32_t Instance, uint32_t ChannelNbr)
+int32_t AUDIO_IN_SetChannelsNbr(uint32_t Instance, uint32_t ChannelNbr)
 {
     if ((Instance >= AUDIO_IN_INSTANCES_NBR) || (ChannelNbr > 2U))
     {
@@ -537,7 +539,7 @@ int32_t CCA02M2_AUDIO_IN_SetChannelsNbr(uint32_t Instance, uint32_t ChannelNbr)
  * @param  ChannelNbr  Channel number to be used
  * @retval BSP status
  */
-int32_t CCA02M2_AUDIO_IN_GetChannelsNbr(uint32_t Instance, uint32_t *ChannelNbr)
+int32_t AUDIO_IN_GetChannelsNbr(uint32_t Instance, uint32_t *ChannelNbr)
 {
     if (Instance >= AUDIO_IN_INSTANCES_NBR)
     {
@@ -557,7 +559,7 @@ int32_t CCA02M2_AUDIO_IN_GetChannelsNbr(uint32_t Instance, uint32_t *ChannelNbr)
  * @param  Volume    Volume level to be returnd
  * @retval BSP status
  */
-int32_t CCA02M2_AUDIO_IN_SetVolume(uint32_t Instance, uint32_t Volume)
+int32_t AUDIO_IN_SetVolume(uint32_t Instance, uint32_t Volume)
 {
 
     uint32_t index;
@@ -574,7 +576,7 @@ int32_t CCA02M2_AUDIO_IN_SetVolume(uint32_t Instance, uint32_t Volume)
         if (PDM2PCMConfig.mic_gain != VolumeGain[Volume])
         {
             PDM2PCMConfig.mic_gain = VolumeGain[Volume];
-            (void)PDM2PCM_setConfig((PDM_Filter_Handler_t *)&PDM2PCMHandler, &PDM2PCMConfig);
+            (void)PDM_Filter_setConfig((PDM_Filter_Handler_t *)&PDM2PCMHandler, &PDM2PCMConfig);
         }
     }
 
@@ -592,7 +594,7 @@ int32_t CCA02M2_AUDIO_IN_SetVolume(uint32_t Instance, uint32_t Volume)
  * @param  Volume    Volume level to be returnd
  * @retval BSP status
  */
-int32_t CCA02M2_AUDIO_IN_GetVolume(uint32_t Instance, uint32_t *Volume)
+int32_t AUDIO_IN_GetVolume(uint32_t Instance, uint32_t *Volume)
 {
     if (Instance >= AUDIO_IN_INSTANCES_NBR)
     {
@@ -613,7 +615,7 @@ int32_t CCA02M2_AUDIO_IN_GetVolume(uint32_t Instance, uint32_t *Volume)
  * @param  State     Audio Out state
  * @retval BSP status
  */
-int32_t CCA02M2_AUDIO_IN_GetState(uint32_t Instance, uint32_t *State)
+int32_t AUDIO_IN_GetState(uint32_t Instance, uint32_t *State)
 {
     if (Instance >= AUDIO_IN_INSTANCES_NBR)
     {

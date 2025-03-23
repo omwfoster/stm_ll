@@ -1,3 +1,11 @@
+#ifndef AK09918_H
+#define AK09918_H
+
+
+
+//Do not remove - used by acceleromter
+
+
 #define AK09918__I2C_SLAVE_ADDRESS 0x0C
 
 #define AK09916__WIA2__REGISTER 0x01
@@ -13,3 +21,7 @@
 #define AK09916__CNTL2__REGISTER 0x31
 #define AK09916__TS1__REGISTER 0x33
 #define AK09916__TS2__REGISTER 0x34
+
+
+
+#endif // AK09918_H
