@@ -197,6 +197,27 @@ void USB_CDC_RxHandler(uint8_t *Buf, uint32_t Len)
   CDC_Transmit_FS(Buf, Len);
 }
 
+
+
+
+void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi)
+{
+  /* Turn LED6 on: Transfer in transmission/reception process is complete */
+
+}
+
+/**
+  * @brief  SPI error callbacks.
+  * @param  hspi: SPI handle
+  * @note   This example shows a simple way to report transfer error, and you can
+  *         add your own implementation.
+  * @retval None
+  */
+void HAL_SPI_ErrorCallback(SPI_HandleTypeDef *hspi)
+{
+
+}
+
 /**
  * @brief  This function is executed in case of error occurrence.
  * @param  None

@@ -247,12 +247,7 @@ uint8_t PDM2PCM_Process(uint16_t *PDMBuf, uint16_t *PCMBuf)
  */
 int32_t AUDIO_IN_Record(uint32_t Instance, uint8_t *pBuf, uint32_t NbrOfBytes)
 {
-    if (Instance >= (AUDIO_IN_INSTANCES_NBR - 1U))
-    {
-        return BSP_ERROR_WRONG_PARAM;
-    }
-    else
-    {
+
         AudioInCtx.pBuff = (uint16_t *)pBuf;
         AudioInCtx.Size = NbrOfBytes;
 
@@ -275,7 +270,7 @@ int32_t AUDIO_IN_Record(uint32_t Instance, uint8_t *pBuf, uint32_t NbrOfBytes)
         else
         {
         }
-    }
+    
     /* Return BSP status */
     return BSP_ERROR_NONE;
 }
@@ -633,6 +628,7 @@ int32_t AUDIO_IN_GetState(uint32_t Instance, uint32_t *State)
  * @brief  User callback when record buffer is filled.
  * @retval None
  */
+
 void AUDIO_IN_TransferComplete_CallBack(uint32_t Instance)
 {
     /* Prevent unused argument(s) compilation warning */
