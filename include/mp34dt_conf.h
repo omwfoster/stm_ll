@@ -40,7 +40,7 @@ modification in the application layer developed with the older versions of the d
 
 
 #define N_MS (N_MS_PER_INTERRUPT)
-#define USE_SPI3
+#define USE_SPI2
 #define AUDIO_RESOLUTION_16K 1U
 
 #define AUDIO_IN_CHANNELS            1

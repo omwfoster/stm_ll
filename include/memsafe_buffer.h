@@ -14,6 +14,8 @@ MEMSAFE_STRING(i2c_connect, "connected\r");
 MEMSAFE_STRING(i2c_not_connect, "not connected\r");
 MEMSAFE_STRING(init_step, "init\r");
 MEMSAFE_STRING(dbg_loop, "loop\r");
+MEMSAFE_STRING(isr_loop, "isr_loop\r");
+MEMSAFE_STRING(isr_error, "isr_error\r");
 
 #define DBG_STRING(name) \
     CDC_Transmit_FS((uint8_t *)name, sizeof(name));

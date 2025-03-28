@@ -21,11 +21,7 @@
 #define AUDIO_IN_STATE_STOP      2U
 #define AUDIO_IN_STATE_PAUSE     3U
 
-/* Audio In instances number:
-   Instance 0 is SAI-I2S / SPI path
-   Instance 1 is DFSDM path
-   Instance 2 is PDM path
- */
+
 #define AUDIO_IN_INSTANCES_NBR 1U
 
 // GPIO clock peripheral enable command
@@ -71,7 +67,7 @@ I2C_HandleTypeDef hi2c_see;
 int16_t gy_readings[3];
 Audio_BufferTypeDef BufferCtl;
 CCA02M2_AUDIO_Init_t MicParams;
-uint8_t audio_buf[128];
+uint8_t audio_buf[INTERNAL_BUFF_SIZE];
 
 
 
@@ -203,7 +199,8 @@ void USB_CDC_RxHandler(uint8_t *Buf, uint32_t Len)
 void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi)
 {
   /* Turn LED6 on: Transfer in transmission/reception process is complete */
-
+DBG_STATUS(isr_loop);
+//PDM2PCM_Process();
 }
 
 /**
@@ -215,7 +212,7 @@ void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi)
   */
 void HAL_SPI_ErrorCallback(SPI_HandleTypeDef *hspi)
 {
-
+DBG_STATUS(isr_error);
 }
 
 /**

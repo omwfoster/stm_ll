@@ -3,14 +3,11 @@
 #include "mp34dt_spi.h"
 #include "mp34dt_conf.h"
 
-
-
 #include "pdm2pcm_glo.h"
 #include "errno.h"
 #include "stdint.h"
 #include "arm_math.h"
 #include "memsafe_buffer.h"
-
 
 AUDIO_IN_Ctx_t AudioInCtx = {0};
 
@@ -21,17 +18,16 @@ AUDIO_IN_Ctx_t AudioInCtx = {0};
 #define DECIMATOR_FACTOR (2U)
 #define DECIMATOR_STATE_LENGTH (DECIMATOR_BLOCK_SIZE + (DECIMATOR_NUM_TAPS) - 1U)
 
-
 /* PDM filters params */
 static PDM_Filter_Handler_t PDM2PCMHandler;
 static PDM_Filter_Config_t PDM2PCMConfig;
 
 static SPI_HandleTypeDef hAudioInSPI;
 static TIM_HandleTypeDef TimDividerHandle;
-static uint16_t SPI_InternalBuffer[PDM_INTERNAL_BUFFER_SIZE_SPI];
+static uint16_t SPI_InternalBuffer[10];//[PDM_INTERNAL_BUFFER_SIZE_SPI];
 
-uint16_t * PDMBuf = SPI_InternalBuffer;
-uint16_t * PCMBuf;
+uint16_t *PDMBuf = SPI_InternalBuffer;
+uint16_t *PCMBuf;
 
 static uint8_t Channel_Demux[128] =
     {
@@ -59,48 +55,47 @@ static __IO uint32_t MicBuffIndex[4];
 
 HAL_StatusTypeDef MX_SPI_Init(SPI_HandleTypeDef *hspi, MX_SPI_Config *MXConfig)
 {
-  static DMA_HandleTypeDef hdma_rx;
-  HAL_StatusTypeDef ret = HAL_OK;
+    static DMA_HandleTypeDef hdma_rx;
+    HAL_StatusTypeDef ret = HAL_OK;
 
-  hspi->Init.BaudRatePrescaler = MXConfig->BaudRatePrescaler;
-  hspi->Init.Direction         = MXConfig->Direction;
-  hspi->Init.CLKPhase          = MXConfig->CLKPhase;
-  hspi->Init.CLKPolarity       = MXConfig->CLKPolarity;
-  hspi->Init.CRCCalculation    = MXConfig->CRCCalculation;
-  hspi->Init.CRCPolynomial     = MXConfig->CRCPolynomial;
-  hspi->Init.DataSize          = MXConfig->DataSize;
-  hspi->Init.FirstBit          = MXConfig->FirstBit;
-  hspi->Init.NSS               = MXConfig->NSS;
-  hspi->Init.TIMode            = MXConfig->TIMode;
-  hspi->Init.Mode              = MXConfig->Mode;
+    hspi->Init.BaudRatePrescaler = MXConfig->BaudRatePrescaler;
+    hspi->Init.Direction = MXConfig->Direction;
+    hspi->Init.CLKPhase = MXConfig->CLKPhase;
+    hspi->Init.CLKPolarity = MXConfig->CLKPolarity;
+    hspi->Init.CRCCalculation = MXConfig->CRCCalculation;
+    hspi->Init.CRCPolynomial = MXConfig->CRCPolynomial;
+    hspi->Init.DataSize = MXConfig->DataSize;
+    hspi->Init.FirstBit = MXConfig->FirstBit;
+    hspi->Init.NSS = MXConfig->NSS;
+    hspi->Init.TIMode = MXConfig->TIMode;
+    hspi->Init.Mode = MXConfig->Mode;
 
-  /* Configure the DMA handler for Transmission process */
-  hdma_rx.Instance                 = AUDIO_IN_SPI_RX_DMA_STREAM;
-  hdma_rx.Init.Channel             = AUDIO_IN_SPI_RX_DMA_CHANNEL;
-  hdma_rx.Init.Direction           = DMA_PERIPH_TO_MEMORY;
-  hdma_rx.Init.PeriphInc           = DMA_PINC_DISABLE;
-  hdma_rx.Init.MemInc              = DMA_MINC_ENABLE;
-  hdma_rx.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
-  hdma_rx.Init.MemDataAlignment    = DMA_MDATAALIGN_HALFWORD;
-  hdma_rx.Init.Mode                = DMA_CIRCULAR;
-  hdma_rx.Init.Priority            = DMA_PRIORITY_HIGH;
-  hdma_rx.Init.FIFOMode            = DMA_FIFOMODE_DISABLE;
-  hdma_rx.Init.FIFOThreshold       = DMA_FIFO_THRESHOLD_FULL;
-  hdma_rx.Init.MemBurst            = DMA_MBURST_INC4;
-  hdma_rx.Init.PeriphBurst         = DMA_PBURST_INC4;
+    /* Configure the DMA handler for Transmission process */
+    hdma_rx.Instance = AUDIO_IN_SPI_RX_DMA_STREAM;
+    hdma_rx.Init.Channel = AUDIO_IN_SPI_RX_DMA_CHANNEL;
+    hdma_rx.Init.Direction = DMA_PERIPH_TO_MEMORY;
+    hdma_rx.Init.PeriphInc = DMA_PINC_DISABLE;
+    hdma_rx.Init.MemInc = DMA_MINC_ENABLE;
+    hdma_rx.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
+    hdma_rx.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD;
+    hdma_rx.Init.Mode = DMA_CIRCULAR;
+    hdma_rx.Init.Priority = DMA_PRIORITY_HIGH;
+    hdma_rx.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
+    hdma_rx.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
+    hdma_rx.Init.MemBurst = DMA_MBURST_INC4;
+    hdma_rx.Init.PeriphBurst = DMA_PBURST_INC4;
 
-  /* Configure the DMA Stream */
-  if (HAL_DMA_Init(&hdma_rx) != HAL_OK)
-  {
-    ret = HAL_ERROR;
-  }
+    /* Configure the DMA Stream */
+    if (HAL_DMA_Init(&hdma_rx) != HAL_OK)
+    {
+        ret = HAL_ERROR;
+    }
 
-  /* Associate the initialized DMA handle to the the SPI handle */
-  __HAL_LINKDMA(hspi, hdmarx, hdma_rx);
+    /* Associate the initialized DMA handle to the the SPI handle */
+    __HAL_LINKDMA(hspi, hdmarx, hdma_rx);
 
-  return ret;
+    return ret;
 }
-
 
 static void SPI_MspInit(SPI_HandleTypeDef *hspi)
 {
@@ -147,34 +142,9 @@ int32_t CCA02M2_AUDIO_IN_Init(uint32_t Instance, CCA02M2_AUDIO_Init_t *AudioInit
 
         uint32_t PDM_Clock_Freq;
 
-        switch (AudioInit->SampleRate)
-        {
-        case AUDIO_FREQUENCY_8K:
-            PDM_Clock_Freq = 1280;
-            break;
+        PDM_Clock_Freq = PDM_FREQ_16K;
 
-        case AUDIO_FREQUENCY_16K:
-            PDM_Clock_Freq = PDM_FREQ_16K;
-            break;
-
-        case AUDIO_FREQUENCY_32K:
-            PDM_Clock_Freq = 2048;
-            break;
-
-        case AUDIO_FREQUENCY_48K:
-            PDM_Clock_Freq = 3072;
-            break;
-
-        default:
-            PDM_Clock_Freq = 0;
-            break;
-        }
-
-        if (PDM_Clock_Freq == 0U)
-        {
-            return BSP_ERROR_WRONG_PARAM;
-        }
-
+       
 
         /* Double buffer for 1 microphone */
         AudioInCtx.Size = (PDM_Clock_Freq / 8U) * 2U * N_MS_PER_INTERRUPT;
@@ -214,28 +184,17 @@ int32_t CCA02M2_AUDIO_IN_Init(uint32_t Instance, CCA02M2_AUDIO_Init_t *AudioInit
 
 int32_t AUDIO_IN_PDMToPCM(uint32_t Instance, uint16_t *PDMBuf, uint16_t *PCMBuf)
 {
-  PDM_Filter(PDMBuf, PCMBuf, &PDM2PCMHandler);
-  return BSP_ERROR_NONE;
+    PDM_Filter(PDMBuf, PCMBuf, &PDM2PCMHandler);
+    return BSP_ERROR_NONE;
 }
-
 
 uint8_t PDM2PCM_Process(uint16_t *PDMBuf, uint16_t *PCMBuf)
-{ 
-  //return BSP_AUDIO_IN_PDMToPCM(PDMBuf, PCMBuf);
-  PDM_Filter(PDMBuf, PCMBuf, &PDM2PCMHandler);
-  return HAL_OK;
+{
+    // return BSP_AUDIO_IN_PDMToPCM(PDMBuf, PCMBuf);
+    PDM_Filter(PDMBuf, PCMBuf, &PDM2PCMHandler);
+    return HAL_OK;
 }
 
-
-
-
-/**
- * @brief  Converts audio format from PDM to PCM.
- * @param  Instance  AUDIO IN Instance
- * @param  PDMBuf    Pointer to PDM buffer data
- * @param  PCMBuf    Pointer to PCM buffer data
- * @retval BSP status
- */
 
 
 /**
@@ -248,29 +207,27 @@ uint8_t PDM2PCM_Process(uint16_t *PDMBuf, uint16_t *PCMBuf)
 int32_t AUDIO_IN_Record(uint32_t Instance, uint8_t *pBuf, uint32_t NbrOfBytes)
 {
 
-        AudioInCtx.pBuff = (uint16_t *)pBuf;
-        AudioInCtx.Size = NbrOfBytes;
+    AudioInCtx.pBuff = (uint16_t *)pBuf;
+    AudioInCtx.Size = NbrOfBytes;
 
-        if (Instance == 0U)
+    if (Instance == 0U)
+    {
+
+        if (AudioInCtx.ChannelsNbr > 2U)
         {
-
-            if (AudioInCtx.ChannelsNbr > 2U)
+            if (HAL_SPI_Receive_DMA(&hAudioInSPI, (uint8_t *)SPI_InternalBuffer, (uint16_t)AudioInCtx.Size) != HAL_OK)
             {
-                if (HAL_SPI_Receive_DMA(&hAudioInSPI, (uint8_t *)SPI_InternalBuffer, (uint16_t)AudioInCtx.Size) != HAL_OK)
-                {
-                    return BSP_ERROR_PERIPH_FAILURE;
-                }
+                return BSP_ERROR_PERIPH_FAILURE;
             }
-
- 
-
-            /* Update BSP AUDIO IN state */
-            AudioInCtx.State = AUDIO_IN_STATE_RECORDING;
         }
-        else
-        {
-        }
-    
+
+        /* Update BSP AUDIO IN state */
+        AudioInCtx.State = AUDIO_IN_STATE_RECORDING;
+    }
+    else
+    {
+    }
+
     /* Return BSP status */
     return BSP_ERROR_NONE;
 }
@@ -291,8 +248,6 @@ int32_t CCA02M2_AUDIO_IN_Stop(uint32_t Instance)
         if (Instance == 0U)
         {
 
-
-
             if (AudioInCtx.ChannelsNbr > 2U)
             {
                 if (HAL_SPI_DMAStop(&hAudioInSPI) != HAL_OK)
@@ -300,14 +255,9 @@ int32_t CCA02M2_AUDIO_IN_Stop(uint32_t Instance)
                     return BSP_ERROR_PERIPH_FAILURE;
                 }
             }
-
-
-
-
         }
         else /*(Instance == 1U) */
         {
-
         }
         /* Update BSP AUDIO IN state */
         AudioInCtx.State = AUDIO_IN_STATE_STOP;
@@ -315,8 +265,6 @@ int32_t CCA02M2_AUDIO_IN_Stop(uint32_t Instance)
     /* Return BSP status */
     return BSP_ERROR_NONE;
 }
-
-
 
 /**
  * @brief  Start audio recording.
@@ -634,7 +582,6 @@ void AUDIO_IN_TransferComplete_CallBack(uint32_t Instance)
     /* Prevent unused argument(s) compilation warning */
     UNUSED(Instance);
     CDC_Transmit_FS((uint8_t *)str_hal_ok, strlen(str_hal_ok));
-    
 
     /* This function should be implemented by the user application.
     It is called into this driver when the current buffer is filled
@@ -669,8 +616,6 @@ void AUDIO_IN_Error_CallBack(uint32_t Instance)
     /* This function is called when an Interrupt due to transfer error on or peripheral
     error occurs. */
 }
-
-
 
 /**
  * @brief Audio Timer Init
@@ -744,5 +689,3 @@ static HAL_StatusTypeDef AUDIO_IN_Timer_Init(void)
     }
     return ret;
 }
-
-

@@ -15,6 +15,7 @@
 #define AUDIO_FREQUENCY_11K           ((uint32_t)11025)
 #define AUDIO_FREQUENCY_8K            ((uint32_t)8000)  
 
+#define USE_SPI2 1U
 
 #define PDM_INTERNAL_BUFFER_SIZE_SPI ((AUDIO_FREQUENCY_16K / 8) * N_MS_PER_INTERRUPT)
 #define AUDIO_IN_STATE_RESET     0U
@@ -103,6 +104,29 @@ typedef struct
 #define AUDIO_IN_SPI_RX_DMA_STREAM     DMA1_Stream2
 #define AUDIO_IN_SPI_DMA_RX_IRQn       DMA2_Stream2_IRQn
 #define AUDIO_IN_SPI_DMA_RX_IRQHandler DMA2_Stream2_IRQHandler
+#endif
+#ifdef USE_SPI2
+#define AUDIO_IN_SPI_INSTANCE                        SPI2
+#define AUDIO_IN_SPI_CLK_ENABLE()           __SPI2_CLK_ENABLE()
+#define AUDIO_IN_SPI_SCK_GPIO_CLK_ENABLE()  __GPIOB_CLK_ENABLE()
+#define AUDIO_IN_SPI_MISO_GPIO_CLK_ENABLE() __GPIOB_CLK_ENABLE()
+#define AUDIO_IN_SPI_MOSI_GPIO_CLK_ENABLE() __GPIOB_CLK_ENABLE()
+#define AUDIO_IN_SPI_FORCE_RESET()          __SPI2_FORCE_RESET()
+#define AUDIO_IN_SPI_RELEASE_RESET()        __SPI2_RELEASE_RESET()
+#define AUDIO_IN_SPI_SCK_PIN                GPIO_PIN_13
+#define AUDIO_IN_SPI_SCK_GPIO_PORT          GPIOB
+#define AUDIO_IN_SPI_SCK_AF                 GPIO_AF5_SPI2
+#define AUDIO_IN_SPI_MOSI_PIN               GPIO_PIN_15
+#define AUDIO_IN_SPI_MOSI_GPIO_PORT         GPIOB
+#define AUDIO_IN_SPI_MOSI_AF                GPIO_AF5_SPI2
+
+/* SPI DMA definitions */
+#define AUDIO_IN_SPI_DMAx_CLK_ENABLE() __DMA1_CLK_ENABLE()
+#define AUDIO_IN_SPI_RX_DMA_CHANNEL    DMA_CHANNEL_0
+#define AUDIO_IN_SPI_RX_DMA_STREAM     DMA1_Stream3
+#define AUDIO_IN_SPI_DMA_RX_IRQn       DMA1_Stream3_IRQn
+#define AUDIO_IN_SPI_DMA_RX_IRQHandler DMA1_Stream3_IRQHandler
+
 
 #else
 /* SPI Configuration defines */
