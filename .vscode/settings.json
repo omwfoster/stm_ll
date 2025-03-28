@@ -9,6 +9,7 @@
         "i2c_acc_OPTIONS.h": "c",
         "i2c_acc_REG.h": "c",
         "i2c_init.h": "c",
-        "i2c_see.h": "c"
+        "i2c_see.h": "c",
+        "memsafe_buffer.h": "c"
     }
 }
