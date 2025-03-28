@@ -2857,7 +2857,7 @@ Discarded input sections
  .bss.RecBuffTrigger
                 0x0000000000000000        0x4 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
  .data.PDMBuf   0x0000000000000000        0x4 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
- .rodata.VolumeGain.15698
+ .rodata.VolumeGain.16453
                 0x0000000000000000      0x102 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
  .rodata.str_hal_ok
                 0x0000000000000000        0x8 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
@@ -4458,7 +4458,7 @@ LOAD /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0
                 0x00000000200006bc       0x14 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
  .bss.hAudioInSPI
                 0x00000000200006d0       0x80 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
- .bss.hdma_rx.15619
+ .bss.hdma_rx.16374
                 0x0000000020000750       0x60 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
  .bss.mem.13703
                 0x00000000200007b0      0x220 .pio/build/adafruit_feather_f405/src/usbd_conf.o

@@ -3,6 +3,7 @@
 
 #include "stdint.h"
 #include "mp34dt_conf.h"
+#include "usbd_cdc_if.h"
 
 /* AUDIO FREQUENCY */
 #define AUDIO_FREQUENCY_192K          ((uint32_t)192000)
@@ -104,8 +105,12 @@ typedef struct
 #define AUDIO_IN_SPI_RX_DMA_STREAM     DMA1_Stream2
 #define AUDIO_IN_SPI_DMA_RX_IRQn       DMA2_Stream2_IRQn
 #define AUDIO_IN_SPI_DMA_RX_IRQHandler DMA2_Stream2_IRQHandler
+
 #endif
+
 #ifdef USE_SPI2
+
+
 #define AUDIO_IN_SPI_INSTANCE                        SPI2
 #define AUDIO_IN_SPI_CLK_ENABLE()           __SPI2_CLK_ENABLE()
 #define AUDIO_IN_SPI_SCK_GPIO_CLK_ENABLE()  __GPIOB_CLK_ENABLE()
