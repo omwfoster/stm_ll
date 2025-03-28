@@ -170,7 +170,7 @@ typedef struct
 #define AUDIO_IN_TIMER_CHIN_GPIO_PORT               GPIOB
 #define AUDIO_IN_TIMER_CHIN_GPIO_PORT_CLK_ENABLE()  __GPIOB_CLK_ENABLE()
 
-/* Audio In devices */
+/* Audio In devices */  
 #ifndef AUDIO_IN_CHANNELS
 #define AUDIO_IN_CHANNELS 1
 #endif
