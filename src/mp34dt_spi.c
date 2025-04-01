@@ -210,23 +210,12 @@ int32_t AUDIO_IN_Record(uint32_t Instance, uint8_t *pBuf, uint32_t NbrOfBytes)
     AudioInCtx.pBuff = (uint16_t *)pBuf;
     AudioInCtx.Size = NbrOfBytes;
 
-    if (Instance == 0U)
-    {
-
-        if (AudioInCtx.ChannelsNbr > 2U)
-        {
+ 
             if (HAL_SPI_Receive_DMA(&hAudioInSPI, (uint8_t *)SPI_InternalBuffer, (uint16_t)AudioInCtx.Size) != HAL_OK)
             {
                 return BSP_ERROR_PERIPH_FAILURE;
             }
-        }
-
-        /* Update BSP AUDIO IN state */
-        AudioInCtx.State = AUDIO_IN_STATE_RECORDING;
-    }
-    else
-    {
-    }
+  
 
     /* Return BSP status */
     return BSP_ERROR_NONE;
@@ -239,29 +228,18 @@ int32_t AUDIO_IN_Record(uint32_t Instance, uint8_t *pBuf, uint32_t NbrOfBytes)
  */
 int32_t CCA02M2_AUDIO_IN_Stop(uint32_t Instance)
 {
-    if (Instance >= AUDIO_IN_INSTANCES_NBR)
-    {
-        return BSP_ERROR_WRONG_PARAM;
-    }
-    else
-    {
-        if (Instance == 0U)
-        {
 
-            if (AudioInCtx.ChannelsNbr > 2U)
-            {
+
+   
                 if (HAL_SPI_DMAStop(&hAudioInSPI) != HAL_OK)
                 {
                     return BSP_ERROR_PERIPH_FAILURE;
                 }
-            }
-        }
-        else /*(Instance == 1U) */
-        {
-        }
+      
+
         /* Update BSP AUDIO IN state */
         AudioInCtx.State = AUDIO_IN_STATE_STOP;
-    }
+ 
     /* Return BSP status */
     return BSP_ERROR_NONE;
 }
@@ -275,17 +253,12 @@ int32_t CCA02M2_AUDIO_IN_Stop(uint32_t Instance)
  */
 int32_t CCA02M2_AUDIO_IN_RecordPDM(uint32_t Instance, uint8_t *pBuf, uint32_t NbrOfBytes)
 {
-    if (Instance != 2U)
-    {
-        return BSP_ERROR_WRONG_PARAM;
-    }
-    else
-    {
+
 
         UNUSED(pBuf);
         UNUSED(NbrOfBytes);
         return BSP_ERROR_WRONG_PARAM;
-    }
+    
 }
 
 /**
@@ -298,11 +271,8 @@ int32_t CCA02M2_AUDIO_IN_SetDevice(uint32_t Instance, uint32_t Device)
 {
     CCA02M2_AUDIO_Init_t audio_init;
 
-    if (Instance >= AUDIO_IN_INSTANCES_NBR)
-    {
-        return BSP_ERROR_WRONG_PARAM;
-    }
-    else if (AudioInCtx.State == AUDIO_IN_STATE_STOP)
+
+     if (AudioInCtx.State == AUDIO_IN_STATE_STOP)
     {
         if (Instance == 1U)
         {
@@ -318,10 +288,7 @@ int32_t CCA02M2_AUDIO_IN_SetDevice(uint32_t Instance, uint32_t Device)
             return BSP_ERROR_NO_INIT;
         }
     }
-    else
-    {
-        return BSP_ERROR_BUSY;
-    }
+
     /* Return BSP status */
     return BSP_ERROR_NONE;
 }
@@ -335,15 +302,11 @@ int32_t CCA02M2_AUDIO_IN_SetDevice(uint32_t Instance, uint32_t Device)
 int32_t CCA02M2_AUDIO_IN_GetDevice(uint32_t Instance, uint32_t *Device)
 {
     if (Instance >= AUDIO_IN_INSTANCES_NBR)
-    {
-        return BSP_ERROR_WRONG_PARAM;
-    }
-    else
-    {
+
         /* Return audio Input Device */
         *Device = AudioInCtx.Device;
-    }
-    return BSP_ERROR_NONE;
+    
+
 }
 
 /**
@@ -356,11 +319,8 @@ int32_t CCA02M2_AUDIO_IN_SetSampleRate(uint32_t Instance, uint32_t SampleRate)
 {
     CCA02M2_AUDIO_Init_t audio_init;
 
-    if (Instance >= AUDIO_IN_INSTANCES_NBR)
-    {
-        return BSP_ERROR_WRONG_PARAM;
-    }
-    else if (AudioInCtx.State == AUDIO_IN_STATE_STOP)
+
+    if (AudioInCtx.State == AUDIO_IN_STATE_STOP)
     {
         audio_init.Device = AudioInCtx.Device;
         audio_init.ChannelsNbr = AudioInCtx.ChannelsNbr;
@@ -372,10 +332,7 @@ int32_t CCA02M2_AUDIO_IN_SetSampleRate(uint32_t Instance, uint32_t SampleRate)
             return BSP_ERROR_NO_INIT;
         }
     }
-    else
-    {
-        return BSP_ERROR_BUSY;
-    }
+
     /* Return BSP status */
     return BSP_ERROR_NONE;
 }
@@ -388,15 +345,10 @@ int32_t CCA02M2_AUDIO_IN_SetSampleRate(uint32_t Instance, uint32_t SampleRate)
  */
 int32_t CCA02M2_AUDIO_IN_GetSampleRate(uint32_t Instance, uint32_t *SampleRate)
 {
-    if (Instance >= AUDIO_IN_INSTANCES_NBR)
-    {
-        return BSP_ERROR_WRONG_PARAM;
-    }
-    else
-    {
+
         /* Return audio in frequency */
         *SampleRate = AudioInCtx.SampleRate;
-    }
+    
     /* Return BSP status */
     return BSP_ERROR_NONE;
 }
@@ -411,11 +363,7 @@ int32_t CCA02M2_AUDIO_IN_SetBitsPerSample(uint32_t Instance, uint32_t BitsPerSam
 {
     CCA02M2_AUDIO_Init_t audio_init;
 
-    if (Instance >= AUDIO_IN_INSTANCES_NBR)
-    {
-        return BSP_ERROR_WRONG_PARAM;
-    }
-    else if (AudioInCtx.State == AUDIO_IN_STATE_STOP)
+if (AudioInCtx.State == AUDIO_IN_STATE_STOP)
     {
         audio_init.Device = AudioInCtx.Device;
         audio_init.ChannelsNbr = AudioInCtx.ChannelsNbr;
@@ -427,10 +375,7 @@ int32_t CCA02M2_AUDIO_IN_SetBitsPerSample(uint32_t Instance, uint32_t BitsPerSam
             return BSP_ERROR_NO_INIT;
         }
     }
-    else
-    {
-        return BSP_ERROR_BUSY;
-    }
+
     /* Return BSP status */
     return BSP_ERROR_NONE;
 }

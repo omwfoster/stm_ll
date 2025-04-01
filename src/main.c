@@ -21,6 +21,14 @@
 #define AUDIO_IN_STATE_STOP      2U
 #define AUDIO_IN_STATE_PAUSE     3U
 
+#define FFT_SIZE 512 // Example: 64-point FFT
+#define PI_loc 3.14159265358979323846f
+
+float32_t Input[2 * FFT_SIZE]; // Input data (real and imaginary parts interleaved)
+float32_t Output[2 * FFT_SIZE]; // Output data (real and imaginary parts interleaved)
+
+
+arm_cfft_radix4_instance_f32 S;
 
 #define AUDIO_IN_INSTANCES_NBR 1U
 
@@ -104,7 +112,6 @@ int main(void)
   MicParams.SampleRate = AUDIO_FREQUENCY_16K;
   MicParams.Volume = AUDIO_VOLUME_INPUT;
 
-  arm_cfft_radix4_f32
 
   if (CCA02M2_AUDIO_IN_Init(CCA02M2_AUDIO_INSTANCE, &MicParams) != BSP_ERROR_NONE)
   {
@@ -113,6 +120,10 @@ int main(void)
 
   AUDIO_IN_Record(CCA02M2_AUDIO_INSTANCE, audio_buf, INTERNAL_BUFF_SIZE);
 
+
+   
+  arm_cfft_radix4_init_f32(&S, FFT_SIZE, 0, 1); // Initialize with forward transform, no bit-reversal
+
   while (1)
   {
     //DBG_STRING(dbg_loop);
@@ -120,6 +131,8 @@ int main(void)
     visHandle();
     output_gyro_cdc(1, 1, &gy_readings[0]);
     HAL_Delay(200);
+
+    arm_cfft_radix4_f32(&S, Input);
   }
 }
 
