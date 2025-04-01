@@ -5,7 +5,6 @@
 #include "mp34dt_spi.h"
 #include "mp34dt_conf.h"
 
-
 #include "usb_device.h"
 #include "usbd_cdc_if.h"
 #include "mp34dt_spi.h"
@@ -16,17 +15,16 @@
 #include "errno.h"
 
 /* Audio In states */
-#define AUDIO_IN_STATE_RESET     0U
+#define AUDIO_IN_STATE_RESET 0U
 #define AUDIO_IN_STATE_RECORDING 1U
-#define AUDIO_IN_STATE_STOP      2U
-#define AUDIO_IN_STATE_PAUSE     3U
+#define AUDIO_IN_STATE_STOP 2U
+#define AUDIO_IN_STATE_PAUSE 3U
 
 #define FFT_SIZE 512 // Example: 64-point FFT
 #define PI_loc 3.14159265358979323846f
 
-float32_t Input[2 * FFT_SIZE]; // Input data (real and imaginary parts interleaved)
+float32_t Input[2 * FFT_SIZE];  // Input data (real and imaginary parts interleaved)
 float32_t Output[2 * FFT_SIZE]; // Output data (real and imaginary parts interleaved)
-
 
 arm_cfft_radix4_instance_f32 S;
 
@@ -61,8 +59,6 @@ typedef struct Audio_BufferType
   uint32_t fptr;
 } Audio_BufferTypeDef;
 
-
-
 uint16_t WrBuffer[WR_BUFFER_SIZE];
 
 // RGB Framebuffers
@@ -77,13 +73,13 @@ Audio_BufferTypeDef BufferCtl;
 CCA02M2_AUDIO_Init_t MicParams;
 uint8_t audio_buf[INTERNAL_BUFF_SIZE];
 
-
-
 int main(void)
 {
   hi2c_acc.Instance = I2C1;
   hi2c_see.Instance = I2C2;
-  
+
+  float32_t maxValue;
+  int maxIndex;
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
@@ -93,17 +89,14 @@ int main(void)
 
   HAL_Delay(10000);
   MX_I2C_Init(&hi2c_acc);
-  MX_I2C_Init(&hi2c_see);  // added for seesaw
+  MX_I2C_Init(&hi2c_see); // added for seesaw
 
   // check if accelerometer is connected to
 
-
   DBG_STATUS(ICM20948_isI2cAddress2(&hi2c_acc));
-
 
   visInit();
 
-  
   DBG_STATUS(ICM20948_init(&hi2c_acc, 1, GYRO_FULL_SCALE_2000DPS));
 
   MicParams.BitsPerSample = 16;
@@ -112,7 +105,6 @@ int main(void)
   MicParams.SampleRate = AUDIO_FREQUENCY_16K;
   MicParams.Volume = AUDIO_VOLUME_INPUT;
 
-
   if (CCA02M2_AUDIO_IN_Init(CCA02M2_AUDIO_INSTANCE, &MicParams) != BSP_ERROR_NONE)
   {
     Error_Handler();
@@ -120,19 +112,17 @@ int main(void)
 
   AUDIO_IN_Record(CCA02M2_AUDIO_INSTANCE, audio_buf, INTERNAL_BUFF_SIZE);
 
-
-   
   arm_cfft_radix4_init_f32(&S, FFT_SIZE, 0, 1); // Initialize with forward transform, no bit-reversal
 
   while (1)
   {
-    //DBG_STRING(dbg_loop);
+    // DBG_STRING(dbg_loop);
     ICM20948_readGyroscope_allAxises(&hi2c_acc, 1, GYRO_FULL_SCALE_2000DPS, &gy_readings[0]);
     visHandle();
     output_gyro_cdc(1, 1, &gy_readings[0]);
     HAL_Delay(200);
-
     arm_cfft_radix4_f32(&S, Input);
+    arm_max_f32(Output, FFT_SIZE, &maxValue, &maxIndex); // Find the index of the maximum value
   }
 }
 
@@ -208,26 +198,23 @@ void USB_CDC_RxHandler(uint8_t *Buf, uint32_t Len)
   CDC_Transmit_FS(Buf, Len);
 }
 
-
-
-
 void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi)
 {
   /* Turn LED6 on: Transfer in transmission/reception process is complete */
-DBG_STATUS(isr_loop);
-//PDM2PCM_Process();
+  DBG_STATUS(isr_loop);
+  // PDM2PCM_Process();
 }
 
 /**
-  * @brief  SPI error callbacks.
-  * @param  hspi: SPI handle
-  * @note   This example shows a simple way to report transfer error, and you can
-  *         add your own implementation.
-  * @retval None
-  */
+ * @brief  SPI error callbacks.
+ * @param  hspi: SPI handle
+ * @note   This example shows a simple way to report transfer error, and you can
+ *         add your own implementation.
+ * @retval None
+ */
 void HAL_SPI_ErrorCallback(SPI_HandleTypeDef *hspi)
 {
-DBG_STATUS(isr_error);
+  DBG_STATUS(isr_error);
 }
 
 /**
