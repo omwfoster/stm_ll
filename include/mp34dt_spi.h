@@ -16,7 +16,7 @@
 #define AUDIO_FREQUENCY_11K           ((uint32_t)11025)
 #define AUDIO_FREQUENCY_8K            ((uint32_t)8000)  
 
-#define USE_SPI2 1U
+
 
 #define PDM_INTERNAL_BUFFER_SIZE_SPI ((AUDIO_FREQUENCY_16K / 8) * N_MS_PER_INTERRUPT)
 #define AUDIO_IN_STATE_RESET     0U

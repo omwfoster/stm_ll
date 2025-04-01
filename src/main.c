@@ -104,6 +104,8 @@ int main(void)
   MicParams.SampleRate = AUDIO_FREQUENCY_16K;
   MicParams.Volume = AUDIO_VOLUME_INPUT;
 
+  arm_cfft_radix4_f32
+
   if (CCA02M2_AUDIO_IN_Init(CCA02M2_AUDIO_INSTANCE, &MicParams) != BSP_ERROR_NONE)
   {
     Error_Handler();
