@@ -79,7 +79,7 @@ int main(void)
   hi2c_see.Instance = I2C2;
 
   float32_t maxValue;
-  int maxIndex;
+  uint32_t maxIndex;
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
@@ -105,12 +105,12 @@ int main(void)
   MicParams.SampleRate = AUDIO_FREQUENCY_16K;
   MicParams.Volume = AUDIO_VOLUME_INPUT;
 
-  if (CCA02M2_AUDIO_IN_Init(CCA02M2_AUDIO_INSTANCE, &MicParams) != BSP_ERROR_NONE)
+  if (CCA02M2_AUDIO_IN_Init(&MicParams) != BSP_ERROR_NONE)
   {
     Error_Handler();
   }
 
-  AUDIO_IN_Record(CCA02M2_AUDIO_INSTANCE, audio_buf, INTERNAL_BUFF_SIZE);
+  AUDIO_IN_Record(audio_buf, INTERNAL_BUFF_SIZE);
 
   arm_cfft_radix4_init_f32(&S, FFT_SIZE, 0, 1); // Initialize with forward transform, no bit-reversal
 

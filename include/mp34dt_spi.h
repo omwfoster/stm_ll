@@ -198,7 +198,7 @@ typedef struct
 
 //int32_t AUDIO_IN_Init(uint32_t Instance, AUDIO_Init_t *AudioInit);
 int32_t AUDIO_IN_DeInit(uint32_t Instance);
-int32_t AUDIO_IN_Record(uint32_t Instance, uint8_t *pBuf, uint32_t NbrOfBytes);
+int32_t AUDIO_IN_Record(uint8_t *pBuf, uint32_t NbrOfBytes);
 int32_t AUDIO_IN_Stop(uint32_t Instance);
 int32_t AUDIO_IN_Pause(uint32_t Instance);
 int32_t AUDIO_IN_Resume(uint32_t Instance);
@@ -221,7 +221,7 @@ int32_t AUDIO_IN_GetVolume(uint32_t Instance, uint32_t *Volume);
 int32_t AUDIO_IN_GetState(uint32_t Instance, uint32_t *State);
 
 
-int32_t AUDIO_IN_RecordPDM(uint32_t Instance, uint8_t *pBuf, uint32_t NbrOfBytes);
+int32_t AUDIO_IN_RecordPDM(uint8_t *pBuf, uint32_t NbrOfBytes);
 
 void AUDIO_IN_IRQHandler(uint32_t Instance, uint32_t Device);
 
@@ -237,7 +237,7 @@ void AUDIO_IN_HalfTransfer_CallBack(uint32_t Instance);
 void AUDIO_IN_Error_CallBack(uint32_t Instance);
 
 HAL_StatusTypeDef MX_SPI_Init(SPI_HandleTypeDef *hspi, MX_SPI_Config *MXConfig);
-int32_t CCA02M2_AUDIO_IN_Init(uint32_t Instance, CCA02M2_AUDIO_Init_t *AudioInit);
+int32_t CCA02M2_AUDIO_IN_Init(CCA02M2_AUDIO_Init_t *AudioInit);
 uint8_t PDM2PCM_Process(uint16_t *PDMBuf, uint16_t *PCMBuf);
 
 

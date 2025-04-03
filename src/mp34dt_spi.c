@@ -126,7 +126,7 @@ static void SPI_MspInit(SPI_HandleTypeDef *hspi)
     HAL_GPIO_Init(AUDIO_IN_SPI_MOSI_GPIO_PORT, &GPIO_InitStruct);
 }
 
-int32_t CCA02M2_AUDIO_IN_Init(uint32_t Instance, CCA02M2_AUDIO_Init_t *AudioInit)
+int32_t CCA02M2_AUDIO_IN_Init(CCA02M2_AUDIO_Init_t *AudioInit)
 {
 
     /* Store the audio record context */
@@ -137,8 +137,7 @@ int32_t CCA02M2_AUDIO_IN_Init(uint32_t Instance, CCA02M2_AUDIO_Init_t *AudioInit
     AudioInCtx.Volume = AudioInit->Volume;
     AudioInCtx.State = AUDIO_IN_STATE_RESET;
 
-    if (Instance == 0U)
-    {
+
 
         uint32_t PDM_Clock_Freq;
 
@@ -176,7 +175,7 @@ int32_t CCA02M2_AUDIO_IN_Init(uint32_t Instance, CCA02M2_AUDIO_Init_t *AudioInit
         {
             return BSP_ERROR_PERIPH_FAILURE;
         }
-    }
+    
 
     PDM_Filter_Init(&PDM2PCMHandler);
     return HAL_OK;
@@ -204,7 +203,7 @@ uint8_t PDM2PCM_Process(uint16_t *PDMBuf, uint16_t *PCMBuf)
  * @param  NbrOfBytes     Size of the record buffer. Parameter not used when Instance is 0
  * @retval BSP status
  */
-int32_t AUDIO_IN_Record(uint32_t Instance, uint8_t *pBuf, uint32_t NbrOfBytes)
+int32_t AUDIO_IN_Record(uint8_t *pBuf, uint32_t NbrOfBytes)
 {
 
     AudioInCtx.pBuff = (uint16_t *)pBuf;
@@ -267,23 +266,21 @@ int32_t CCA02M2_AUDIO_IN_RecordPDM(uint32_t Instance, uint8_t *pBuf, uint32_t Nb
  * @param  Device    The audio input device to be used
  * @retval BSP status
  */
-int32_t CCA02M2_AUDIO_IN_SetDevice(uint32_t Instance, uint32_t Device)
+int32_t CCA02M2_AUDIO_IN_SetDevice(uint32_t Device)
 {
     CCA02M2_AUDIO_Init_t audio_init;
 
 
      if (AudioInCtx.State == AUDIO_IN_STATE_STOP)
     {
-        if (Instance == 1U)
-        {
-        }
+     
         audio_init.Device = Device;
         audio_init.ChannelsNbr = AudioInCtx.ChannelsNbr;
         audio_init.SampleRate = AudioInCtx.SampleRate;
         audio_init.BitsPerSample = AudioInCtx.BitsPerSample;
         audio_init.Volume = AudioInCtx.Volume;
 
-        if (CCA02M2_AUDIO_IN_Init(Instance, &audio_init) != BSP_ERROR_NONE)
+        if (CCA02M2_AUDIO_IN_Init(&audio_init) != BSP_ERROR_NONE)
         {
             return BSP_ERROR_NO_INIT;
         }
@@ -315,7 +312,7 @@ int32_t CCA02M2_AUDIO_IN_GetDevice(uint32_t Instance, uint32_t *Device)
  * @param  SampleRate  Input frequency to be set
  * @retval BSP status
  */
-int32_t CCA02M2_AUDIO_IN_SetSampleRate(uint32_t Instance, uint32_t SampleRate)
+int32_t CCA02M2_AUDIO_IN_SetSampleRate(uint32_t SampleRate)
 {
     CCA02M2_AUDIO_Init_t audio_init;
 
@@ -327,7 +324,7 @@ int32_t CCA02M2_AUDIO_IN_SetSampleRate(uint32_t Instance, uint32_t SampleRate)
         audio_init.SampleRate = SampleRate;
         audio_init.BitsPerSample = AudioInCtx.BitsPerSample;
         audio_init.Volume = AudioInCtx.Volume;
-        if (CCA02M2_AUDIO_IN_Init(Instance, &audio_init) != BSP_ERROR_NONE)
+        if (CCA02M2_AUDIO_IN_Init(&audio_init) != BSP_ERROR_NONE)
         {
             return BSP_ERROR_NO_INIT;
         }
@@ -359,7 +356,7 @@ int32_t CCA02M2_AUDIO_IN_GetSampleRate(uint32_t Instance, uint32_t *SampleRate)
  * @param  BitsPerSample  Input resolution to be set
  * @retval BSP status
  */
-int32_t CCA02M2_AUDIO_IN_SetBitsPerSample(uint32_t Instance, uint32_t BitsPerSample)
+int32_t CCA02M2_AUDIO_IN_SetBitsPerSample(uint32_t BitsPerSample)
 {
     CCA02M2_AUDIO_Init_t audio_init;
 
@@ -370,7 +367,7 @@ if (AudioInCtx.State == AUDIO_IN_STATE_STOP)
         audio_init.SampleRate = AudioInCtx.SampleRate;
         audio_init.BitsPerSample = BitsPerSample;
         audio_init.Volume = AudioInCtx.Volume;
-        if (CCA02M2_AUDIO_IN_Init(Instance, &audio_init) != BSP_ERROR_NONE)
+        if (CCA02M2_AUDIO_IN_Init(&audio_init) != BSP_ERROR_NONE)
         {
             return BSP_ERROR_NO_INIT;
         }
