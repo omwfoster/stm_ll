@@ -2,7 +2,6 @@
 /* Includes ------------------------------------------------------------------*/
 #include "mp34dt_spi.h"
 #include "mp34dt_conf.h"
-
 #include "pdm2pcm_glo.h"
 #include "errno.h"
 #include "stdint.h"
@@ -24,7 +23,7 @@ static PDM_Filter_Config_t PDM2PCMConfig;
 
 static SPI_HandleTypeDef hAudioInSPI;
 static TIM_HandleTypeDef TimDividerHandle;
-static uint16_t SPI_InternalBuffer[10]; //[PDM_INTERNAL_BUFFER_SIZE_SPI];
+static uint16_t SPI_InternalBuffer[16]; //[PDM_INTERNAL_BUFFER_SIZE_SPI];
 
 uint16_t *PDMBuf = SPI_InternalBuffer;
 uint16_t *PCMBuf;
@@ -284,8 +283,8 @@ int32_t CCA02M2_AUDIO_IN_SetDevice(uint32_t Device)
 int32_t CCA02M2_AUDIO_IN_GetDevice(uint32_t *Device)
 {
 
-        /* Return audio Input Device */
-        *Device = AudioInCtx.Device;
+    /* Return audio Input Device */
+    *Device = AudioInCtx.Device;
 }
 
 /**
@@ -323,7 +322,6 @@ int32_t CCA02M2_AUDIO_IN_SetSampleRate(uint32_t SampleRate)
  */
 int32_t CCA02M2_AUDIO_IN_GetSampleRate(uint32_t *SampleRate)
 {
-
     /* Return audio in frequency */
     *SampleRate = AudioInCtx.SampleRate;
 
@@ -382,9 +380,9 @@ int32_t AUDIO_IN_GetBitsPerSample(uint32_t *BitsPerSample)
 int32_t AUDIO_IN_SetChannelsNbr(uint32_t ChannelNbr)
 {
 
-        /* Update AudioIn Context */
-        AudioInCtx.ChannelsNbr = ChannelNbr;
-    
+    /* Update AudioIn Context */
+    AudioInCtx.ChannelsNbr = ChannelNbr;
+
     /* Return BSP status */
     return BSP_ERROR_NONE;
 }
@@ -397,10 +395,8 @@ int32_t AUDIO_IN_SetChannelsNbr(uint32_t ChannelNbr)
  */
 int32_t AUDIO_IN_GetChannelsNbr(uint32_t *ChannelNbr)
 {
-
     /* Channel number to be returned */
     *ChannelNbr = AudioInCtx.ChannelsNbr;
-
     return BSP_ERROR_NONE;
 }
 
@@ -447,10 +443,9 @@ int32_t AUDIO_IN_SetVolume(uint32_t Volume)
  */
 int32_t AUDIO_IN_GetVolume(uint32_t *Volume)
 {
+    /* Input Volume to be returned */
+    *Volume = AudioInCtx.Volume;
 
-        /* Input Volume to be returned */
-        *Volume = AudioInCtx.Volume;
-    
     /* Return BSP status */
     return BSP_ERROR_NONE;
 }
@@ -463,10 +458,9 @@ int32_t AUDIO_IN_GetVolume(uint32_t *Volume)
  */
 int32_t AUDIO_IN_GetState(uint32_t *State)
 {
+    /* Input State to be returned */
+    *State = AudioInCtx.State;
 
-        /* Input State to be returned */
-        *State = AudioInCtx.State;
-    
     return BSP_ERROR_NONE;
 }
 
@@ -477,10 +471,7 @@ int32_t AUDIO_IN_GetState(uint32_t *State)
 
 void AUDIO_IN_TransferComplete_CallBack()
 {
-    /* Prevent unused argument(s) compilation warning */
-    
     CDC_Transmit_FS((uint8_t *)str_hal_ok, strlen(str_hal_ok));
-
     /* This function should be implemented by the user application.
     It is called into this driver when the current buffer is filled
     to prepare the next buffer pointer and its size. */
@@ -492,10 +483,8 @@ void AUDIO_IN_TransferComplete_CallBack()
  */
 void AUDIO_IN_HalfTransfer_CallBack()
 {
-    /* Prevent unused argument(s) compilation warning */
-    
-    CDC_Transmit_FS((uint8_t *)str_hal_ok, strlen(str_hal_ok));
 
+    CDC_Transmit_FS((uint8_t *)str_hal_ok, strlen(str_hal_ok));
     /* This function should be implemented by the user application.
     It is called into this driver when the current buffer is filled
     to prepare the next buffer pointer and its size. */
@@ -507,10 +496,7 @@ void AUDIO_IN_HalfTransfer_CallBack()
  */
 void AUDIO_IN_Error_CallBack()
 {
-    /* Prevent unused argument(s) compilation warning */
-    
     CDC_Transmit_FS((uint8_t *)str_hal_ok, strlen(str_hal_ok));
-
     /* This function is called when an Interrupt due to transfer error on or peripheral
     error occurs. */
 }

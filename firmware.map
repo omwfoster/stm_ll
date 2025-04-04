@@ -4724,7 +4724,7 @@ LOAD /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0
                 0x0000000010000000                _eccmram = .
                 0x0000000010000000                . = ALIGN (0x4)
 
-.bss            0x00000000200005ec     0x466c
+.bss            0x00000000200005ec     0x4678
                 0x00000000200005ec                _sbss = .
                 0x00000000200005ec                __bss_start__ = _sbss
  *(.bss)
@@ -4738,82 +4738,83 @@ LOAD /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0
  .bss.PDM2PCMHandler
                 0x000000002000066c       0x4c .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
  .bss.SPI_InternalBuffer
-                0x00000000200006b8       0x14 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+                0x00000000200006b8       0x20 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
  .bss.hAudioInSPI
-                0x00000000200006cc       0x80 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+                0x00000000200006d8       0x80 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
  .bss.hdma_rx.16347
-                0x000000002000074c       0x60 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+                0x0000000020000758       0x60 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
  .bss.mem.13703
-                0x00000000200007ac      0x220 .pio/build/adafruit_feather_f405/src/usbd_conf.o
+                0x00000000200007b8      0x220 .pio/build/adafruit_feather_f405/src/usbd_conf.o
  .bss.timestamp.12265
-                0x00000000200009cc        0x4 .pio/build/adafruit_feather_f405/src/viseffect/visEffect.o
- .bss.x.12248   0x00000000200009d0        0x1 .pio/build/adafruit_feather_f405/src/viseffect/visEffect.o
+                0x00000000200009d8        0x4 .pio/build/adafruit_feather_f405/src/viseffect/visEffect.o
+ .bss.x.12248   0x00000000200009dc        0x1 .pio/build/adafruit_feather_f405/src/viseffect/visEffect.o
  .bss.cfgidx.13634
-                0x00000000200009d1        0x1 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_ctlreq.o)
- *fill*         0x00000000200009d2        0x2 
+                0x00000000200009dd        0x1 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_ctlreq.o)
+ *fill*         0x00000000200009de        0x2 
  .bss.__malloc_free_list
-                0x00000000200009d4        0x4 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-mallocr.o)
-                0x00000000200009d4                __malloc_free_list
+                0x00000000200009e0        0x4 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-mallocr.o)
+                0x00000000200009e0                __malloc_free_list
  .bss.__malloc_sbrk_start
-                0x00000000200009d8        0x4 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-mallocr.o)
-                0x00000000200009d8                __malloc_sbrk_start
+                0x00000000200009e4        0x4 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-mallocr.o)
+                0x00000000200009e4                __malloc_sbrk_start
  .bss.heap_end.5377
-                0x00000000200009dc        0x4 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libnosys.a(sbrk.o)
+                0x00000000200009e8        0x4 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libnosys.a(sbrk.o)
  *(COMMON)
- COMMON         0x00000000200009e0        0x4 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal.o
-                0x00000000200009e0                uwTick
- COMMON         0x00000000200009e4     0x25e4 .pio/build/adafruit_feather_f405/src/main.o
-                0x00000000200009e4                hpcd_USB_OTG_HS
-                0x0000000020000e28                frameBuffer2
-                0x0000000020000e64                BufferCtl
-                0x0000000020000e6c                S
-                0x0000000020000e80                hi2c_see
-                0x0000000020000ed4                MicParams
-                0x0000000020000ee8                Output
-                0x0000000020001ee8                WrBuffer
-                0x0000000020001eec                Input
-                0x0000000020002eec                gy_readings
-                0x0000000020002ef2                audio_buf
-                0x0000000020002f74                hi2c_acc
- COMMON         0x0000000020002fc8      0x2d0 .pio/build/adafruit_feather_f405/src/usb_device.o
-                0x0000000020002fc8                hUsbDeviceFS
- COMMON         0x0000000020003298     0x1000 .pio/build/adafruit_feather_f405/src/usbd_cdc_if.o
-                0x0000000020003298                UserRxBufferFS
-                0x0000000020003a98                UserTxBufferFS
- COMMON         0x0000000020004298      0x444 .pio/build/adafruit_feather_f405/src/usbd_conf.o
-                0x0000000020004298                hpcd_USB_OTG_FS
- COMMON         0x00000000200046dc      0x200 .pio/build/adafruit_feather_f405/src/usbd_desc.o
-                0x00000000200046dc                USBD_StrDesc
- COMMON         0x00000000200048dc      0x100 .pio/build/adafruit_feather_f405/src/viseffect/visEffect.o
-                0x00000000200048dc                ws2812b
-                0x0000000020004928                frameBuffer
- COMMON         0x00000000200049dc      0x278 .pio/build/adafruit_feather_f405/src/ws2812b/src/ws2812b.o
-                0x00000000200049dc                tim2OC2
-                0x00000000200049f8                timer_reset_pulse_period
-                0x00000000200049fc                dmaCC2
-                0x0000000020004a5c                tim2OC1
-                0x0000000020004a78                TIM1_handle
-                0x0000000020004b2c                tim_period
-                0x0000000020004b30                dmaCC1
-                0x0000000020004b90                dummy
-                0x0000000020004b94                ws2812bDmaBitBuffer
-                0x0000000020004bf4                dmaUpdate
- COMMON         0x0000000020004c54        0x4 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-reent.o)
-                0x0000000020004c54                errno
-                0x0000000020004c58                . = ALIGN (0x4)
-                0x0000000020004c58                _ebss = .
-                0x0000000020004c58                __bss_end__ = _ebss
+ COMMON         0x00000000200009ec        0x4 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal.o
+                0x00000000200009ec                uwTick
+ COMMON         0x00000000200009f0     0x25e4 .pio/build/adafruit_feather_f405/src/main.o
+                0x00000000200009f0                hpcd_USB_OTG_HS
+                0x0000000020000e34                frameBuffer2
+                0x0000000020000e70                BufferCtl
+                0x0000000020000e78                S
+                0x0000000020000e8c                hi2c_see
+                0x0000000020000ee0                MicParams
+                0x0000000020000ef4                Output
+                0x0000000020001ef4                WrBuffer
+                0x0000000020001ef8                Input
+                0x0000000020002ef8                gy_readings
+                0x0000000020002efe                audio_buf
+                0x0000000020002f80                hi2c_acc
+ COMMON         0x0000000020002fd4      0x2d0 .pio/build/adafruit_feather_f405/src/usb_device.o
+                0x0000000020002fd4                hUsbDeviceFS
+ COMMON         0x00000000200032a4     0x1000 .pio/build/adafruit_feather_f405/src/usbd_cdc_if.o
+                0x00000000200032a4                UserRxBufferFS
+                0x0000000020003aa4                UserTxBufferFS
+ COMMON         0x00000000200042a4      0x444 .pio/build/adafruit_feather_f405/src/usbd_conf.o
+                0x00000000200042a4                hpcd_USB_OTG_FS
+ COMMON         0x00000000200046e8      0x200 .pio/build/adafruit_feather_f405/src/usbd_desc.o
+                0x00000000200046e8                USBD_StrDesc
+ COMMON         0x00000000200048e8      0x100 .pio/build/adafruit_feather_f405/src/viseffect/visEffect.o
+                0x00000000200048e8                ws2812b
+                0x0000000020004934                frameBuffer
+ COMMON         0x00000000200049e8      0x278 .pio/build/adafruit_feather_f405/src/ws2812b/src/ws2812b.o
+                0x00000000200049e8                tim2OC2
+                0x0000000020004a04                timer_reset_pulse_period
+                0x0000000020004a08                dmaCC2
+                0x0000000020004a68                tim2OC1
+                0x0000000020004a84                TIM1_handle
+                0x0000000020004b38                tim_period
+                0x0000000020004b3c                dmaCC1
+                0x0000000020004b9c                dummy
+                0x0000000020004ba0                ws2812bDmaBitBuffer
+                0x0000000020004c00                dmaUpdate
+ COMMON         0x0000000020004c60        0x4 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-reent.o)
+                0x0000000020004c60                errno
+                0x0000000020004c64                . = ALIGN (0x4)
+                0x0000000020004c64                _ebss = .
+                0x0000000020004c64                __bss_end__ = _ebss
 
 ._user_heap_stack
-                0x0000000020004c58      0x600
-                0x0000000020004c58                . = ALIGN (0x8)
-                0x0000000020004c58                PROVIDE (end, .)
+                0x0000000020004c64      0x604
+                0x0000000020004c68                . = ALIGN (0x8)
+ *fill*         0x0000000020004c64        0x4 
+                0x0000000020004c68                PROVIDE (end, .)
                 [!provide]                        PROVIDE (_end, .)
-                0x0000000020004e58                . = (. + _Min_Heap_Size)
- *fill*         0x0000000020004c58      0x200 
-                0x0000000020005258                . = (. + _Min_Stack_Size)
- *fill*         0x0000000020004e58      0x400 
-                0x0000000020005258                . = ALIGN (0x8)
+                0x0000000020004e68                . = (. + _Min_Heap_Size)
+ *fill*         0x0000000020004c68      0x200 
+                0x0000000020005268                . = (. + _Min_Stack_Size)
+ *fill*         0x0000000020004e68      0x400 
+                0x0000000020005268                . = ALIGN (0x8)
 
 /DISCARD/
  libc.a(*)
