@@ -2826,7 +2826,7 @@ Discarded input sections
  .data          0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
  .bss           0x0000000000000000        0x0 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
  .text.AUDIO_IN_PDMToPCM
-                0x0000000000000000       0x14 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+                0x0000000000000000       0x10 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
  .text.PDM2PCM_Process
                 0x0000000000000000       0x10 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
  .text.CCA02M2_AUDIO_IN_Stop
@@ -2836,7 +2836,7 @@ Discarded input sections
  .text.CCA02M2_AUDIO_IN_SetDevice
                 0x0000000000000000       0x38 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
  .text.CCA02M2_AUDIO_IN_GetDevice
-                0x0000000000000000       0x10 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+                0x0000000000000000        0xc .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
  .text.CCA02M2_AUDIO_IN_SetSampleRate
                 0x0000000000000000       0x38 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
  .text.CCA02M2_AUDIO_IN_GetSampleRate
@@ -2844,17 +2844,17 @@ Discarded input sections
  .text.CCA02M2_AUDIO_IN_SetBitsPerSample
                 0x0000000000000000       0x38 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
  .text.AUDIO_IN_GetBitsPerSample
-                0x0000000000000000       0x14 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+                0x0000000000000000       0x10 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
  .text.AUDIO_IN_SetChannelsNbr
-                0x0000000000000000       0x18 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+                0x0000000000000000        0xc .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
  .text.AUDIO_IN_GetChannelsNbr
-                0x0000000000000000       0x14 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+                0x0000000000000000       0x10 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
  .text.AUDIO_IN_SetVolume
                 0x0000000000000000       0x48 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
  .text.AUDIO_IN_GetVolume
-                0x0000000000000000       0x14 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+                0x0000000000000000       0x10 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
  .text.AUDIO_IN_GetState
-                0x0000000000000000       0x14 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+                0x0000000000000000       0x10 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
  .text.AUDIO_IN_TransferComplete_CallBack
                 0x0000000000000000        0xc .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
  .text.AUDIO_IN_HalfTransfer_CallBack
@@ -2870,7 +2870,7 @@ Discarded input sections
  .bss.RecBuffTrigger
                 0x0000000000000000        0x4 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
  .data.PDMBuf   0x0000000000000000        0x4 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
- .rodata.VolumeGain.16445
+ .rodata.VolumeGain.16412
                 0x0000000000000000      0x102 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
  .rodata.str_hal_ok
                 0x0000000000000000        0x8 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
@@ -4724,7 +4724,7 @@ LOAD /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0
                 0x0000000010000000                _eccmram = .
                 0x0000000010000000                . = ALIGN (0x4)
 
-.bss            0x00000000200005ec     0x4670
+.bss            0x00000000200005ec     0x466c
                 0x00000000200005ec                _sbss = .
                 0x00000000200005ec                __bss_start__ = _sbss
  *(.bss)
@@ -4733,88 +4733,87 @@ LOAD /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0
  *(.bss*)
  *fill*         0x0000000020000609        0x3 
  .bss.AudioInCtx
-                0x000000002000060c       0x64 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+                0x000000002000060c       0x60 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
                 0x000000002000060c                AudioInCtx
  .bss.PDM2PCMHandler
-                0x0000000020000670       0x4c .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+                0x000000002000066c       0x4c .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
  .bss.SPI_InternalBuffer
-                0x00000000200006bc       0x14 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+                0x00000000200006b8       0x14 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
  .bss.hAudioInSPI
-                0x00000000200006d0       0x80 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
- .bss.hdma_rx.16371
-                0x0000000020000750       0x60 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+                0x00000000200006cc       0x80 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
+ .bss.hdma_rx.16347
+                0x000000002000074c       0x60 .pio/build/adafruit_feather_f405/src/mp34dt_spi.o
  .bss.mem.13703
-                0x00000000200007b0      0x220 .pio/build/adafruit_feather_f405/src/usbd_conf.o
+                0x00000000200007ac      0x220 .pio/build/adafruit_feather_f405/src/usbd_conf.o
  .bss.timestamp.12265
-                0x00000000200009d0        0x4 .pio/build/adafruit_feather_f405/src/viseffect/visEffect.o
- .bss.x.12248   0x00000000200009d4        0x1 .pio/build/adafruit_feather_f405/src/viseffect/visEffect.o
+                0x00000000200009cc        0x4 .pio/build/adafruit_feather_f405/src/viseffect/visEffect.o
+ .bss.x.12248   0x00000000200009d0        0x1 .pio/build/adafruit_feather_f405/src/viseffect/visEffect.o
  .bss.cfgidx.13634
-                0x00000000200009d5        0x1 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_ctlreq.o)
- *fill*         0x00000000200009d6        0x2 
+                0x00000000200009d1        0x1 .pio/build/adafruit_feather_f405/lib9d2/libCore.a(usbd_ctlreq.o)
+ *fill*         0x00000000200009d2        0x2 
  .bss.__malloc_free_list
-                0x00000000200009d8        0x4 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-mallocr.o)
-                0x00000000200009d8                __malloc_free_list
+                0x00000000200009d4        0x4 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-mallocr.o)
+                0x00000000200009d4                __malloc_free_list
  .bss.__malloc_sbrk_start
-                0x00000000200009dc        0x4 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-mallocr.o)
-                0x00000000200009dc                __malloc_sbrk_start
+                0x00000000200009d8        0x4 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-nano-mallocr.o)
+                0x00000000200009d8                __malloc_sbrk_start
  .bss.heap_end.5377
-                0x00000000200009e0        0x4 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libnosys.a(sbrk.o)
+                0x00000000200009dc        0x4 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libnosys.a(sbrk.o)
  *(COMMON)
- COMMON         0x00000000200009e4        0x4 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal.o
-                0x00000000200009e4                uwTick
- COMMON         0x00000000200009e8     0x25e4 .pio/build/adafruit_feather_f405/src/main.o
-                0x00000000200009e8                hpcd_USB_OTG_HS
-                0x0000000020000e2c                frameBuffer2
-                0x0000000020000e68                BufferCtl
-                0x0000000020000e70                S
-                0x0000000020000e84                hi2c_see
-                0x0000000020000ed8                MicParams
-                0x0000000020000eec                Output
-                0x0000000020001eec                WrBuffer
-                0x0000000020001ef0                Input
-                0x0000000020002ef0                gy_readings
-                0x0000000020002ef6                audio_buf
-                0x0000000020002f78                hi2c_acc
- COMMON         0x0000000020002fcc      0x2d0 .pio/build/adafruit_feather_f405/src/usb_device.o
-                0x0000000020002fcc                hUsbDeviceFS
- COMMON         0x000000002000329c     0x1000 .pio/build/adafruit_feather_f405/src/usbd_cdc_if.o
-                0x000000002000329c                UserRxBufferFS
-                0x0000000020003a9c                UserTxBufferFS
- COMMON         0x000000002000429c      0x444 .pio/build/adafruit_feather_f405/src/usbd_conf.o
-                0x000000002000429c                hpcd_USB_OTG_FS
- COMMON         0x00000000200046e0      0x200 .pio/build/adafruit_feather_f405/src/usbd_desc.o
-                0x00000000200046e0                USBD_StrDesc
- COMMON         0x00000000200048e0      0x100 .pio/build/adafruit_feather_f405/src/viseffect/visEffect.o
-                0x00000000200048e0                ws2812b
-                0x000000002000492c                frameBuffer
- COMMON         0x00000000200049e0      0x278 .pio/build/adafruit_feather_f405/src/ws2812b/src/ws2812b.o
-                0x00000000200049e0                tim2OC2
-                0x00000000200049fc                timer_reset_pulse_period
-                0x0000000020004a00                dmaCC2
-                0x0000000020004a60                tim2OC1
-                0x0000000020004a7c                TIM1_handle
-                0x0000000020004b30                tim_period
-                0x0000000020004b34                dmaCC1
-                0x0000000020004b94                dummy
-                0x0000000020004b98                ws2812bDmaBitBuffer
-                0x0000000020004bf8                dmaUpdate
- COMMON         0x0000000020004c58        0x4 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-reent.o)
-                0x0000000020004c58                errno
-                0x0000000020004c5c                . = ALIGN (0x4)
-                0x0000000020004c5c                _ebss = .
-                0x0000000020004c5c                __bss_end__ = _ebss
+ COMMON         0x00000000200009e0        0x4 .pio/build/adafruit_feather_f405/FrameworkHALDriver/Src/stm32f4xx_hal.o
+                0x00000000200009e0                uwTick
+ COMMON         0x00000000200009e4     0x25e4 .pio/build/adafruit_feather_f405/src/main.o
+                0x00000000200009e4                hpcd_USB_OTG_HS
+                0x0000000020000e28                frameBuffer2
+                0x0000000020000e64                BufferCtl
+                0x0000000020000e6c                S
+                0x0000000020000e80                hi2c_see
+                0x0000000020000ed4                MicParams
+                0x0000000020000ee8                Output
+                0x0000000020001ee8                WrBuffer
+                0x0000000020001eec                Input
+                0x0000000020002eec                gy_readings
+                0x0000000020002ef2                audio_buf
+                0x0000000020002f74                hi2c_acc
+ COMMON         0x0000000020002fc8      0x2d0 .pio/build/adafruit_feather_f405/src/usb_device.o
+                0x0000000020002fc8                hUsbDeviceFS
+ COMMON         0x0000000020003298     0x1000 .pio/build/adafruit_feather_f405/src/usbd_cdc_if.o
+                0x0000000020003298                UserRxBufferFS
+                0x0000000020003a98                UserTxBufferFS
+ COMMON         0x0000000020004298      0x444 .pio/build/adafruit_feather_f405/src/usbd_conf.o
+                0x0000000020004298                hpcd_USB_OTG_FS
+ COMMON         0x00000000200046dc      0x200 .pio/build/adafruit_feather_f405/src/usbd_desc.o
+                0x00000000200046dc                USBD_StrDesc
+ COMMON         0x00000000200048dc      0x100 .pio/build/adafruit_feather_f405/src/viseffect/visEffect.o
+                0x00000000200048dc                ws2812b
+                0x0000000020004928                frameBuffer
+ COMMON         0x00000000200049dc      0x278 .pio/build/adafruit_feather_f405/src/ws2812b/src/ws2812b.o
+                0x00000000200049dc                tim2OC2
+                0x00000000200049f8                timer_reset_pulse_period
+                0x00000000200049fc                dmaCC2
+                0x0000000020004a5c                tim2OC1
+                0x0000000020004a78                TIM1_handle
+                0x0000000020004b2c                tim_period
+                0x0000000020004b30                dmaCC1
+                0x0000000020004b90                dummy
+                0x0000000020004b94                ws2812bDmaBitBuffer
+                0x0000000020004bf4                dmaUpdate
+ COMMON         0x0000000020004c54        0x4 /Users/oliverfoster/.platformio/packages/toolchain-gccarmnoneeabi@1.70201.0/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc_nano.a(lib_a-reent.o)
+                0x0000000020004c54                errno
+                0x0000000020004c58                . = ALIGN (0x4)
+                0x0000000020004c58                _ebss = .
+                0x0000000020004c58                __bss_end__ = _ebss
 
 ._user_heap_stack
-                0x0000000020004c5c      0x604
-                0x0000000020004c60                . = ALIGN (0x8)
- *fill*         0x0000000020004c5c        0x4 
-                0x0000000020004c60                PROVIDE (end, .)
+                0x0000000020004c58      0x600
+                0x0000000020004c58                . = ALIGN (0x8)
+                0x0000000020004c58                PROVIDE (end, .)
                 [!provide]                        PROVIDE (_end, .)
-                0x0000000020004e60                . = (. + _Min_Heap_Size)
- *fill*         0x0000000020004c60      0x200 
-                0x0000000020005260                . = (. + _Min_Stack_Size)
- *fill*         0x0000000020004e60      0x400 
-                0x0000000020005260                . = ALIGN (0x8)
+                0x0000000020004e58                . = (. + _Min_Heap_Size)
+ *fill*         0x0000000020004c58      0x200 
+                0x0000000020005258                . = (. + _Min_Stack_Size)
+ *fill*         0x0000000020004e58      0x400 
+                0x0000000020005258                . = ALIGN (0x8)
 
 /DISCARD/
  libc.a(*)

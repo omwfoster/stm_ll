@@ -24,7 +24,7 @@ static PDM_Filter_Config_t PDM2PCMConfig;
 
 static SPI_HandleTypeDef hAudioInSPI;
 static TIM_HandleTypeDef TimDividerHandle;
-static uint16_t SPI_InternalBuffer[10];//[PDM_INTERNAL_BUFFER_SIZE_SPI];
+static uint16_t SPI_InternalBuffer[10]; //[PDM_INTERNAL_BUFFER_SIZE_SPI];
 
 uint16_t *PDMBuf = SPI_InternalBuffer;
 uint16_t *PCMBuf;
@@ -137,51 +137,46 @@ int32_t CCA02M2_AUDIO_IN_Init(CCA02M2_AUDIO_Init_t *AudioInit)
     AudioInCtx.Volume = AudioInit->Volume;
     AudioInCtx.State = AUDIO_IN_STATE_RESET;
 
+    uint32_t PDM_Clock_Freq;
 
+    PDM_Clock_Freq = PDM_FREQ_16K;
 
-        uint32_t PDM_Clock_Freq;
+    /* Double buffer for 1 microphone */
+    AudioInCtx.Size = (PDM_Clock_Freq / 8U) * 2U * N_MS_PER_INTERRUPT;
 
-        PDM_Clock_Freq = PDM_FREQ_16K;
+    /* Set the SPI parameters */
+    hAudioInSPI.Instance = AUDIO_IN_SPI_INSTANCE;
 
-       
+    __HAL_SPI_DISABLE(&hAudioInSPI);
+    SPI_MspInit(&hAudioInSPI);
 
-        /* Double buffer for 1 microphone */
-        AudioInCtx.Size = (PDM_Clock_Freq / 8U) * 2U * N_MS_PER_INTERRUPT;
+    MX_SPI_Config spi_config;
+    spi_config.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
+    spi_config.Direction = SPI_DIRECTION_2LINES_RXONLY;
+    spi_config.CLKPhase = SPI_PHASE_2EDGE;
+    spi_config.CLKPolarity = SPI_POLARITY_HIGH;
+    spi_config.CRCCalculation = SPI_CRCCALCULATION_DISABLED;
+    spi_config.CRCPolynomial = 7;
+    spi_config.DataSize = SPI_DATASIZE_16BIT;
+    spi_config.FirstBit = SPI_FIRSTBIT_MSB;
+    spi_config.NSS = SPI_NSS_SOFT;
+    spi_config.TIMode = SPI_TIMODE_DISABLED;
+    spi_config.Mode = SPI_MODE_SLAVE;
 
-        /* Set the SPI parameters */
-        hAudioInSPI.Instance = AUDIO_IN_SPI_INSTANCE;
-
-        __HAL_SPI_DISABLE(&hAudioInSPI);
-        SPI_MspInit(&hAudioInSPI);
-
-        MX_SPI_Config spi_config;
-        spi_config.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
-        spi_config.Direction = SPI_DIRECTION_2LINES_RXONLY;
-        spi_config.CLKPhase = SPI_PHASE_2EDGE;
-        spi_config.CLKPolarity = SPI_POLARITY_HIGH;
-        spi_config.CRCCalculation = SPI_CRCCALCULATION_DISABLED;
-        spi_config.CRCPolynomial = 7;
-        spi_config.DataSize = SPI_DATASIZE_16BIT;
-        spi_config.FirstBit = SPI_FIRSTBIT_MSB;
-        spi_config.NSS = SPI_NSS_SOFT;
-        spi_config.TIMode = SPI_TIMODE_DISABLED;
-        spi_config.Mode = SPI_MODE_SLAVE;
-
-        if (MX_SPI_Init(&hAudioInSPI, &spi_config) != HAL_OK)
-        {
-            return BSP_ERROR_PERIPH_FAILURE;
-        }
-        if (HAL_SPI_Init(&hAudioInSPI) != HAL_OK)
-        {
-            return BSP_ERROR_PERIPH_FAILURE;
-        }
-    
+    if (MX_SPI_Init(&hAudioInSPI, &spi_config) != HAL_OK)
+    {
+        return BSP_ERROR_PERIPH_FAILURE;
+    }
+    if (HAL_SPI_Init(&hAudioInSPI) != HAL_OK)
+    {
+        return BSP_ERROR_PERIPH_FAILURE;
+    }
 
     PDM_Filter_Init(&PDM2PCMHandler);
     return HAL_OK;
 }
 
-int32_t AUDIO_IN_PDMToPCM(uint32_t Instance, uint16_t *PDMBuf, uint16_t *PCMBuf)
+int32_t AUDIO_IN_PDMToPCM(uint16_t *PDMBuf, uint16_t *PCMBuf)
 {
     PDM_Filter(PDMBuf, PCMBuf, &PDM2PCMHandler);
     return BSP_ERROR_NONE;
@@ -193,8 +188,6 @@ uint8_t PDM2PCM_Process(uint16_t *PDMBuf, uint16_t *PCMBuf)
     PDM_Filter(PDMBuf, PCMBuf, &PDM2PCMHandler);
     return HAL_OK;
 }
-
-
 
 /**
  * @brief  Start audio recording.
@@ -209,12 +202,10 @@ int32_t AUDIO_IN_Record(uint8_t *pBuf, uint32_t NbrOfBytes)
     AudioInCtx.pBuff = (uint16_t *)pBuf;
     AudioInCtx.Size = NbrOfBytes;
 
- 
-            if (HAL_SPI_Receive_DMA(&hAudioInSPI, (uint8_t *)SPI_InternalBuffer, (uint16_t)AudioInCtx.Size) != HAL_OK)
-            {
-                return BSP_ERROR_PERIPH_FAILURE;
-            }
-  
+    if (HAL_SPI_Receive_DMA(&hAudioInSPI, (uint8_t *)SPI_InternalBuffer, (uint16_t)AudioInCtx.Size) != HAL_OK)
+    {
+        return BSP_ERROR_PERIPH_FAILURE;
+    }
 
     /* Return BSP status */
     return BSP_ERROR_NONE;
@@ -225,20 +216,17 @@ int32_t AUDIO_IN_Record(uint8_t *pBuf, uint32_t NbrOfBytes)
  * @param  Instance  AUDIO IN Instance. It can be 0 when I2S / SPI is used or 1 if DFSDM is used
  * @retval BSP status
  */
-int32_t CCA02M2_AUDIO_IN_Stop(uint32_t Instance)
+int32_t CCA02M2_AUDIO_IN_Stop()
 {
 
+    if (HAL_SPI_DMAStop(&hAudioInSPI) != HAL_OK)
+    {
+        return BSP_ERROR_PERIPH_FAILURE;
+    }
 
-   
-                if (HAL_SPI_DMAStop(&hAudioInSPI) != HAL_OK)
-                {
-                    return BSP_ERROR_PERIPH_FAILURE;
-                }
-      
+    /* Update BSP AUDIO IN state */
+    AudioInCtx.State = AUDIO_IN_STATE_STOP;
 
-        /* Update BSP AUDIO IN state */
-        AudioInCtx.State = AUDIO_IN_STATE_STOP;
- 
     /* Return BSP status */
     return BSP_ERROR_NONE;
 }
@@ -250,14 +238,12 @@ int32_t CCA02M2_AUDIO_IN_Stop(uint32_t Instance)
  * @param  NbrOfBytes     Size of the record buffer. Parameter not used when Instance is 0
  * @retval BSP status
  */
-int32_t CCA02M2_AUDIO_IN_RecordPDM(uint32_t Instance, uint8_t *pBuf, uint32_t NbrOfBytes)
+int32_t CCA02M2_AUDIO_IN_RecordPDM(uint8_t *pBuf, uint32_t NbrOfBytes)
 {
 
-
-        UNUSED(pBuf);
-        UNUSED(NbrOfBytes);
-        return BSP_ERROR_WRONG_PARAM;
-    
+    UNUSED(pBuf);
+    UNUSED(NbrOfBytes);
+    return BSP_ERROR_WRONG_PARAM;
 }
 
 /**
@@ -270,10 +256,9 @@ int32_t CCA02M2_AUDIO_IN_SetDevice(uint32_t Device)
 {
     CCA02M2_AUDIO_Init_t audio_init;
 
-
-     if (AudioInCtx.State == AUDIO_IN_STATE_STOP)
+    if (AudioInCtx.State == AUDIO_IN_STATE_STOP)
     {
-     
+
         audio_init.Device = Device;
         audio_init.ChannelsNbr = AudioInCtx.ChannelsNbr;
         audio_init.SampleRate = AudioInCtx.SampleRate;
@@ -296,14 +281,11 @@ int32_t CCA02M2_AUDIO_IN_SetDevice(uint32_t Device)
  * @param  Device    The audio input device used
  * @retval BSP status
  */
-int32_t CCA02M2_AUDIO_IN_GetDevice(uint32_t Instance, uint32_t *Device)
+int32_t CCA02M2_AUDIO_IN_GetDevice(uint32_t *Device)
 {
-    if (Instance >= AUDIO_IN_INSTANCES_NBR)
 
         /* Return audio Input Device */
         *Device = AudioInCtx.Device;
-    
-
 }
 
 /**
@@ -315,7 +297,6 @@ int32_t CCA02M2_AUDIO_IN_GetDevice(uint32_t Instance, uint32_t *Device)
 int32_t CCA02M2_AUDIO_IN_SetSampleRate(uint32_t SampleRate)
 {
     CCA02M2_AUDIO_Init_t audio_init;
-
 
     if (AudioInCtx.State == AUDIO_IN_STATE_STOP)
     {
@@ -340,12 +321,12 @@ int32_t CCA02M2_AUDIO_IN_SetSampleRate(uint32_t SampleRate)
  * @param  SampleRate  Audio Input frequency to be returned
  * @retval BSP status
  */
-int32_t CCA02M2_AUDIO_IN_GetSampleRate(uint32_t Instance, uint32_t *SampleRate)
+int32_t CCA02M2_AUDIO_IN_GetSampleRate(uint32_t *SampleRate)
 {
 
-        /* Return audio in frequency */
-        *SampleRate = AudioInCtx.SampleRate;
-    
+    /* Return audio in frequency */
+    *SampleRate = AudioInCtx.SampleRate;
+
     /* Return BSP status */
     return BSP_ERROR_NONE;
 }
@@ -360,7 +341,7 @@ int32_t CCA02M2_AUDIO_IN_SetBitsPerSample(uint32_t BitsPerSample)
 {
     CCA02M2_AUDIO_Init_t audio_init;
 
-if (AudioInCtx.State == AUDIO_IN_STATE_STOP)
+    if (AudioInCtx.State == AUDIO_IN_STATE_STOP)
     {
         audio_init.Device = AudioInCtx.Device;
         audio_init.ChannelsNbr = AudioInCtx.ChannelsNbr;
@@ -383,17 +364,12 @@ if (AudioInCtx.State == AUDIO_IN_STATE_STOP)
  * @param  BitsPerSample  Input resolution to be returned
  * @retval BSP status
  */
-int32_t AUDIO_IN_GetBitsPerSample(uint32_t Instance, uint32_t *BitsPerSample)
+int32_t AUDIO_IN_GetBitsPerSample(uint32_t *BitsPerSample)
 {
-    if (Instance >= AUDIO_IN_INSTANCES_NBR)
-    {
-        return BSP_ERROR_WRONG_PARAM;
-    }
-    else
-    {
-        /* Return audio in resolution */
-        *BitsPerSample = AudioInCtx.BitsPerSample;
-    }
+
+    /* Return audio in resolution */
+    *BitsPerSample = AudioInCtx.BitsPerSample;
+
     return BSP_ERROR_NONE;
 }
 
@@ -403,17 +379,12 @@ int32_t AUDIO_IN_GetBitsPerSample(uint32_t Instance, uint32_t *BitsPerSample)
  * @param  ChannelNbr  Channel number to be used
  * @retval BSP status
  */
-int32_t AUDIO_IN_SetChannelsNbr(uint32_t Instance, uint32_t ChannelNbr)
+int32_t AUDIO_IN_SetChannelsNbr(uint32_t ChannelNbr)
 {
-    if ((Instance >= AUDIO_IN_INSTANCES_NBR) || (ChannelNbr > 2U))
-    {
-        return BSP_ERROR_WRONG_PARAM;
-    }
-    else
-    {
+
         /* Update AudioIn Context */
         AudioInCtx.ChannelsNbr = ChannelNbr;
-    }
+    
     /* Return BSP status */
     return BSP_ERROR_NONE;
 }
@@ -424,17 +395,12 @@ int32_t AUDIO_IN_SetChannelsNbr(uint32_t Instance, uint32_t ChannelNbr)
  * @param  ChannelNbr  Channel number to be used
  * @retval BSP status
  */
-int32_t AUDIO_IN_GetChannelsNbr(uint32_t Instance, uint32_t *ChannelNbr)
+int32_t AUDIO_IN_GetChannelsNbr(uint32_t *ChannelNbr)
 {
-    if (Instance >= AUDIO_IN_INSTANCES_NBR)
-    {
-        return BSP_ERROR_WRONG_PARAM;
-    }
-    else
-    {
-        /* Channel number to be returned */
-        *ChannelNbr = AudioInCtx.ChannelsNbr;
-    }
+
+    /* Channel number to be returned */
+    *ChannelNbr = AudioInCtx.ChannelsNbr;
+
     return BSP_ERROR_NONE;
 }
 
@@ -444,7 +410,7 @@ int32_t AUDIO_IN_GetChannelsNbr(uint32_t Instance, uint32_t *ChannelNbr)
  * @param  Volume    Volume level to be returnd
  * @retval BSP status
  */
-int32_t AUDIO_IN_SetVolume(uint32_t Instance, uint32_t Volume)
+int32_t AUDIO_IN_SetVolume(uint32_t Volume)
 {
 
     uint32_t index;
@@ -479,17 +445,12 @@ int32_t AUDIO_IN_SetVolume(uint32_t Instance, uint32_t Volume)
  * @param  Volume    Volume level to be returnd
  * @retval BSP status
  */
-int32_t AUDIO_IN_GetVolume(uint32_t Instance, uint32_t *Volume)
+int32_t AUDIO_IN_GetVolume(uint32_t *Volume)
 {
-    if (Instance >= AUDIO_IN_INSTANCES_NBR)
-    {
-        return BSP_ERROR_WRONG_PARAM;
-    }
-    else
-    {
+
         /* Input Volume to be returned */
         *Volume = AudioInCtx.Volume;
-    }
+    
     /* Return BSP status */
     return BSP_ERROR_NONE;
 }
@@ -500,17 +461,12 @@ int32_t AUDIO_IN_GetVolume(uint32_t Instance, uint32_t *Volume)
  * @param  State     Audio Out state
  * @retval BSP status
  */
-int32_t AUDIO_IN_GetState(uint32_t Instance, uint32_t *State)
+int32_t AUDIO_IN_GetState(uint32_t *State)
 {
-    if (Instance >= AUDIO_IN_INSTANCES_NBR)
-    {
-        return BSP_ERROR_WRONG_PARAM;
-    }
-    else
-    {
+
         /* Input State to be returned */
         *State = AudioInCtx.State;
-    }
+    
     return BSP_ERROR_NONE;
 }
 
@@ -519,10 +475,10 @@ int32_t AUDIO_IN_GetState(uint32_t Instance, uint32_t *State)
  * @retval None
  */
 
-void AUDIO_IN_TransferComplete_CallBack(uint32_t Instance)
+void AUDIO_IN_TransferComplete_CallBack()
 {
     /* Prevent unused argument(s) compilation warning */
-    UNUSED(Instance);
+    
     CDC_Transmit_FS((uint8_t *)str_hal_ok, strlen(str_hal_ok));
 
     /* This function should be implemented by the user application.
@@ -534,10 +490,10 @@ void AUDIO_IN_TransferComplete_CallBack(uint32_t Instance)
  * @brief  Manages the DMA Half Transfer complete event.
  * @retval None
  */
-void AUDIO_IN_HalfTransfer_CallBack(uint32_t Instance)
+void AUDIO_IN_HalfTransfer_CallBack()
 {
     /* Prevent unused argument(s) compilation warning */
-    UNUSED(Instance);
+    
     CDC_Transmit_FS((uint8_t *)str_hal_ok, strlen(str_hal_ok));
 
     /* This function should be implemented by the user application.
@@ -549,10 +505,10 @@ void AUDIO_IN_HalfTransfer_CallBack(uint32_t Instance)
  * @brief  Audio IN Error callback function.
  * @retval None
  */
-void AUDIO_IN_Error_CallBack(uint32_t Instance)
+void AUDIO_IN_Error_CallBack()
 {
     /* Prevent unused argument(s) compilation warning */
-    UNUSED(Instance);
+    
     CDC_Transmit_FS((uint8_t *)str_hal_ok, strlen(str_hal_ok));
 
     /* This function is called when an Interrupt due to transfer error on or peripheral

@@ -51,7 +51,7 @@ typedef struct
 
 typedef struct
 {
-  uint32_t Instance;            /* Audio IN instance              */
+  ;            /* Audio IN instance              */
   uint32_t Device;              /* Audio IN device to be used     */
   uint32_t SampleRate;          /* Audio IN Sample rate           */
   uint32_t BitsPerSample;       /* Audio IN Sample resolution     */
@@ -196,45 +196,45 @@ typedef struct
 #endif
 
 
-//int32_t AUDIO_IN_Init(uint32_t Instance, AUDIO_Init_t *AudioInit);
-int32_t AUDIO_IN_DeInit(uint32_t Instance);
+//int32_t AUDIO_IN_Init(, AUDIO_Init_t *AudioInit);
+int32_t AUDIO_IN_DeInit();
 int32_t AUDIO_IN_Record(uint8_t *pBuf, uint32_t NbrOfBytes);
-int32_t AUDIO_IN_Stop(uint32_t Instance);
-int32_t AUDIO_IN_Pause(uint32_t Instance);
-int32_t AUDIO_IN_Resume(uint32_t Instance);
+int32_t AUDIO_IN_Stop();
+int32_t AUDIO_IN_Pause();
+int32_t AUDIO_IN_Resume();
 
-int32_t AUDIO_IN_RecordChannels(uint32_t Instance, uint8_t **pBuf, uint32_t NbrOfBytes);
-int32_t AUDIO_IN_StopChannels(uint32_t Instance, uint32_t Device);
-int32_t AUDIO_IN_PauseChannels(uint32_t Instance, uint32_t Device);
-int32_t AUDIO_IN_ResumeChannels(uint32_t Instance, uint32_t Device);
+int32_t AUDIO_IN_RecordChannels(uint8_t **pBuf, uint32_t NbrOfBytes);
+int32_t AUDIO_IN_StopChannels(uint32_t Device);
+int32_t AUDIO_IN_PauseChannels(uint32_t Device);
+int32_t AUDIO_IN_ResumeChannels( uint32_t Device);
 
-int32_t AUDIO_IN_SetDevice(uint32_t Instance, uint32_t Device);
-int32_t AUDIO_IN_GetDevice(uint32_t Instance, uint32_t *Device);
-int32_t AUDIO_IN_SetSampleRate(uint32_t Instance, uint32_t SampleRate);
-int32_t AUDIO_IN_GetSampleRate(uint32_t Instance, uint32_t *SampleRate);
-int32_t AUDIO_IN_SetBitsPerSample(uint32_t Instance, uint32_t BitsPerSample);
-int32_t AUDIO_IN_GetBitsPerSample(uint32_t Instance, uint32_t *BitsPerSample);
-int32_t AUDIO_IN_SetChannelsNbr(uint32_t Instance, uint32_t ChannelNbr);
-int32_t AUDIO_IN_GetChannelsNbr(uint32_t Instance, uint32_t *ChannelNbr);
-int32_t AUDIO_IN_SetVolume(uint32_t Instance, uint32_t Volume);
-int32_t AUDIO_IN_GetVolume(uint32_t Instance, uint32_t *Volume);
-int32_t AUDIO_IN_GetState(uint32_t Instance, uint32_t *State);
+int32_t AUDIO_IN_SetDevice(uint32_t Device);
+int32_t AUDIO_IN_GetDevice(uint32_t *Device);
+int32_t AUDIO_IN_SetSampleRate( uint32_t SampleRate);
+int32_t AUDIO_IN_GetSampleRate( uint32_t *SampleRate);
+int32_t AUDIO_IN_SetBitsPerSample( uint32_t BitsPerSample);
+int32_t AUDIO_IN_GetBitsPerSample(uint32_t *BitsPerSample);
+int32_t AUDIO_IN_SetChannelsNbr( uint32_t ChannelNbr);
+int32_t AUDIO_IN_GetChannelsNbr( uint32_t *ChannelNbr);
+int32_t AUDIO_IN_SetVolume(uint32_t Volume);
+int32_t AUDIO_IN_GetVolume(uint32_t *Volume);
+int32_t AUDIO_IN_GetState(uint32_t *State);
 
 
 int32_t AUDIO_IN_RecordPDM(uint8_t *pBuf, uint32_t NbrOfBytes);
 
-void AUDIO_IN_IRQHandler(uint32_t Instance, uint32_t Device);
+void AUDIO_IN_IRQHandler(uint32_t Device);
 
 /* User Callbacks: user has to implement these functions in his code if they are needed. */
 /* This function should be implemented by the user application.
    It is called into this driver when the current buffer is filled to prepare the next
    buffer pointer and its size. */
-void AUDIO_IN_TransferComplete_CallBack(uint32_t Instance);
-void AUDIO_IN_HalfTransfer_CallBack(uint32_t Instance);
+void AUDIO_IN_TransferComplete_CallBack();
+void AUDIO_IN_HalfTransfer_CallBack();
 
 /* This function is called when an Interrupt due to transfer error on or peripheral
    error occurs. */
-void AUDIO_IN_Error_CallBack(uint32_t Instance);
+void AUDIO_IN_Error_CallBack();
 
 HAL_StatusTypeDef MX_SPI_Init(SPI_HandleTypeDef *hspi, MX_SPI_Config *MXConfig);
 int32_t CCA02M2_AUDIO_IN_Init(CCA02M2_AUDIO_Init_t *AudioInit);
