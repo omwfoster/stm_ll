@@ -23,10 +23,12 @@ static PDM_Filter_Config_t PDM2PCMConfig;
 
 static SPI_HandleTypeDef hAudioInSPI;
 static TIM_HandleTypeDef TimDividerHandle;
-static uint16_t SPI_InternalBuffer[16]; //[PDM_INTERNAL_BUFFER_SIZE_SPI];
+static uint16_t SPI_InternalBuffer[PDM_INTERNAL_BUFFER_SIZE_SPI]; //[PDM_INTERNAL_BUFFER_SIZE_SPI];
 
 uint16_t *PDMBuf = SPI_InternalBuffer;
 uint16_t *PCMBuf;
+
+
 
 static uint8_t Channel_Demux[128] =
     {
@@ -50,7 +52,7 @@ static uint8_t Channel_Demux[128] =
 /* Recording Buffer Trigger */
 static __IO uint32_t RecBuffTrigger = 0;
 static __IO uint32_t RecBuffHalf = 0;
-static __IO uint32_t MicBuffIndex[4];
+
 
 HAL_StatusTypeDef MX_SPI_Init(SPI_HandleTypeDef *hspi, MX_SPI_Config *MXConfig)
 {
@@ -125,7 +127,7 @@ static void SPI_MspInit(SPI_HandleTypeDef *hspi)
     HAL_GPIO_Init(AUDIO_IN_SPI_MOSI_GPIO_PORT, &GPIO_InitStruct);
 }
 
-int32_t CCA02M2_AUDIO_IN_Init(CCA02M2_AUDIO_Init_t *AudioInit)
+int32_t AUDIO_IN_Init(AUDIO_Init_t *AudioInit)
 {
 
     /* Store the audio record context */
@@ -136,12 +138,10 @@ int32_t CCA02M2_AUDIO_IN_Init(CCA02M2_AUDIO_Init_t *AudioInit)
     AudioInCtx.Volume = AudioInit->Volume;
     AudioInCtx.State = AUDIO_IN_STATE_RESET;
 
-    uint32_t PDM_Clock_Freq;
-
-    PDM_Clock_Freq = PDM_FREQ_16K;
+  
 
     /* Double buffer for 1 microphone */
-    AudioInCtx.Size = (PDM_Clock_Freq / 8U) * 2U * N_MS_PER_INTERRUPT;
+    AudioInCtx.Size = PDM_INTERNAL_BUFFER_SIZE_SPI;
 
     /* Set the SPI parameters */
     hAudioInSPI.Instance = AUDIO_IN_SPI_INSTANCE;
@@ -181,12 +181,7 @@ int32_t AUDIO_IN_PDMToPCM(uint16_t *PDMBuf, uint16_t *PCMBuf)
     return BSP_ERROR_NONE;
 }
 
-uint8_t PDM2PCM_Process(uint16_t *PDMBuf, uint16_t *PCMBuf)
-{
-    // return BSP_AUDIO_IN_PDMToPCM(PDMBuf, PCMBuf);
-    PDM_Filter(PDMBuf, PCMBuf, &PDM2PCMHandler);
-    return HAL_OK;
-}
+
 
 /**
  * @brief  Start audio recording.
@@ -215,7 +210,7 @@ int32_t AUDIO_IN_Record(uint8_t *pBuf, uint32_t NbrOfBytes)
  * @param  Instance  AUDIO IN Instance. It can be 0 when I2S / SPI is used or 1 if DFSDM is used
  * @retval BSP status
  */
-int32_t CCA02M2_AUDIO_IN_Stop()
+int32_t AUDIO_IN_Stop()
 {
 
     if (HAL_SPI_DMAStop(&hAudioInSPI) != HAL_OK)
@@ -237,7 +232,7 @@ int32_t CCA02M2_AUDIO_IN_Stop()
  * @param  NbrOfBytes     Size of the record buffer. Parameter not used when Instance is 0
  * @retval BSP status
  */
-int32_t CCA02M2_AUDIO_IN_RecordPDM(uint8_t *pBuf, uint32_t NbrOfBytes)
+int32_t AUDIO_IN_RecordPDM(uint8_t *pBuf, uint32_t NbrOfBytes)
 {
 
     UNUSED(pBuf);
@@ -251,9 +246,9 @@ int32_t CCA02M2_AUDIO_IN_RecordPDM(uint8_t *pBuf, uint32_t NbrOfBytes)
  * @param  Device    The audio input device to be used
  * @retval BSP status
  */
-int32_t CCA02M2_AUDIO_IN_SetDevice(uint32_t Device)
+int32_t AUDIO_IN_SetDevice(uint32_t Device)
 {
-    CCA02M2_AUDIO_Init_t audio_init;
+    AUDIO_Init_t audio_init;
 
     if (AudioInCtx.State == AUDIO_IN_STATE_STOP)
     {
@@ -264,7 +259,8 @@ int32_t CCA02M2_AUDIO_IN_SetDevice(uint32_t Device)
         audio_init.BitsPerSample = AudioInCtx.BitsPerSample;
         audio_init.Volume = AudioInCtx.Volume;
 
-        if (CCA02M2_AUDIO_IN_Init(&audio_init) != BSP_ERROR_NONE)
+        if (
+            AUDIO_IN_Init(&audio_init) != BSP_ERROR_NONE)
         {
             return BSP_ERROR_NO_INIT;
         }
@@ -280,11 +276,11 @@ int32_t CCA02M2_AUDIO_IN_SetDevice(uint32_t Device)
  * @param  Device    The audio input device used
  * @retval BSP status
  */
-int32_t CCA02M2_AUDIO_IN_GetDevice(uint32_t *Device)
+int32_t AUDIO_IN_GetDevice(uint32_t *Device)
 {
-
     /* Return audio Input Device */
     *Device = AudioInCtx.Device;
+    return BSP_ERROR_NONE;
 }
 
 /**
@@ -293,9 +289,9 @@ int32_t CCA02M2_AUDIO_IN_GetDevice(uint32_t *Device)
  * @param  SampleRate  Input frequency to be set
  * @retval BSP status
  */
-int32_t CCA02M2_AUDIO_IN_SetSampleRate(uint32_t SampleRate)
+int32_t AUDIO_IN_SetSampleRate(uint32_t SampleRate)
 {
-    CCA02M2_AUDIO_Init_t audio_init;
+    AUDIO_Init_t audio_init;
 
     if (AudioInCtx.State == AUDIO_IN_STATE_STOP)
     {
@@ -304,7 +300,7 @@ int32_t CCA02M2_AUDIO_IN_SetSampleRate(uint32_t SampleRate)
         audio_init.SampleRate = SampleRate;
         audio_init.BitsPerSample = AudioInCtx.BitsPerSample;
         audio_init.Volume = AudioInCtx.Volume;
-        if (CCA02M2_AUDIO_IN_Init(&audio_init) != BSP_ERROR_NONE)
+        if (AUDIO_IN_Init(&audio_init) != BSP_ERROR_NONE)
         {
             return BSP_ERROR_NO_INIT;
         }
@@ -320,7 +316,7 @@ int32_t CCA02M2_AUDIO_IN_SetSampleRate(uint32_t SampleRate)
  * @param  SampleRate  Audio Input frequency to be returned
  * @retval BSP status
  */
-int32_t CCA02M2_AUDIO_IN_GetSampleRate(uint32_t *SampleRate)
+int32_t AUDIO_IN_GetSampleRate(uint32_t *SampleRate)
 {
     /* Return audio in frequency */
     *SampleRate = AudioInCtx.SampleRate;
@@ -335,9 +331,9 @@ int32_t CCA02M2_AUDIO_IN_GetSampleRate(uint32_t *SampleRate)
  * @param  BitsPerSample  Input resolution to be set
  * @retval BSP status
  */
-int32_t CCA02M2_AUDIO_IN_SetBitsPerSample(uint32_t BitsPerSample)
+int32_t AUDIO_IN_SetBitsPerSample(uint32_t BitsPerSample)
 {
-    CCA02M2_AUDIO_Init_t audio_init;
+    AUDIO_Init_t audio_init;
 
     if (AudioInCtx.State == AUDIO_IN_STATE_STOP)
     {
@@ -346,7 +342,7 @@ int32_t CCA02M2_AUDIO_IN_SetBitsPerSample(uint32_t BitsPerSample)
         audio_init.SampleRate = AudioInCtx.SampleRate;
         audio_init.BitsPerSample = BitsPerSample;
         audio_init.Volume = AudioInCtx.Volume;
-        if (CCA02M2_AUDIO_IN_Init(&audio_init) != BSP_ERROR_NONE)
+        if (AUDIO_IN_Init(&audio_init) != BSP_ERROR_NONE)
         {
             return BSP_ERROR_NO_INIT;
         }

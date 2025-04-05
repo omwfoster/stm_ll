@@ -40,7 +40,7 @@
   /* #define HAL_CRYP_MODULE_ENABLED */
 /* #define HAL_ADC_MODULE_ENABLED */
 /* #define HAL_CAN_MODULE_ENABLED */
-/* #define HAL_CRC_MODULE_ENABLED */
+#define HAL_CRC_MODULE_ENABLED
 /* #define HAL_CAN_LEGACY_MODULE_ENABLED */
 /* #define HAL_DAC_MODULE_ENABLED */
 /* #define HAL_DCMI_MODULE_ENABLED */
@@ -62,7 +62,7 @@
 /* #define HAL_SAI_MODULE_ENABLED */
 /* #define HAL_SD_MODULE_ENABLED */
 /* #define HAL_MMC_MODULE_ENABLED */
-/* #define HAL_SPI_MODULE_ENABLED */
+#define HAL_SPI_MODULE_ENABLED */
 /* #define HAL_TIM_MODULE_ENABLED */
 /* #define HAL_UART_MODULE_ENABLED */
 /* #define HAL_USART_MODULE_ENABLED */
@@ -188,7 +188,7 @@
 #define  USE_HAL_SRAM_REGISTER_CALLBACKS        0U /* SRAM register callback disabled      */
 #define  USE_HAL_SPDIFRX_REGISTER_CALLBACKS     0U /* SPDIFRX register callback disabled   */
 #define  USE_HAL_SMBUS_REGISTER_CALLBACKS       0U /* SMBUS register callback disabled     */
-#define  USE_HAL_SPI_REGISTER_CALLBACKS         0U /* SPI register callback disabled       */
+#define  USE_HAL_SPI_REGISTER_CALLBACKS         1U /* SPI register callback disabled       */
 #define  USE_HAL_TIM_REGISTER_CALLBACKS         0U /* TIM register callback disabled       */
 #define  USE_HAL_UART_REGISTER_CALLBACKS        0U /* UART register callback disabled      */
 #define  USE_HAL_USART_REGISTER_CALLBACKS       0U /* USART register callback disabled     */
@@ -264,7 +264,7 @@
 * Deactivated: CRC code cleaned from driver
 */
 
-#define USE_SPI_CRC                     0U
+#define USE_SPI_CRC                     1U
 
 /* Includes ------------------------------------------------------------------*/
 /**

@@ -18,7 +18,7 @@
 
 
 
-#define PDM_INTERNAL_BUFFER_SIZE_SPI ((AUDIO_FREQUENCY_16K / 8) * N_MS_PER_INTERRUPT)
+#define PDM_INTERNAL_BUFFER_SIZE_SPI (AUDIO_FREQUENCY_16K / 8)
 #define AUDIO_IN_STATE_RESET     0U
 #define AUDIO_IN_STATE_RECORDING 1U
 #define AUDIO_IN_STATE_STOP      2U
@@ -47,7 +47,7 @@ typedef struct
   uint32_t BitsPerSample;
   uint32_t ChannelsNbr;
   uint32_t Volume;
-} CCA02M2_AUDIO_Init_t;
+} AUDIO_Init_t;
 
 typedef struct
 {
@@ -203,10 +203,7 @@ int32_t AUDIO_IN_Stop();
 int32_t AUDIO_IN_Pause();
 int32_t AUDIO_IN_Resume();
 
-int32_t AUDIO_IN_RecordChannels(uint8_t **pBuf, uint32_t NbrOfBytes);
-int32_t AUDIO_IN_StopChannels(uint32_t Device);
-int32_t AUDIO_IN_PauseChannels(uint32_t Device);
-int32_t AUDIO_IN_ResumeChannels( uint32_t Device);
+
 
 int32_t AUDIO_IN_SetDevice(uint32_t Device);
 int32_t AUDIO_IN_GetDevice(uint32_t *Device);
@@ -237,8 +234,8 @@ void AUDIO_IN_HalfTransfer_CallBack();
 void AUDIO_IN_Error_CallBack();
 
 HAL_StatusTypeDef MX_SPI_Init(SPI_HandleTypeDef *hspi, MX_SPI_Config *MXConfig);
-int32_t CCA02M2_AUDIO_IN_Init(CCA02M2_AUDIO_Init_t *AudioInit);
-uint8_t PDM2PCM_Process(uint16_t *PDMBuf, uint16_t *PCMBuf);
+int32_t AUDIO_IN_Init(AUDIO_Init_t *AudioInit);
+int32_t AUDIO_IN_PDMToPCM(uint16_t *PDMBuf, uint16_t *PCMBuf);
 
 
 

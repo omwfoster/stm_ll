@@ -70,7 +70,7 @@ I2C_HandleTypeDef hi2c_see;
 
 int16_t gy_readings[3];
 Audio_BufferTypeDef BufferCtl;
-CCA02M2_AUDIO_Init_t MicParams;
+AUDIO_Init_t MicParams;
 uint8_t audio_buf[INTERNAL_BUFF_SIZE];
 
 int main(void)
@@ -105,7 +105,7 @@ int main(void)
   MicParams.SampleRate = AUDIO_FREQUENCY_16K;
   MicParams.Volume = AUDIO_VOLUME_INPUT;
 
-  if (CCA02M2_AUDIO_IN_Init(&MicParams) != BSP_ERROR_NONE)
+  if (AUDIO_IN_Init(&MicParams) != BSP_ERROR_NONE)
   {
     Error_Handler();
   }
@@ -198,12 +198,17 @@ void USB_CDC_RxHandler(uint8_t *Buf, uint32_t Len)
   CDC_Transmit_FS(Buf, Len);
 }
 
-void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi)
+
+void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
 {
-  /* Turn LED6 on: Transfer in transmission/reception process is complete */
-  DBG_STATUS(isr_loop);
-  // PDM2PCM_Process();
+  
 }
+
+void HAL_SPI_RxHalfCpltCallback(SPI_HandleTypeDef *hspi)
+{
+  
+}
+
 
 /**
  * @brief  SPI error callbacks.
