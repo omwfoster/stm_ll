@@ -16,6 +16,7 @@ MEMSAFE_STRING(init_step, "init\r");
 MEMSAFE_STRING(dbg_loop, "loop\r");
 MEMSAFE_STRING(isr_loop, "isr_loop\r");
 MEMSAFE_STRING(isr_error, "isr_error\r");
+MEMSAFE_STRING(Audio_error, "Audio_error\r");
 
 #define DBG_STRING(name) \
     CDC_Transmit_FS((uint8_t *)name, sizeof(name));

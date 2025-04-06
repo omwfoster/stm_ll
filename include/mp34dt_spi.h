@@ -32,6 +32,14 @@
 #define AUDIO_IN_INSTANCES_NBR 1U
 #define PDM_FREQ_16K 1280
 
+typedef enum
+{
+    FULL_TRANSFER = 0,
+    HALF_TRANSFER = 1,
+    TRANSFER_ERROR = 2,
+    TRANSFER_NONE = 3
+} TransferState_t;
+
 
 typedef struct
 {
@@ -220,7 +228,7 @@ int32_t AUDIO_IN_GetState(uint32_t *State);
 
 int32_t AUDIO_IN_RecordPDM(uint8_t *pBuf, uint32_t NbrOfBytes);
 
-void AUDIO_IN_IRQHandler(uint32_t Device);
+
 
 /* User Callbacks: user has to implement these functions in his code if they are needed. */
 /* This function should be implemented by the user application.
@@ -235,6 +243,7 @@ void AUDIO_IN_Error_CallBack();
 
 HAL_StatusTypeDef MX_SPI_Init(SPI_HandleTypeDef *hspi, MX_SPI_Config *MXConfig);
 int32_t AUDIO_IN_Init(AUDIO_Init_t *AudioInit);
+HAL_StatusTypeDef AUDIO_IN_Timer_Init(void);
 int32_t AUDIO_IN_PDMToPCM(uint16_t *PDMBuf, uint16_t *PCMBuf);
 
 

@@ -72,6 +72,7 @@ int16_t gy_readings[3];
 Audio_BufferTypeDef BufferCtl;
 AUDIO_Init_t MicParams;
 uint8_t audio_buf[INTERNAL_BUFF_SIZE];
+extern TransferState_t ts_t;
 
 int main(void)
 {
@@ -92,6 +93,7 @@ int main(void)
   MX_I2C_Init(&hi2c_see); // added for seesaw
 
   // check if accelerometer is connected to
+  AUDIO_IN_Timer_Init();
 
   DBG_STATUS(ICM20948_isI2cAddress2(&hi2c_acc));
 
@@ -123,6 +125,18 @@ int main(void)
     HAL_Delay(200);
     arm_cfft_radix4_f32(&S, Input);
     arm_max_f32(Output, FFT_SIZE, &maxValue, &maxIndex); // Find the index of the maximum value
+    if(ts_t==(TRANSFER_ERROR|TRANSFER_NONE))
+    {
+      DBG_STATUS(Audio_error);
+      AUDIO_IN_Error_CallBack();
+    }
+    else
+    {
+      // Process the FFT output here
+      // For example, you can print the maximum value and its index
+      snprintf(str_output_buffer, sizeof(str_output_buffer), "Max Value: %f, Index: %lu\r\n", maxValue, maxIndex);
+      CDC_Transmit_FS((uint8_t *)str_output_buffer, strlen(str_output_buffer));
+    }
   }
 }
 
@@ -195,18 +209,18 @@ static void MX_GPIO_Init(void)
 
 void USB_CDC_RxHandler(uint8_t *Buf, uint32_t Len)
 {
-  CDC_Transmit_FS(Buf, Len);
+  
 }
 
 
 void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
 {
-  
+  AUDIO_IN_TransferComplete_CallBack();
 }
 
 void HAL_SPI_RxHalfCpltCallback(SPI_HandleTypeDef *hspi)
 {
-  
+  AUDIO_IN_HalfTransfer_CallBack();
 }
 
 

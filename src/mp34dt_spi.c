@@ -29,6 +29,7 @@ uint16_t *PDMBuf = SPI_InternalBuffer;
 uint16_t *PCMBuf;
 
 
+TransferState_t ts_t = TRANSFER_NONE;
 
 static uint8_t Channel_Demux[128] =
     {
@@ -52,7 +53,6 @@ static uint8_t Channel_Demux[128] =
 /* Recording Buffer Trigger */
 static __IO uint32_t RecBuffTrigger = 0;
 static __IO uint32_t RecBuffHalf = 0;
-
 
 HAL_StatusTypeDef MX_SPI_Init(SPI_HandleTypeDef *hspi, MX_SPI_Config *MXConfig)
 {
@@ -129,7 +129,7 @@ static void SPI_MspInit(SPI_HandleTypeDef *hspi)
 
 int32_t AUDIO_IN_Init(AUDIO_Init_t *AudioInit)
 {
-
+    ts_t = TRANSFER_NONE;
     /* Store the audio record context */
     AudioInCtx.Device = AudioInit->Device;
     AudioInCtx.ChannelsNbr = AudioInit->ChannelsNbr;
@@ -137,8 +137,6 @@ int32_t AUDIO_IN_Init(AUDIO_Init_t *AudioInit)
     AudioInCtx.BitsPerSample = AudioInit->BitsPerSample;
     AudioInCtx.Volume = AudioInit->Volume;
     AudioInCtx.State = AUDIO_IN_STATE_RESET;
-
-  
 
     /* Double buffer for 1 microphone */
     AudioInCtx.Size = PDM_INTERNAL_BUFFER_SIZE_SPI;
@@ -162,6 +160,8 @@ int32_t AUDIO_IN_Init(AUDIO_Init_t *AudioInit)
     spi_config.TIMode = SPI_TIMODE_DISABLED;
     spi_config.Mode = SPI_MODE_SLAVE;
 
+    AUDIO_IN_Timer_Init();
+
     if (MX_SPI_Init(&hAudioInSPI, &spi_config) != HAL_OK)
     {
         return BSP_ERROR_PERIPH_FAILURE;
@@ -180,8 +180,6 @@ int32_t AUDIO_IN_PDMToPCM(uint16_t *PDMBuf, uint16_t *PCMBuf)
     PDM_Filter(PDMBuf, PCMBuf, &PDM2PCMHandler);
     return BSP_ERROR_NONE;
 }
-
-
 
 /**
  * @brief  Start audio recording.
@@ -467,10 +465,15 @@ int32_t AUDIO_IN_GetState(uint32_t *State)
 
 void AUDIO_IN_TransferComplete_CallBack()
 {
-    CDC_Transmit_FS((uint8_t *)str_hal_ok, strlen(str_hal_ok));
-    /* This function should be implemented by the user application.
-    It is called into this driver when the current buffer is filled
-    to prepare the next buffer pointer and its size. */
+    ts_t = FULL_TRANSFER;
+    RecBuffTrigger = 1;
+    RecBuffHalf = 0;
+
+    /* Call the user callback */
+    AUDIO_IN_PDMToPCM((uint16_t *)SPI_InternalBuffer, (uint16_t *)PCMBuf);
+    AUDIO_IN_Record((uint8_t *)PCMBuf, (uint32_t)AudioInCtx.Size);
+    /* Update the buffer pointer */
+    PCMBuf += (AudioInCtx.Size / 2);
 }
 
 /**
@@ -479,11 +482,15 @@ void AUDIO_IN_TransferComplete_CallBack()
  */
 void AUDIO_IN_HalfTransfer_CallBack()
 {
+    ts_t = HALF_TRANSFER;
+    RecBuffHalf = 1;
+    RecBuffTrigger = 0;
 
-    CDC_Transmit_FS((uint8_t *)str_hal_ok, strlen(str_hal_ok));
-    /* This function should be implemented by the user application.
-    It is called into this driver when the current buffer is filled
-    to prepare the next buffer pointer and its size. */
+    /* Call the user callback */
+    AUDIO_IN_PDMToPCM((uint16_t *)SPI_InternalBuffer, (uint16_t *)PCMBuf);
+    AUDIO_IN_Record((uint8_t *)PCMBuf, (uint32_t)AudioInCtx.Size);
+    /* Update the buffer pointer */
+    PCMBuf += (AudioInCtx.Size / 2);
 }
 
 /**
@@ -492,9 +499,9 @@ void AUDIO_IN_HalfTransfer_CallBack()
  */
 void AUDIO_IN_Error_CallBack()
 {
-    CDC_Transmit_FS((uint8_t *)str_hal_ok, strlen(str_hal_ok));
-    /* This function is called when an Interrupt due to transfer error on or peripheral
-    error occurs. */
+    ts_t = TRANSFER_ERROR;
+    HAL_SPI_DMAStop(&hAudioInSPI);
+    AUDIO_IN_Stop();
 }
 
 /**
@@ -502,7 +509,7 @@ void AUDIO_IN_Error_CallBack()
  * @param None
  * @retval None
  */
-static HAL_StatusTypeDef AUDIO_IN_Timer_Init(void)
+HAL_StatusTypeDef AUDIO_IN_Timer_Init(void)
 {
     HAL_StatusTypeDef ret = HAL_OK;
     static TIM_SlaveConfigTypeDef sSlaveConfig;
