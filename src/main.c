@@ -73,6 +73,7 @@ Audio_BufferTypeDef BufferCtl;
 AUDIO_Init_t MicParams;
 uint8_t audio_buf[INTERNAL_BUFF_SIZE];
 extern TransferState_t ts_t;
+void output_transfer_state();
 
 int main(void)
 {
@@ -122,21 +123,13 @@ int main(void)
     ICM20948_readGyroscope_allAxises(&hi2c_acc, 1, GYRO_FULL_SCALE_2000DPS, &gy_readings[0]);
     visHandle();
     output_gyro_cdc(1, 1, &gy_readings[0]);
-    HAL_Delay(200);
+    HAL_Delay(100);
     arm_cfft_radix4_f32(&S, Input);
     arm_max_f32(Output, FFT_SIZE, &maxValue, &maxIndex); // Find the index of the maximum value
-    if(ts_t==(TRANSFER_ERROR|TRANSFER_NONE))
-    {
-      DBG_STATUS(Audio_error);
-      AUDIO_IN_Error_CallBack();
-    }
-    else
-    {
-      // Process the FFT output here
-      // For example, you can print the maximum value and its index
-      snprintf(str_output_buffer, sizeof(str_output_buffer), "Max Value: %f, Index: %lu\r\n", maxValue, maxIndex);
-      CDC_Transmit_FS((uint8_t *)str_output_buffer, strlen(str_output_buffer));
-    }
+    output_transfer_state();
+
+
+   
   }
 }
 
@@ -251,6 +244,25 @@ void Error_Handler(void)
     HAL_Delay(100);
   }
   /* USER CODE END Error_Handler */
+}
+void output_transfer_state()
+{
+  if(ts_t==(TRANSFER_NONE|TRANSFER_ERROR))
+  {
+    DBG_STATUS(Audio_error);
+  }
+  else if(ts_t==FULL_TRANSFER)
+  {
+    DBG_STATUS(full_transfer)
+  }
+  else if(ts_t==HALF_TRANSFER)
+  {
+    DBG_STATUS(half_tranfer);
+  }
+  else if(ts_t==TRANSFER_ERROR)
+  {
+    DBG_STATUS(error_transfer);
+  }
 }
 
 #ifdef USE_FULL_ASSERT
