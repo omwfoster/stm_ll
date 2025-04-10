@@ -108,10 +108,12 @@ int main(void)
   MicParams.SampleRate = AUDIO_FREQUENCY_16K;
   MicParams.Volume = AUDIO_VOLUME_INPUT;
 
-  if (AUDIO_IN_Init(&MicParams) != BSP_ERROR_NONE)
+  while((AUDIO_IN_Init(&MicParams))!=HAL_OK)
   {
-    Error_Handler();
+    DBG_STATUS(HAL_ERROR);
+    HAL_Delay(200);
   }
+ 
 
   AUDIO_IN_Record(audio_buf, INTERNAL_BUFF_SIZE);
 
@@ -249,19 +251,19 @@ void output_transfer_state()
 {
   if(ts_t==(TRANSFER_NONE|TRANSFER_ERROR))
   {
-    DBG_STATUS(Audio_error);
+    DBG_STRING(Audio_error);
   }
   else if(ts_t==FULL_TRANSFER)
   {
-    DBG_STATUS(full_transfer)
+    DBG_STRING(full_transfer)
   }
   else if(ts_t==HALF_TRANSFER)
   {
-    DBG_STATUS(half_tranfer);
+    DBG_STRING(half_tranfer);
   }
   else if(ts_t==TRANSFER_ERROR)
   {
-    DBG_STATUS(error_transfer);
+    DBG_STRING(error_transfer);
   }
 }
 
