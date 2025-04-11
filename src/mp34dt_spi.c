@@ -172,6 +172,8 @@ int32_t AUDIO_IN_Init(AUDIO_Init_t *AudioInit)
     }
 
     PDM_Filter_Init(&PDM2PCMHandler);
+    ts_t = TRANSFER_OK;
+    /* Initialize the PDM filter structure */
     return HAL_OK;
 }
 

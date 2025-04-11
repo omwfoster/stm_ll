@@ -20,6 +20,7 @@ MEMSAFE_STRING(Audio_error, "Audio_error\r");
 MEMSAFE_STRING(half_tranfer, "half_tranfer\r");
 MEMSAFE_STRING(full_transfer, "full_transfer\r");
 MEMSAFE_STRING(error_transfer, "error_transfer\r");
+MEMSAFE_STRING(ok_transfer, "ok_transfer\r");
 
 #define DBG_STRING(name) \
     CDC_Transmit_FS((uint8_t *)name, sizeof(name));

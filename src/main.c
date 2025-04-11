@@ -261,9 +261,9 @@ void output_transfer_state()
   {
     DBG_STRING(half_tranfer);
   }
-  else if(ts_t==TRANSFER_ERROR)
+  else if(ts_t==TRANSFER_OK)
   {
-    DBG_STRING(error_transfer);
+    DBG_STRING(ok_transfer);
   }
 }
 

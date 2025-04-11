@@ -37,7 +37,8 @@ typedef enum
     FULL_TRANSFER = 0,
     HALF_TRANSFER = 1,
     TRANSFER_ERROR = 2,
-    TRANSFER_NONE = 3
+    TRANSFER_NONE = 3,
+    TRANSFER_OK = 4
 } TransferState_t;
 
 
