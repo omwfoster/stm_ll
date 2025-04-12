@@ -26,11 +26,16 @@
 float32_t Input[2 * FFT_SIZE];  // Input data (real and imaginary parts interleaved)
 float32_t Output[2 * FFT_SIZE]; // Output data (real and imaginary parts interleaved)
 
-arm_cfft_radix4_instance_f32 S;
+
+const arm_cfft_instance_f32 S2 = 
+    {
+        FFT_SIZE
+    };
+
 
 #define AUDIO_IN_INSTANCES_NBR 1U
 
-// GPIO clock peripheral enable command
+// GPIO clock pexripheral enable command
 #define WS2812B_GPIO_CLK_ENABLE() __HAL_RCC_GPIOC_CLK_ENABLE()
 // LED output port
 #define WS2812B_PORT GPIOC
@@ -116,8 +121,12 @@ int main(void)
  
 
   AUDIO_IN_Record(audio_buf, INTERNAL_BUFF_SIZE);
+  
 
-  arm_cfft_radix4_init_f32(&S, FFT_SIZE, 0, 1); // Initialize with forward transform, no bit-reversal
+  arm_rfft_fast_instance_f32 fft;
+  arm_rfft_fast_init_f32(&fft, FFT_SIZE);
+  arm_rfft_fast_f32(&fft, Input, Output, 1);
+ 
 
   while (1)
   {
@@ -126,8 +135,8 @@ int main(void)
     visHandle();
     output_gyro_cdc(1, 1, &gy_readings[0]);
     HAL_Delay(100);
-    arm_cfft_radix4_f32(&S, Input);
-    arm_max_f32(Output, FFT_SIZE, &maxValue, &maxIndex); // Find the index of the maximum value
+    arm_rfft_fast_f32(&fft, Input, Output, 1);
+    arm_cmplx_mag_f32(Output, FFT_SIZE * 2, FFT_SIZE);
     output_transfer_state();
 
 

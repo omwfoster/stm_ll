@@ -43,6 +43,27 @@ uint8_t reset_buffer(uint8_t *buffer, uint8_t len);
 
 
 
+// String definitions for each enum value
+MEMSAFE_STRING(str_arm_success, "ARM_MATH_SUCCESS\r");
+MEMSAFE_STRING(str_arm_argument_error, "ARM_MATH_ARGUMENT_ERROR\r");
+MEMSAFE_STRING(str_arm_length_error, "ARM_MATH_LENGTH_ERROR\r");
+MEMSAFE_STRING(str_arm_size_mismatch, "ARM_MATH_SIZE_MISMATCH\r");
+MEMSAFE_STRING(str_arm_naninf, "ARM_MATH_NANINF\r");
+MEMSAFE_STRING(str_arm_singular, "ARM_MATH_SINGULAR\r");
+MEMSAFE_STRING(str_arm_test_failure, "ARM_MATH_TEST_FAILURE\r");
+
+// Macro to output enum status
+#define DBG_ARM_STATUS(status) \
+        switch(status) { \
+                case ARM_MATH_SUCCESS: DBG_STRING(str_arm_success); break; \
+                case ARM_MATH_ARGUMENT_ERROR: DBG_STRING(str_arm_argument_error); break; \
+                case ARM_MATH_LENGTH_ERROR: DBG_STRING(str_arm_length_error); break; \
+                case ARM_MATH_SIZE_MISMATCH: DBG_STRING(str_arm_size_mismatch); break; \
+                case ARM_MATH_NANINF: DBG_STRING(str_arm_naninf); break; \
+                case ARM_MATH_SINGULAR: DBG_STRING(str_arm_singular); break; \
+                case ARM_MATH_TEST_FAILURE: DBG_STRING(str_arm_test_failure); break; \
+                default: DBG_STRING(str_hal_error); break; \
+        }
 
 
 
