@@ -472,10 +472,9 @@ void AUDIO_IN_TransferComplete_CallBack()
     RecBuffHalf = 0;
 
     /* Call the user callback */
-    AUDIO_IN_PDMToPCM((uint16_t *)SPI_InternalBuffer, (uint16_t *)PCMBuf);
-    AUDIO_IN_Record((uint8_t *)PCMBuf, (uint32_t)AudioInCtx.Size);
+ 
     /* Update the buffer pointer */
-    PCMBuf += (AudioInCtx.Size / 2);
+   // PCMBuf += (AudioInCtx.Size / 2);
 }
 
 /**
@@ -489,10 +488,9 @@ void AUDIO_IN_HalfTransfer_CallBack()
     RecBuffTrigger = 0;
 
     /* Call the user callback */
-    AUDIO_IN_PDMToPCM((uint16_t *)SPI_InternalBuffer, (uint16_t *)PCMBuf);
-    AUDIO_IN_Record((uint8_t *)PCMBuf, (uint32_t)AudioInCtx.Size);
+   
     /* Update the buffer pointer */
-    PCMBuf += (AudioInCtx.Size / 2);
+   // PCMBuf += (AudioInCtx.Size / 2);
 }
 
 /**

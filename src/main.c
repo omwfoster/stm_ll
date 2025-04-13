@@ -113,18 +113,15 @@ int main(void)
   MicParams.SampleRate = AUDIO_FREQUENCY_16K;
   MicParams.Volume = AUDIO_VOLUME_INPUT;
 
-  while((AUDIO_IN_Init(&MicParams))!=HAL_OK)
-  {
-    DBG_STATUS(HAL_ERROR);
-    HAL_Delay(200);
-  }
+  DBG_STATUS(AUDIO_IN_Init(&MicParams));
+ 
  
 
   AUDIO_IN_Record(audio_buf, INTERNAL_BUFF_SIZE);
   
 
   arm_rfft_fast_instance_f32 fft;
-  arm_rfft_fast_init_f32(&fft, FFT_SIZE);
+  DBG_ARM_STATUS(arm_rfft_fast_init_f32(&fft, FFT_SIZE));
   arm_rfft_fast_f32(&fft, Input, Output, 1);
  
 
@@ -137,9 +134,7 @@ int main(void)
     HAL_Delay(100);
     arm_rfft_fast_f32(&fft, Input, Output, 1);
     arm_cmplx_mag_f32(Output, FFT_SIZE * 2, FFT_SIZE);
-    output_transfer_state();
-
-
+    DBG_TRANSFERSTATE(ts_t);
    
   }
 }
@@ -256,25 +251,7 @@ void Error_Handler(void)
   }
   /* USER CODE END Error_Handler */
 }
-void output_transfer_state()
-{
-  if(ts_t==(TRANSFER_NONE|TRANSFER_ERROR))
-  {
-    DBG_STRING(Audio_error);
-  }
-  else if(ts_t==FULL_TRANSFER)
-  {
-    DBG_STRING(full_transfer)
-  }
-  else if(ts_t==HALF_TRANSFER)
-  {
-    DBG_STRING(half_tranfer);
-  }
-  else if(ts_t==TRANSFER_OK)
-  {
-    DBG_STRING(ok_transfer);
-  }
-}
+
 
 #ifdef USE_FULL_ASSERT
 
