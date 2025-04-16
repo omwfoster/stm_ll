@@ -78,7 +78,8 @@ Audio_BufferTypeDef BufferCtl;
 AUDIO_Init_t MicParams;
 uint8_t audio_buf[INTERNAL_BUFF_SIZE];
 extern TransferState_t ts_t;
-void output_transfer_state();
+
+void output_audio_cdc();
 
 int main(void)
 {
@@ -113,11 +114,11 @@ int main(void)
   MicParams.SampleRate = AUDIO_FREQUENCY_16K;
   MicParams.Volume = AUDIO_VOLUME_INPUT;
 
-  DBG_STATUS(AUDIO_IN_Init(&MicParams));
+  DBG_BSP_STATUS(AUDIO_IN_Init(&MicParams));
  
  
 
-  AUDIO_IN_Record(audio_buf, INTERNAL_BUFF_SIZE);
+  DBG_BSP_STATUS(AUDIO_IN_Record(audio_buf, INTERNAL_BUFF_SIZE));
   
 
   arm_rfft_fast_instance_f32 fft;
@@ -131,10 +132,12 @@ int main(void)
     ICM20948_readGyroscope_allAxises(&hi2c_acc, 1, GYRO_FULL_SCALE_2000DPS, &gy_readings[0]);
     visHandle();
     output_gyro_cdc(1, 1, &gy_readings[0]);
-    HAL_Delay(100);
+    HAL_Delay(50);
     arm_rfft_fast_f32(&fft, Input, Output, 1);
     arm_cmplx_mag_f32(Output, FFT_SIZE * 2, FFT_SIZE);
     DBG_TRANSFERSTATE(ts_t);
+    HAL_Delay(50);
+    output_audio_cdc();
    
   }
 }
@@ -181,6 +184,14 @@ void SystemClock_Config(void)
   }
 }
 
+
+void output_audio_cdc()
+{
+  char local_buffer[10];
+  sprintf(local_buffer, "%.4f\n\r", Output[0]);
+	CDC_Transmit_FS((uint8_t *)local_buffer, 4);
+}
+
 static void MX_GPIO_Init(void)
 {
   GPIO_InitTypeDef GPIO_InitStruct = {0};
@@ -216,6 +227,7 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
 {
   AUDIO_IN_TransferComplete_CallBack();
 }
+
 
 void HAL_SPI_RxHalfCpltCallback(SPI_HandleTypeDef *hspi)
 {

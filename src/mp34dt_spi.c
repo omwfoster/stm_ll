@@ -174,7 +174,7 @@ int32_t AUDIO_IN_Init(AUDIO_Init_t *AudioInit)
     PDM_Filter_Init(&PDM2PCMHandler);
     ts_t = TRANSFER_OK;
     /* Initialize the PDM filter structure */
-    return HAL_OK;
+    return BSP_ERROR_NONE;
 }
 
 int32_t AUDIO_IN_PDMToPCM(uint16_t *PDMBuf, uint16_t *PCMBuf)
@@ -470,6 +470,7 @@ void AUDIO_IN_TransferComplete_CallBack()
     ts_t = FULL_TRANSFER;
     RecBuffTrigger = 1;
     RecBuffHalf = 0;
+    
 
     /* Call the user callback */
  

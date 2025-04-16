@@ -108,4 +108,64 @@ MEMSAFE_STRING(str_transfer_ok, "TRANSFER_OK\r");
         break;                          \
     }
 
+
+
+
+// String definitions for BSP error codes
+MEMSAFE_STRING(str_bsp_none, "BSP_ERROR_NONE\r");
+MEMSAFE_STRING(str_bsp_no_init, "BSP_ERROR_NO_INIT\r");
+MEMSAFE_STRING(str_bsp_wrong_param, "BSP_ERROR_WRONG_PARAM\r");
+MEMSAFE_STRING(str_bsp_busy, "BSP_ERROR_BUSY\r");
+MEMSAFE_STRING(str_bsp_periph_failure, "BSP_ERROR_PERIPH_FAILURE\r");
+MEMSAFE_STRING(str_bsp_component_failure, "BSP_ERROR_COMPONENT_FAILURE\r");
+MEMSAFE_STRING(str_bsp_unknown_failure, "BSP_ERROR_UNKNOWN_FAILURE\r");
+MEMSAFE_STRING(str_bsp_unknown_component, "BSP_ERROR_UNKNOWN_COMPONENT\r");
+MEMSAFE_STRING(str_bsp_bus_failure, "BSP_ERROR_BUS_FAILURE\r");
+MEMSAFE_STRING(str_bsp_clock_failure, "BSP_ERROR_CLOCK_FAILURE\r");
+MEMSAFE_STRING(str_bsp_msp_failure, "BSP_ERROR_MSP_FAILURE\r");
+
+// Macro to output BSP status
+#define DBG_BSP_STATUS(status)                     \
+    switch (status)                                \
+    {                                             \
+    case BSP_ERROR_NONE:                          \
+        DBG_STRING(str_bsp_none);                 \
+        break;                                    \
+    case BSP_ERROR_NO_INIT:                       \
+        DBG_STRING(str_bsp_no_init);              \
+        break;                                    \
+    case BSP_ERROR_WRONG_PARAM:                   \
+        DBG_STRING(str_bsp_wrong_param);          \
+        break;                                    \
+    case BSP_ERROR_BUSY:                          \
+        DBG_STRING(str_bsp_busy);                 \
+        break;                                    \
+    case BSP_ERROR_PERIPH_FAILURE:               \
+        DBG_STRING(str_bsp_periph_failure);       \
+        break;                                    \
+    case BSP_ERROR_COMPONENT_FAILURE:            \
+        DBG_STRING(str_bsp_component_failure);    \
+        break;                                    \
+    case BSP_ERROR_UNKNOWN_FAILURE:              \
+        DBG_STRING(str_bsp_unknown_failure);      \
+        break;                                    \
+    case BSP_ERROR_UNKNOWN_COMPONENT:            \
+        DBG_STRING(str_bsp_unknown_component);    \
+        break;                                    \
+    case BSP_ERROR_BUS_FAILURE:                  \
+        DBG_STRING(str_bsp_bus_failure);          \
+        break;                                    \
+    case BSP_ERROR_CLOCK_FAILURE:                \
+        DBG_STRING(str_bsp_clock_failure);        \
+        break;                                    \
+    case BSP_ERROR_MSP_FAILURE:                  \
+        DBG_STRING(str_bsp_msp_failure);          \
+        break;                                    \
+    default:                                      \
+        DBG_STRING(str_hal_error);                \
+        break;                                    \
+    }
+
+
+
 #endif // MEMSAFE_BUFFER_H

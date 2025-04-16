@@ -11,6 +11,7 @@
         "i2c_init.h": "c",
         "i2c_see.h": "c",
         "memsafe_buffer.h": "c",
-        "usb_device.h": "c"
+        "usb_device.h": "c",
+        "stm32f4xx_hal.h": "c"
     }
 }
