@@ -25,9 +25,10 @@ static SPI_HandleTypeDef hAudioInSPI;
 static TIM_HandleTypeDef TimDividerHandle;
 static uint16_t SPI_InternalBuffer[PDM_INTERNAL_BUFFER_SIZE_SPI]; //[PDM_INTERNAL_BUFFER_SIZE_SPI];
 
+static HAL_StatusTypeDef AUDIO_IN_Timer_Start(void);
+
 uint16_t *PDMBuf = SPI_InternalBuffer;
 uint16_t *PCMBuf;
-
 
 TransferState_t ts_t = TRANSFER_NONE;
 
@@ -197,6 +198,11 @@ int32_t AUDIO_IN_Record(uint8_t *pBuf, uint32_t NbrOfBytes)
     AudioInCtx.Size = NbrOfBytes;
 
     if (HAL_SPI_Receive_DMA(&hAudioInSPI, (uint8_t *)SPI_InternalBuffer, (uint16_t)AudioInCtx.Size) != HAL_OK)
+    {
+        return BSP_ERROR_PERIPH_FAILURE;
+    }
+
+    if (AUDIO_IN_Timer_Start() != HAL_OK)
     {
         return BSP_ERROR_PERIPH_FAILURE;
     }
@@ -460,49 +466,47 @@ int32_t AUDIO_IN_GetState(uint32_t *State)
     return BSP_ERROR_NONE;
 }
 
-/**
- * @brief  User callback when record buffer is filled.
- * @retval None
- */
 
-void AUDIO_IN_TransferComplete_CallBack()
+/* Add the DMA IRQ handler and link it to HAL */
+void AUDIO_IN_DMA_IRQHandler(void)
 {
+    HAL_DMA_IRQHandler(hAudioInSPI.hdmarx);
+}
+
+/* HAL DMA callbacks */
+void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
+{
+
     ts_t = FULL_TRANSFER;
     RecBuffTrigger = 1;
     RecBuffHalf = 0;
-    
-
-    /* Call the user callback */
- 
-    /* Update the buffer pointer */
-   // PCMBuf += (AudioInCtx.Size / 2);
+    if (hspi->Instance == hAudioInSPI.Instance)
+    {
+     //   AUDIO_IN_TransferComplete_CallBack();
+    }
 }
 
-/**
- * @brief  Manages the DMA Half Transfer complete event.
- * @retval None
- */
-void AUDIO_IN_HalfTransfer_CallBack()
+void HAL_SPI_RxHalfCpltCallback(SPI_HandleTypeDef *hspi)
 {
+
     ts_t = HALF_TRANSFER;
     RecBuffHalf = 1;
     RecBuffTrigger = 0;
-
-    /* Call the user callback */
-   
-    /* Update the buffer pointer */
-   // PCMBuf += (AudioInCtx.Size / 2);
+    if (hspi->Instance == hAudioInSPI.Instance)
+    {
+    //    AUDIO_IN_HalfTransfer_CallBack();
+    }
 }
 
-/**
- * @brief  Audio IN Error callback function.
- * @retval None
- */
-void AUDIO_IN_Error_CallBack()
+void HAL_SPI_ErrorCallback(SPI_HandleTypeDef *hspi)
 {
+
     ts_t = TRANSFER_ERROR;
     HAL_SPI_DMAStop(&hAudioInSPI);
-    AUDIO_IN_Stop();
+    if (hspi->Instance == hAudioInSPI.Instance)
+    {
+    //    AUDIO_IN_Error_CallBack();
+    }
 }
 
 /**
@@ -519,7 +523,8 @@ HAL_StatusTypeDef AUDIO_IN_Timer_Init(void)
     GPIO_InitTypeDef GPIO_InitStruct;
 
     /* Enable AUDIO_TIMER clock*/
-    AUDIO_IN_TIMER_CLK_ENABLE();
+    AUDIO_IN_SPI_CLK_ENABLE();
+    AUDIO_IN_SPI_DMAx_CLK_ENABLE();
     AUDIO_IN_TIMER_CHOUT_GPIO_PORT_CLK_ENABLE();
     AUDIO_IN_TIMER_CHIN_GPIO_PORT_CLK_ENABLE();
 
@@ -575,5 +580,21 @@ HAL_StatusTypeDef AUDIO_IN_Timer_Init(void)
     {
         ret = HAL_ERROR;
     }
+    return ret;
+}
+
+static HAL_StatusTypeDef AUDIO_IN_Timer_Start(void)
+{
+    HAL_StatusTypeDef ret = HAL_OK;
+    if (HAL_TIM_IC_Start(&TimDividerHandle, TIM_CHANNEL_1) != HAL_OK)
+    {
+        ret = HAL_ERROR;
+    }
+    /* Start the Output Compare */
+    if (HAL_TIM_OC_Start(&TimDividerHandle, TIM_CHANNEL_2) != HAL_OK)
+    {
+        ret = HAL_ERROR;
+    }
+
     return ret;
 }

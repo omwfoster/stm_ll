@@ -231,16 +231,7 @@ int32_t AUDIO_IN_RecordPDM(uint8_t *pBuf, uint32_t NbrOfBytes);
 
 
 
-/* User Callbacks: user has to implement these functions in his code if they are needed. */
-/* This function should be implemented by the user application.
-   It is called into this driver when the current buffer is filled to prepare the next
-   buffer pointer and its size. */
-void AUDIO_IN_TransferComplete_CallBack();
-void AUDIO_IN_HalfTransfer_CallBack();
 
-/* This function is called when an Interrupt due to transfer error on or peripheral
-   error occurs. */
-void AUDIO_IN_Error_CallBack();
 
 HAL_StatusTypeDef MX_SPI_Init(SPI_HandleTypeDef *hspi, MX_SPI_Config *MXConfig);
 int32_t AUDIO_IN_Init(AUDIO_Init_t *AudioInit);

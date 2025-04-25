@@ -352,7 +352,7 @@ void ICM20948_readMagnetometer_allAxises(I2C_HandleTypeDef *hi2c, int16_t readin
 	readings[Z] *= MAG_SENSITIVITY_SCALE_FACTOR;
 }
 
-void output_gyro_cdc(int pagIni, int pagFin, int16_t gy_readings[3])
+void output_gyro_cdc(int16_t gy_readings[3])
 {
 
 	char data[50];

@@ -131,13 +131,13 @@ int main(void)
     // DBG_STRING(dbg_loop);
     ICM20948_readGyroscope_allAxises(&hi2c_acc, 1, GYRO_FULL_SCALE_2000DPS, &gy_readings[0]);
     visHandle();
-    output_gyro_cdc(1, 1, &gy_readings[0]);
+    output_gyro_cdc( &gy_readings[0]);
     HAL_Delay(50);
-    arm_rfft_fast_f32(&fft, Input, Output, 1);
-    arm_cmplx_mag_f32(Output, FFT_SIZE * 2, FFT_SIZE);
+   // arm_rfft_fast_f32(&fft, Input, Output, 1);
+   // arm_cmplx_mag_f32(Output, FFT_SIZE * 2, FFT_SIZE);
     DBG_TRANSFERSTATE(ts_t);
     HAL_Delay(50);
-    output_audio_cdc();
+    //output_audio_cdc();
    
   }
 }
@@ -223,29 +223,8 @@ void USB_CDC_RxHandler(uint8_t *Buf, uint32_t Len)
 }
 
 
-void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
-{
-  AUDIO_IN_TransferComplete_CallBack();
-}
 
 
-void HAL_SPI_RxHalfCpltCallback(SPI_HandleTypeDef *hspi)
-{
-  AUDIO_IN_HalfTransfer_CallBack();
-}
-
-
-/**
- * @brief  SPI error callbacks.
- * @param  hspi: SPI handle
- * @note   This example shows a simple way to report transfer error, and you can
- *         add your own implementation.
- * @retval None
- */
-void HAL_SPI_ErrorCallback(SPI_HandleTypeDef *hspi)
-{
-  DBG_STATUS(isr_error);
-}
 
 /**
  * @brief  This function is executed in case of error occurrence.

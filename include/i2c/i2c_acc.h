@@ -73,4 +73,4 @@ void ICM20948_readAccelerometer_allAxises(I2C_HandleTypeDef * hi2c, uint8_t cons
 void ICM20948_readMagnetometer_allAxises(I2C_HandleTypeDef * hi2c, int16_t readings[3]);
 
 
-void output_gyro_cdc(int pagIni, int pagFin,int16_t * gy_readings);
+void output_gyro_cdc(int16_t * gy_readings);
