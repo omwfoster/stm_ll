@@ -8,18 +8,62 @@
 #include "arm_math.h"
 #include "memsafe_buffer.h"
 
+enum {
+	TRANSFER_WAIT, TRANSFER_COMPLETE,TRANSFER_HALF ,TRANSFER_ERROR
+};
+
+#define REC_FREQ                          8000
+
+/* PDM buffer input size */
+#define INTERNAL_BUFF_SIZE      64
+
+/* PCM buffer output size */
+#define PCM_OUT_SIZE            16
+
 AUDIO_IN_Ctx_t AudioInCtx = {0};
 
 #define SaturaLH(N, L, H) (((N) < (L)) ? (L) : (((N) > (H)) ? (H) : (N)))
 
-#define DECIMATOR_NUM_TAPS (16U)
-#define DECIMATOR_BLOCK_SIZE (16U * N_MS_PER_INTERRUPT)
-#define DECIMATOR_FACTOR (2U)
-#define DECIMATOR_STATE_LENGTH (DECIMATOR_BLOCK_SIZE + (DECIMATOR_NUM_TAPS) - 1U)
+uint16_t counter = 0;
+uint8_t WaveRecStatus = 0;
+/* Current state of the audio recorder interface intialization */
+static uint32_t AudioRecInited = 0;
+/* Audio recording Samples format (from 8 to 16 bits) */
+uint32_t AudioRecBitRes = 16;
+uint16_t RecBuf[PCM_OUT_SIZE], RecBuf1[PCM_OUT_SIZE];
+uint8_t RecBufHeader[512], Switch = 0;
+__IO uint32_t Data_Status = 0;
+/* Audio recording number of channels (1 for Mono or 2 for Stereo) */
+uint32_t AudioRecChnlNbr = 1;
+/* Main buffer pointer for the recorded data storing */
+uint16_t *pAudioRecBuf;
+/* Current size of the recorded buffer */
+uint32_t AudioRecCurrSize = 0;
+uint16_t bytesWritten;
+/* Temporary data sample */
+static uint16_t InternalBuffer[INTERNAL_BUFF_SIZE];
+static uint32_t InternalBufferSize = 0;
 
-/* PDM filters params */
-static PDM_Filter_Handler_t PDM2PCMHandler;
-static PDM_Filter_Config_t PDM2PCMConfig;
+/* Audio recording frequency in Hz */
+#define REC_FREQ                          8000
+
+/* PDM buffer input size */
+#define INTERNAL_BUFF_SIZE      64
+
+/* PCM buffer output size */
+#define PCM_OUT_SIZE            16
+
+union U_Pdm {
+	struct {
+		uint8_t first_half[8];
+		uint8_t last_half[8];
+	};
+	uint8_t PDM_In[16];
+} t_U_Pdm;
+
+uint16_t PDM_Out[16];
+
+__IO uint32_t wTransferState = TRANSFER_WAIT;
 
 static SPI_HandleTypeDef hAudioInSPI;
 static TIM_HandleTypeDef TimDividerHandle;
@@ -466,7 +510,6 @@ int32_t AUDIO_IN_GetState(uint32_t *State)
     return BSP_ERROR_NONE;
 }
 
-
 /* Add the DMA IRQ handler and link it to HAL */
 void AUDIO_IN_DMA_IRQHandler(void)
 {
@@ -482,7 +525,7 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
     RecBuffHalf = 0;
     if (hspi->Instance == hAudioInSPI.Instance)
     {
-     //   AUDIO_IN_TransferComplete_CallBack();
+        //   AUDIO_IN_TransferComplete_CallBack();
     }
 }
 
@@ -494,7 +537,7 @@ void HAL_SPI_RxHalfCpltCallback(SPI_HandleTypeDef *hspi)
     RecBuffTrigger = 0;
     if (hspi->Instance == hAudioInSPI.Instance)
     {
-    //    AUDIO_IN_HalfTransfer_CallBack();
+        //    AUDIO_IN_HalfTransfer_CallBack();
     }
 }
 
@@ -505,7 +548,7 @@ void HAL_SPI_ErrorCallback(SPI_HandleTypeDef *hspi)
     HAL_SPI_DMAStop(&hAudioInSPI);
     if (hspi->Instance == hAudioInSPI.Instance)
     {
-    //    AUDIO_IN_Error_CallBack();
+        //    AUDIO_IN_Error_CallBack();
     }
 }
 
@@ -516,85 +559,25 @@ void HAL_SPI_ErrorCallback(SPI_HandleTypeDef *hspi)
  */
 HAL_StatusTypeDef AUDIO_IN_Timer_Init(void)
 {
+
     HAL_StatusTypeDef ret = HAL_OK;
-    static TIM_SlaveConfigTypeDef sSlaveConfig;
-    static TIM_IC_InitTypeDef sICConfig;
-    static TIM_OC_InitTypeDef sOCConfig;
-    GPIO_InitTypeDef GPIO_InitStruct;
+    GPIO_InitTypeDef GPIO_InitStruct={0};
 
-    /* Enable AUDIO_TIMER clock*/
-    AUDIO_IN_SPI_CLK_ENABLE();
-    AUDIO_IN_SPI_DMAx_CLK_ENABLE();
-    AUDIO_IN_TIMER_CHOUT_GPIO_PORT_CLK_ENABLE();
-    AUDIO_IN_TIMER_CHIN_GPIO_PORT_CLK_ENABLE();
-
+    
+    GPIO_InitStruct.Pin = GPIO_PIN_6;       // CH3 on PB0
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_PULLUP;
-    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+    GPIO_InitStruct.Alternate = GPIO_AF2_TIM3; // TIM3_CH1
+    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct); // Po
 
-    GPIO_InitStruct.Alternate = AUDIO_IN_TIMER_CHIN_AF;
-    GPIO_InitStruct.Pin = AUDIO_IN_TIMER_CHIN_PIN;
-    HAL_GPIO_Init(AUDIO_IN_TIMER_CHIN_GPIO_PORT, &GPIO_InitStruct);
-
-    GPIO_InitStruct.Alternate = AUDIO_IN_TIMER_CHOUT_AF;
-    GPIO_InitStruct.Pin = AUDIO_IN_TIMER_CHOUT_PIN;
-    HAL_GPIO_Init(AUDIO_IN_TIMER_CHOUT_GPIO_PORT, &GPIO_InitStruct);
-
-    TimDividerHandle.Instance = AUDIO_IN_TIMER;
-
-    /* Configure the Input: channel_1 */
-    sICConfig.ICPolarity = TIM_ICPOLARITY_RISING;
-    sICConfig.ICSelection = TIM_ICSELECTION_DIRECTTI;
-    sICConfig.ICPrescaler = TIM_ICPSC_DIV1;
-    sICConfig.ICFilter = 0;
-    if (HAL_TIM_IC_ConfigChannel(&TimDividerHandle, &sICConfig, TIM_CHANNEL_1) != HAL_OK)
-    {
-        ret = HAL_ERROR;
-    }
-
-    /* Configure TIM1 in Gated Slave mode for the external trigger (Filtered Timer
-    Input 1) */
-    sSlaveConfig.InputTrigger = TIM_TS_TI1FP1;
-    sSlaveConfig.SlaveMode = TIM_SLAVEMODE_EXTERNAL1;
-    if (HAL_TIM_SlaveConfigSynchronization(&TimDividerHandle, &sSlaveConfig) != HAL_OK)
-    {
-        ret = HAL_ERROR;
-    }
-
-    /* Initialize TIM3 peripheral in PWM mode*/
-    TimDividerHandle.Init.Period = 1;
-    TimDividerHandle.Init.Prescaler = 0;
-    TimDividerHandle.Init.ClockDivision = 0;
-    TimDividerHandle.Init.CounterMode = TIM_COUNTERMODE_UP;
-    TimDividerHandle.Init.RepetitionCounter = 0;
-    if (HAL_TIM_PWM_Init(&TimDividerHandle) != HAL_OK)
-    {
-        ret = HAL_ERROR;
-    }
-
-    /* Configure the PWM_channel_1  */
-    sOCConfig.OCMode = TIM_OCMODE_PWM1;
-    sOCConfig.OCPolarity = TIM_OCPOLARITY_HIGH;
-    sOCConfig.Pulse = 1;
-    if (HAL_TIM_PWM_ConfigChannel(&TimDividerHandle, &sOCConfig, TIM_CHANNEL_2) != HAL_OK)
-    {
-        ret = HAL_ERROR;
-    }
+    
     return ret;
 }
 
 static HAL_StatusTypeDef AUDIO_IN_Timer_Start(void)
 {
     HAL_StatusTypeDef ret = HAL_OK;
-    if (HAL_TIM_IC_Start(&TimDividerHandle, TIM_CHANNEL_1) != HAL_OK)
-    {
-        ret = HAL_ERROR;
-    }
-    /* Start the Output Compare */
-    if (HAL_TIM_OC_Start(&TimDividerHandle, TIM_CHANNEL_2) != HAL_OK)
-    {
-        ret = HAL_ERROR;
-    }
 
     return ret;
 }

@@ -27,12 +27,9 @@ float32_t Output[2 * FFT_SIZE]; // Output data (real and imaginary parts interle
 
 TIM_HandleTypeDef htim3;
 
-
-const arm_cfft_instance_f32 S2 = 
+const arm_cfft_instance_f32 S2 =
     {
-        FFT_SIZE
-    };
-
+        FFT_SIZE};
 
 #define AUDIO_IN_INSTANCES_NBR 1U
 
@@ -54,6 +51,7 @@ void Error_Handler(void);
 static void MX_GPIO_Init(void);
 static void MX_DMA_Init(void);
 static void MX_TIM3_Init(void);
+static void setPWM(TIM_HandleTypeDef, uint32_t, uint16_t, uint16_t);
 char str_output_buffer[99] = {0};
 
 char TxBuffer[USB_OUT_BUFFER_SIZE] = {0};
@@ -86,7 +84,6 @@ DMA_HandleTypeDef hdma_spi2_rx;
 
 void output_audio_cdc();
 
-
 static void MX_SPI2_Init(void)
 {
 
@@ -117,7 +114,6 @@ static void MX_SPI2_Init(void)
   /* USER CODE BEGIN SPI2_Init 2 */
 
   /* USER CODE END SPI2_Init 2 */
-
 }
 
 int main(void)
@@ -133,23 +129,26 @@ int main(void)
   HAL_MspInit();
   SystemClock_Config();
   MX_GPIO_Init();
-  MX_DMA_Init();
-  MX_SPI2_Init();
+  //MX_DMA_Init();
+  //MX_SPI2_Init();
   MX_USB_DEVICE_Init();
+  
   MX_TIM3_Init();
+  AUDIO_IN_Timer_Init();
+  setPWM(htim3, TIM_CHANNEL_1, 83, 41);
+ 
+
 
   HAL_Delay(5000);
   //MX_I2C_Init(&hi2c_acc);
   //MX_I2C_Init(&hi2c_see); // added for seesaw
 
- 
+  //DBG_STATUS(ICM20948_isI2cAddress2(&hi2c_acc));
 
-  DBG_STATUS(ICM20948_isI2cAddress2(&hi2c_acc));
+   //visInit();
 
-  //visInit();
-
-  DBG_STATUS(ICM20948_init(&hi2c_acc, 1, GYRO_FULL_SCALE_2000DPS));
-  HAL_TIM_Base_Start_IT(&htim3);
+  //DBG_STATUS(ICM20948_init(&hi2c_acc, 1, GYRO_FULL_SCALE_2000DPS));
+  
 
   MicParams.BitsPerSample = 16;
   MicParams.ChannelsNbr = 1;
@@ -157,30 +156,25 @@ int main(void)
   MicParams.SampleRate = AUDIO_FREQUENCY_16K;
   MicParams.Volume = AUDIO_VOLUME_INPUT;
 
-  DBG_BSP_STATUS(AUDIO_IN_Init(&MicParams));
- 
- 
+  ///DBG_BSP_STATUS(AUDIO_IN_Init(&MicParams));
 
-  DBG_BSP_STATUS(AUDIO_IN_Record(audio_buf, INTERNAL_BUFF_SIZE));
-  
+  ///DBG_BSP_STATUS(AUDIO_IN_Record(audio_buf, INTERNAL_BUFF_SIZE));
 
-  arm_rfft_fast_instance_f32 fft;
-  DBG_ARM_STATUS(arm_rfft_fast_init_f32(&fft, FFT_SIZE));
-  arm_rfft_fast_f32(&fft, Input, Output, 1);
- 
+  //arm_rfft_fast_instance_f32 fft;
+  //DBG_ARM_STATUS(arm_rfft_fast_init_f32(&fft, FFT_SIZE));
+  //arm_rfft_fast_f32(&fft, Input, Output, 1);
 
   while (1)
   {
     // DBG_STRING(dbg_loop);
-    ICM20948_readGyroscope_allAxises(&hi2c_acc, 1, GYRO_FULL_SCALE_2000DPS, &gy_readings[0]);
-    visHandle();
-    output_gyro_cdc( &gy_readings[0]);
-    arm_rfft_fast_f32(&fft, Input, Output, 1);
-    arm_cmplx_mag_f32(Output, FFT_SIZE * 2, FFT_SIZE);
+  //  ICM20948_readGyroscope_allAxises(&hi2c_acc, 1, GYRO_FULL_SCALE_2000DPS, &gy_readings[0]);
+  //  visHandle();
+  // output_gyro_cdc(&gy_readings[0]);
+  //  arm_rfft_fast_f32(&fft, Input, Output, 1);
+  //  arm_cmplx_mag_f32(Output, FFT_SIZE * 2, FFT_SIZE);
     DBG_TRANSFERSTATE(ts_t);
-    
-    //output_audio_cdc();
-   
+
+  //   output_audio_cdc();
   }
 }
 
@@ -226,27 +220,22 @@ void SystemClock_Config(void)
   }
 }
 
-
 void output_audio_cdc()
 {
   char local_buffer[10];
   sprintf(local_buffer, "%.4f\n\r", Output[0]);
-	CDC_Transmit_FS((uint8_t *)local_buffer, 4);
+  CDC_Transmit_FS((uint8_t *)local_buffer, 4);
 }
 
 static void MX_GPIO_Init(void)
 {
-
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOH_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
-
-
 }
-
 
 static void MX_DMA_Init(void)
 {
@@ -258,62 +247,51 @@ static void MX_DMA_Init(void)
   /* DMA1_Stream3_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(DMA1_Stream3_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(DMA1_Stream3_IRQn);
-
 }
 
-
-static void MX_TIM3_Init(void)
+void MX_TIM3_Init(void)
 {
-
-  /* USER CODE BEGIN TIM4_Init 0 */
-
-  /* USER CODE END TIM4_Init 0 */
-
-  TIM_MasterConfigTypeDef sMasterConfig = {0};
-  TIM_OC_InitTypeDef sConfigOC = {0};
-
-  /* USER CODE BEGIN TIM4_Init 1 */
-
-  /* USER CODE END TIM4_Init 1 */
+  
+  TIM_OC_InitTypeDef sConfigOC;
   htim3.Instance = TIM3;
-  htim3.Init.Prescaler = 167;
+  htim3.Init.Prescaler = 0;
   htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim3.Init.Period = 65535;
+  htim3.Init.Period = 83;
   htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-  htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
-  if (HAL_TIM_OC_Init(&htim3) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
-  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
-  if (HAL_TIMEx_MasterConfigSynchronization(&htim3, &sMasterConfig) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  sConfigOC.OCMode = TIM_OCMODE_TIMING;
-  sConfigOC.Pulse = 1000;
+  HAL_TIM_PWM_Init(&htim3);
+  sConfigOC.OCMode = TIM_OCMODE_PWM1;
+  sConfigOC.Pulse = 41;
   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
-  if (HAL_TIM_OC_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN TIM4_Init 2 */
-
-  /* USER CODE END TIM4_Init 2 */
+  HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_1);
   HAL_TIM_MspPostInit(&htim3);
-
+ 
 }
 
 void USB_CDC_RxHandler(uint8_t *Buf, uint32_t Len)
 {
-  
 }
 
+/* USER CODE BEGIN 4 */
+void setPWM(TIM_HandleTypeDef timer, uint32_t channel, uint16_t period,
+            uint16_t pulse)
+{
+  HAL_TIM_PWM_Stop(&timer, channel); // stop generation of pwm
+  TIM_OC_InitTypeDef sConfigOC;
 
-
-
+  timer.Init.Period = period; // set the period duration
+  HAL_TIM_PWM_Init(&timer);   // reinititialise with new period value
+  
+  sConfigOC.OCMode = TIM_OCMODE_PWM1;
+  sConfigOC.Pulse = pulse; // set the pulse duration
+  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+  
+  HAL_TIM_PWM_ConfigChannel(&timer, &sConfigOC, channel);
+  DBG_STATUS(HAL_TIM_PWM_Start(&timer, channel)); // start pwm generation
+  
+}
+/* USER CODE END 4 */
 
 /**
  * @brief  This function is executed in case of error occurrence.
@@ -331,7 +309,6 @@ void Error_Handler(void)
   }
   /* USER CODE END Error_Handler */
 }
-
 
 #ifdef USE_FULL_ASSERT
 
