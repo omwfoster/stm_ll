@@ -25,6 +25,8 @@
 float32_t Input[2 * FFT_SIZE];  // Input data (real and imaginary parts interleaved)
 float32_t Output[2 * FFT_SIZE]; // Output data (real and imaginary parts interleaved)
 
+TIM_HandleTypeDef htim3;
+
 
 const arm_cfft_instance_f32 S2 = 
     {
@@ -51,7 +53,7 @@ void SystemClock_Config(void);
 void Error_Handler(void);
 static void MX_GPIO_Init(void);
 static void MX_DMA_Init(void);
-
+static void MX_TIM3_Init(void);
 char str_output_buffer[99] = {0};
 
 char TxBuffer[USB_OUT_BUFFER_SIZE] = {0};
@@ -134,19 +136,20 @@ int main(void)
   MX_DMA_Init();
   MX_SPI2_Init();
   MX_USB_DEVICE_Init();
+  MX_TIM3_Init();
 
-  HAL_Delay(10000);
-  MX_I2C_Init(&hi2c_acc);
-  MX_I2C_Init(&hi2c_see); // added for seesaw
+  HAL_Delay(5000);
+  //MX_I2C_Init(&hi2c_acc);
+  //MX_I2C_Init(&hi2c_see); // added for seesaw
 
-  // check if accelerometer is connected to
-  AUDIO_IN_Timer_Init();
+ 
 
   DBG_STATUS(ICM20948_isI2cAddress2(&hi2c_acc));
 
-  visInit();
+  //visInit();
 
   DBG_STATUS(ICM20948_init(&hi2c_acc, 1, GYRO_FULL_SCALE_2000DPS));
+  HAL_TIM_Base_Start_IT(&htim3);
 
   MicParams.BitsPerSample = 16;
   MicParams.ChannelsNbr = 1;
@@ -172,11 +175,10 @@ int main(void)
     ICM20948_readGyroscope_allAxises(&hi2c_acc, 1, GYRO_FULL_SCALE_2000DPS, &gy_readings[0]);
     visHandle();
     output_gyro_cdc( &gy_readings[0]);
-    HAL_Delay(50);
     arm_rfft_fast_f32(&fft, Input, Output, 1);
     arm_cmplx_mag_f32(Output, FFT_SIZE * 2, FFT_SIZE);
     DBG_TRANSFERSTATE(ts_t);
-    HAL_Delay(50);
+    
     //output_audio_cdc();
    
   }
@@ -256,6 +258,51 @@ static void MX_DMA_Init(void)
   /* DMA1_Stream3_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(DMA1_Stream3_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(DMA1_Stream3_IRQn);
+
+}
+
+
+static void MX_TIM3_Init(void)
+{
+
+  /* USER CODE BEGIN TIM4_Init 0 */
+
+  /* USER CODE END TIM4_Init 0 */
+
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+  TIM_OC_InitTypeDef sConfigOC = {0};
+
+  /* USER CODE BEGIN TIM4_Init 1 */
+
+  /* USER CODE END TIM4_Init 1 */
+  htim3.Instance = TIM3;
+  htim3.Init.Prescaler = 167;
+  htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim3.Init.Period = 65535;
+  htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_OC_Init(&htim3) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim3, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sConfigOC.OCMode = TIM_OCMODE_TIMING;
+  sConfigOC.Pulse = 1000;
+  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+  if (HAL_TIM_OC_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM4_Init 2 */
+
+  /* USER CODE END TIM4_Init 2 */
+  HAL_TIM_MspPostInit(&htim3);
 
 }
 
