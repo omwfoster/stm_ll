@@ -2,8 +2,6 @@
 #include <arm_math.h>
 #include "stm32f4xx_hal.h"
 #include <viseffect/visEffect.h>
-#include "mp34dt_spi.h"
-#include "mp34dt_conf.h"
 
 #include "usb_device.h"
 #include "usbd_cdc_if.h"
@@ -12,6 +10,8 @@
 #include <i2c/i2c_see.h>
 #include <memsafe_buffer.h>
 #include "errno.h"
+
+#include "pdm2pcm.h"
 
 /* Audio In states */
 #define AUDIO_IN_STATE_RESET 0U
@@ -75,9 +75,6 @@ I2C_HandleTypeDef hi2c_see;
 
 int16_t gy_readings[3];
 Audio_BufferTypeDef BufferCtl;
-AUDIO_Init_t MicParams;
-uint8_t audio_buf[INTERNAL_BUFF_SIZE];
-extern TransferState_t ts_t;
 
 SPI_HandleTypeDef hspi2;
 DMA_HandleTypeDef hdma_spi2_rx;
@@ -129,52 +126,36 @@ int main(void)
   HAL_MspInit();
   SystemClock_Config();
   MX_GPIO_Init();
-  //MX_DMA_Init();
-  //MX_SPI2_Init();
+  // MX_DMA_Init();
+  // MX_SPI2_Init();
   MX_USB_DEVICE_Init();
-  
-  MX_TIM3_Init();
-  AUDIO_IN_Timer_Init();
-  setPWM(htim3, TIM_CHANNEL_1, 83, 41);
- 
 
+  MX_TIM3_Init();
+
+  setPWM(htim3, TIM_CHANNEL_1, 83, 41);
 
   HAL_Delay(5000);
-  //MX_I2C_Init(&hi2c_acc);
-  //MX_I2C_Init(&hi2c_see); // added for seesaw
+  // MX_I2C_Init(&hi2c_acc);
+  // MX_I2C_Init(&hi2c_see); // added for seesaw
 
-  //DBG_STATUS(ICM20948_isI2cAddress2(&hi2c_acc));
+  // DBG_STATUS(ICM20948_isI2cAddress2(&hi2c_acc));
 
-   //visInit();
+  // visInit();
 
-  //DBG_STATUS(ICM20948_init(&hi2c_acc, 1, GYRO_FULL_SCALE_2000DPS));
-  
+  // DBG_STATUS(ICM20948_init(&hi2c_acc, 1, GYRO_FULL_SCALE_2000DPS));
 
-  MicParams.BitsPerSample = 16;
-  MicParams.ChannelsNbr = 1;
-  MicParams.Device = 1;
-  MicParams.SampleRate = AUDIO_FREQUENCY_16K;
-  MicParams.Volume = AUDIO_VOLUME_INPUT;
-
-  ///DBG_BSP_STATUS(AUDIO_IN_Init(&MicParams));
-
-  ///DBG_BSP_STATUS(AUDIO_IN_Record(audio_buf, INTERNAL_BUFF_SIZE));
-
-  //arm_rfft_fast_instance_f32 fft;
-  //DBG_ARM_STATUS(arm_rfft_fast_init_f32(&fft, FFT_SIZE));
-  //arm_rfft_fast_f32(&fft, Input, Output, 1);
+  // arm_rfft_fast_instance_f32 fft;
+  // DBG_ARM_STATUS(arm_rfft_fast_init_f32(&fft, FFT_SIZE));
+  // arm_rfft_fast_f32(&fft, Input, Output, 1);
 
   while (1)
   {
-    // DBG_STRING(dbg_loop);
-  //  ICM20948_readGyroscope_allAxises(&hi2c_acc, 1, GYRO_FULL_SCALE_2000DPS, &gy_readings[0]);
-  //  visHandle();
-  // output_gyro_cdc(&gy_readings[0]);
-  //  arm_rfft_fast_f32(&fft, Input, Output, 1);
-  //  arm_cmplx_mag_f32(Output, FFT_SIZE * 2, FFT_SIZE);
-    DBG_TRANSFERSTATE(ts_t);
+    DBG_STRING(dbg_loop);
+    ICM20948_readGyroscope_allAxises(&hi2c_acc, 1, GYRO_FULL_SCALE_2000DPS, &gy_readings[0]);
+    visHandle();
+    output_gyro_cdc(&gy_readings[0]);
 
-  //   output_audio_cdc();
+    output_audio_cdc();
   }
 }
 
@@ -251,7 +232,7 @@ static void MX_DMA_Init(void)
 
 void MX_TIM3_Init(void)
 {
-  
+
   TIM_OC_InitTypeDef sConfigOC;
   htim3.Instance = TIM3;
   htim3.Init.Prescaler = 0;
@@ -265,7 +246,6 @@ void MX_TIM3_Init(void)
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
   HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_1);
   HAL_TIM_MspPostInit(&htim3);
- 
 }
 
 void USB_CDC_RxHandler(uint8_t *Buf, uint32_t Len)
@@ -281,15 +261,14 @@ void setPWM(TIM_HandleTypeDef timer, uint32_t channel, uint16_t period,
 
   timer.Init.Period = period; // set the period duration
   HAL_TIM_PWM_Init(&timer);   // reinititialise with new period value
-  
+
   sConfigOC.OCMode = TIM_OCMODE_PWM1;
   sConfigOC.Pulse = pulse; // set the pulse duration
   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
-  
+
   HAL_TIM_PWM_ConfigChannel(&timer, &sConfigOC, channel);
   DBG_STATUS(HAL_TIM_PWM_Start(&timer, channel)); // start pwm generation
-  
 }
 /* USER CODE END 4 */
 

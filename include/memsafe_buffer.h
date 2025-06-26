@@ -80,7 +80,7 @@ MEMSAFE_STRING(str_arm_test_failure, "ARM_MATH_TEST_FAILURE\r");
 // String definitions for transfer states
 MEMSAFE_STRING(str_full_transfer, "FULL_TRANSFER\r");
 MEMSAFE_STRING(str_half_transfer, "HALF_TRANSFER\r");
-MEMSAFE_STRING(str_transfer_error, "TRANSFER_ERROR\r");
+MEMSAFE_STRING(str_transfer_error, "M_TRANSFER_ERROR\r");
 MEMSAFE_STRING(str_transfer_none, "TRANSFER_NONE\r");
 MEMSAFE_STRING(str_transfer_ok, "TRANSFER_OK\r");
 
@@ -94,7 +94,7 @@ MEMSAFE_STRING(str_transfer_ok, "TRANSFER_OK\r");
     case HALF_TRANSFER:                 \
         DBG_STRING(str_half_transfer);  \
         break;                          \
-    case TRANSFER_ERROR:                \
+    case M_TRANSFER_ERROR:                \
         DBG_STRING(str_transfer_error); \
         break;                          \
     case TRANSFER_NONE:                 \
