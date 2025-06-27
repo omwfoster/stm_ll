@@ -11,7 +11,15 @@
 #include <memsafe_buffer.h>
 #include "errno.h"
 
+#include <arm_neon.h>
+#include "stdbool.h"
+
 #include "pdm2pcm.h"
+
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
+
+#include "fft_module.h"
 
 /* Audio In states */
 #define AUDIO_IN_STATE_RESET 0U
@@ -25,11 +33,67 @@
 float32_t Input[2 * FFT_SIZE];  // Input data (real and imaginary parts interleaved)
 float32_t Output[2 * FFT_SIZE]; // Output data (real and imaginary parts interleaved)
 
-TIM_HandleTypeDef htim3;
+CRC_HandleTypeDef hcrc;
 
-const arm_cfft_instance_f32 S2 =
-    {
-        FFT_SIZE};
+SPI_HandleTypeDef hspi1;
+DMA_HandleTypeDef hdma_spi1_rx;
+
+TIM_HandleTypeDef htim1;
+
+// Audio
+
+enum
+{
+  TRANSFER_WAIT,
+  TRANSFER_COMPLETE,
+  TRANSFER_HALF,
+  TRANSFER_ERROR
+};
+
+#define REC_FREQ 8000
+
+/* PDM buffer input size */
+#define INTERNAL_BUFF_SIZE 128
+
+/* PCM buffer output size */
+#define PCM_OUT_SIZE 16
+
+#define FFT_SIZE 512
+
+/* USER CODE END PTD */
+
+/* Private define ------------------------------------------------------------*/
+/* USER CODE BEGIN PD */
+
+uint16_t RecBuf[PCM_OUT_SIZE];
+
+/* Temporary data sample */
+static uint16_t InternalBuffer[INTERNAL_BUFF_SIZE];
+extern uint16_t pcm_output_block_ping[FFT_SIZE * 2];
+extern uint16_t pcm_output_block_pong[FFT_SIZE * 2];
+
+extern uint16_t *pcm_current_block;
+bool block_ready = false;
+uint16_t *output_cursor = pcm_output_block_ping;
+static uint16_t *end_output_block = &pcm_output_block_ping[(FFT_SIZE * 2) - PCM_OUT_SIZE];
+uint16_t pcm_deinterleaved[FFT_SIZE];
+uint16_t *pcm_full = 0;
+
+union U_Pdm
+{
+  struct
+  {
+    uint8_t first_half[INTERNAL_BUFF_SIZE / 2];
+    uint8_t last_half[INTERNAL_BUFF_SIZE / 2];
+  };
+  uint8_t PDM_In[INTERNAL_BUFF_SIZE / 2];
+} t_U_Pdm;
+
+uint16_t PDM_Out[16];
+
+__IO uint32_t wTransferState = TRANSFER_WAIT;
+
+///////////////////
 
 #define AUDIO_IN_INSTANCES_NBR 1U
 
@@ -48,10 +112,7 @@ const arm_cfft_instance_f32 S2 =
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 void Error_Handler(void);
-static void MX_GPIO_Init(void);
-static void MX_DMA_Init(void);
-static void MX_TIM3_Init(void);
-static void setPWM(TIM_HandleTypeDef, uint32_t, uint16_t, uint16_t);
+
 char str_output_buffer[99] = {0};
 
 char TxBuffer[USB_OUT_BUFFER_SIZE] = {0};
@@ -74,44 +135,18 @@ I2C_HandleTypeDef hi2c_acc;
 I2C_HandleTypeDef hi2c_see;
 
 int16_t gy_readings[3];
-Audio_BufferTypeDef BufferCtl;
 
-SPI_HandleTypeDef hspi2;
-DMA_HandleTypeDef hdma_spi2_rx;
+void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
+static void MX_DMA_Init(void);
+static void MX_TIM1_Init(void);
+static void MX_SPI1_Init(void);
+static void MX_CRC_Init(void);
+/* USER CODE BEGIN PFP */
+
+void deinterleave(uint16_t *mixed, uint16_t Length);
 
 void output_audio_cdc();
-
-static void MX_SPI2_Init(void)
-{
-
-  /* USER CODE BEGIN SPI2_Init 0 */
-
-  /* USER CODE END SPI2_Init 0 */
-
-  /* USER CODE BEGIN SPI2_Init 1 */
-
-  /* USER CODE END SPI2_Init 1 */
-  /* SPI2 parameter configuration*/
-  hspi2.Instance = SPI2;
-  hspi2.Init.Mode = SPI_MODE_MASTER;
-  hspi2.Init.Direction = SPI_DIRECTION_2LINES_RXONLY;
-  hspi2.Init.DataSize = SPI_DATASIZE_8BIT;
-  hspi2.Init.CLKPolarity = SPI_POLARITY_LOW;
-  hspi2.Init.CLKPhase = SPI_PHASE_1EDGE;
-  hspi2.Init.NSS = SPI_NSS_SOFT;
-  hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
-  hspi2.Init.FirstBit = SPI_FIRSTBIT_MSB;
-  hspi2.Init.TIMode = SPI_TIMODE_DISABLE;
-  hspi2.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
-  hspi2.Init.CRCPolynomial = 10;
-  if (HAL_SPI_Init(&hspi2) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN SPI2_Init 2 */
-
-  /* USER CODE END SPI2_Init 2 */
-}
 
 int main(void)
 {
@@ -126,35 +161,41 @@ int main(void)
   HAL_MspInit();
   SystemClock_Config();
   MX_GPIO_Init();
+  MX_DMA_Init();
+  MX_TIM1_Init();
+  MX_SPI1_Init();
+  MX_CRC_Init();
+  MX_PDM2PCM_Init();
   // MX_DMA_Init();
   // MX_SPI2_Init();
   MX_USB_DEVICE_Init();
 
-  MX_TIM3_Init();
-
-  setPWM(htim3, TIM_CHANNEL_1, 83, 41);
-
   HAL_Delay(5000);
-  // MX_I2C_Init(&hi2c_acc);
-  // MX_I2C_Init(&hi2c_see); // added for seesaw
+  MX_I2C_Init(&hi2c_acc);
+  MX_I2C_Init(&hi2c_see); // added for seesaw
 
-  // DBG_STATUS(ICM20948_isI2cAddress2(&hi2c_acc));
+  DBG_STATUS(ICM20948_isI2cAddress2(&hi2c_acc));
+  HAL_SPI_Receive_DMA(&hspi1, &t_U_Pdm, INTERNAL_BUFF_SIZE);
 
-  // visInit();
+  visInit();
 
   // DBG_STATUS(ICM20948_init(&hi2c_acc, 1, GYRO_FULL_SCALE_2000DPS));
 
-  // arm_rfft_fast_instance_f32 fft;
-  // DBG_ARM_STATUS(arm_rfft_fast_init_f32(&fft, FFT_SIZE));
-  // arm_rfft_fast_f32(&fft, Input, Output, 1);
-
   while (1)
   {
-    DBG_STRING(dbg_loop);
+    if (pcm_full != 0x0)
+    {
+      deinterleave(pcm_full, FFT_SIZE * 2);
+    }
+
+    if (block_ready != 0x0)
+    {
+      fft_test(pcm_deinterleaved);
+      block_ready = false;
+    }
     ICM20948_readGyroscope_allAxises(&hi2c_acc, 1, GYRO_FULL_SCALE_2000DPS, &gy_readings[0]);
     visHandle();
     output_gyro_cdc(&gy_readings[0]);
-
     output_audio_cdc();
   }
 }
@@ -218,63 +259,194 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 }
 
-static void MX_DMA_Init(void)
-{
-
-  /* DMA controller clock enable */
-  __HAL_RCC_DMA1_CLK_ENABLE();
-
-  /* DMA interrupt init */
-  /* DMA1_Stream3_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(DMA1_Stream3_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(DMA1_Stream3_IRQn);
-}
-
-void MX_TIM3_Init(void)
-{
-
-  TIM_OC_InitTypeDef sConfigOC;
-  htim3.Instance = TIM3;
-  htim3.Init.Prescaler = 0;
-  htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim3.Init.Period = 83;
-  htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-  HAL_TIM_PWM_Init(&htim3);
-  sConfigOC.OCMode = TIM_OCMODE_PWM1;
-  sConfigOC.Pulse = 41;
-  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
-  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
-  HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_1);
-  HAL_TIM_MspPostInit(&htim3);
-}
-
 void USB_CDC_RxHandler(uint8_t *Buf, uint32_t Len)
 {
 }
 
-/* USER CODE BEGIN 4 */
-void setPWM(TIM_HandleTypeDef timer, uint32_t channel, uint16_t period,
-            uint16_t pulse)
+static void MX_CRC_Init(void)
 {
-  HAL_TIM_PWM_Stop(&timer, channel); // stop generation of pwm
-  TIM_OC_InitTypeDef sConfigOC;
 
-  timer.Init.Period = period; // set the period duration
-  HAL_TIM_PWM_Init(&timer);   // reinititialise with new period value
+  /* USER CODE BEGIN CRC_Init 0 */
 
-  sConfigOC.OCMode = TIM_OCMODE_PWM1;
-  sConfigOC.Pulse = pulse; // set the pulse duration
-  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
-  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+  /* USER CODE END CRC_Init 0 */
 
-  HAL_TIM_PWM_ConfigChannel(&timer, &sConfigOC, channel);
-  DBG_STATUS(HAL_TIM_PWM_Start(&timer, channel)); // start pwm generation
+  /* USER CODE BEGIN CRC_Init 1 */
+
+  /* USER CODE END CRC_Init 1 */
+  hcrc.Instance = CRC;
+  if (HAL_CRC_Init(&hcrc) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  __HAL_CRC_DR_RESET(&hcrc);
+  /* USER CODE BEGIN CRC_Init 2 */
+
+  /* USER CODE END CRC_Init 2 */
 }
+
+/**
+ * @brief SPI1 Initialization Function
+ * @param None
+ * @retval None
+ */
+static void MX_SPI1_Init(void)
+{
+
+  /* USER CODE BEGIN SPI1_Init 0 */
+
+  /* USER CODE END SPI1_Init 0 */
+
+  /* USER CODE BEGIN SPI1_Init 1 */
+
+  /* USER CODE END SPI1_Init 1 */
+  /* SPI1 parameter configuration*/
+  hspi1.Instance = SPI1;
+  hspi1.Init.Mode = SPI_MODE_MASTER;
+  hspi1.Init.Direction = SPI_DIRECTION_2LINES_RXONLY;
+  hspi1.Init.DataSize = SPI_DATASIZE_16BIT;
+  hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
+  hspi1.Init.CLKPhase = SPI_PHASE_2EDGE;
+  hspi1.Init.NSS = SPI_NSS_SOFT;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_64;
+  hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
+  hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
+  hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+  hspi1.Init.CRCPolynomial = 15;
+  if (HAL_SPI_Init(&hspi1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN SPI1_Init 2 */
+
+  /* USER CODE END SPI1_Init 2 */
+}
+
+/**
+ * @brief TIM1 Initialization Function
+ * @param None
+ * @retval None
+ */
+static void MX_TIM1_Init(void)
+{
+
+  /* USER CODE BEGIN TIM1_Init 0 */
+
+  /* USER CODE END TIM1_Init 0 */
+
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+
+  /* USER CODE BEGIN TIM1_Init 1 */
+
+  /* USER CODE END TIM1_Init 1 */
+  htim1.Instance = TIM1;
+  htim1.Init.Prescaler = 1;
+  htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim1.Init.Period = 47;
+  htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim1.Init.RepetitionCounter = 0;
+  htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim1, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim1, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM1_Init 2 */
+
+  /* USER CODE END TIM1_Init 2 */
+}
+
+/**
+ * Enable DMA controller clock
+ */
+static void MX_DMA_Init(void)
+{
+
+  /* DMA controller clock enable */
+  __HAL_RCC_DMA2_CLK_ENABLE();
+
+  /* DMA interrupt init */
+  /* DMA2_Stream0_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA2_Stream0_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA2_Stream0_IRQn);
+}
+
+/* USER CODE BEGIN 4 */
+
+void switch_block()
+{
+  block_ready = pcm_current_block;
+  pcm_current_block =
+      (pcm_current_block == pcm_output_block_ping) ? pcm_output_block_pong : pcm_output_block_ping;
+  output_cursor = &pcm_current_block[0];
+  end_output_block = &pcm_current_block[FFT_SIZE - PCM_OUT_SIZE];
+}
+
+void deinterleave(uint16_t *mixed, uint16_t Length)
+{
+
+  for (uint16_t i = 0; i < Length; i += 2)
+  {
+    pcm_deinterleaved[i / 2] = mixed[i];
+  }
+  pcm_full = 0x0;
+  block_ready = true;
+}
+
+void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
+{
+
+  PDM_Filter(t_U_Pdm.last_half, &RecBuf, &PDM1_filter_handler);
+  memcpy(output_cursor, RecBuf, PCM_OUT_SIZE * sizeof(uint16_t));
+  uint16_t *next_cursor = output_cursor + PCM_OUT_SIZE; //* sizeof(uint16_t);
+
+  if (next_cursor <= end_output_block)
+  {
+    output_cursor = next_cursor;
+  }
+  else
+  {
+    switch_block();
+    pcm_full = pcm_current_block;
+  }
+
+  wTransferState = TRANSFER_COMPLETE;
+}
+
+void HAL_SPI_RxHalfCpltCallback(SPI_HandleTypeDef *hspi)
+{
+
+  PDM_Filter(t_U_Pdm.first_half, &RecBuf, &PDM1_filter_handler);
+  memcpy(output_cursor, RecBuf, PCM_OUT_SIZE * sizeof(uint16_t));
+  uint16_t *next_cursor = output_cursor + PCM_OUT_SIZE; // * sizeof(uint16_t);
+
+  if (next_cursor <= end_output_block)
+  {
+    output_cursor = next_cursor;
+  }
+  else
+  {
+    switch_block();
+    pcm_full = pcm_current_block;
+  }
+
+  wTransferState = TRANSFER_HALF;
+}
+
 /* USER CODE END 4 */
 
 /**
  * @brief  This function is executed in case of error occurrence.
- * @param  None
  * @retval None
  */
 void Error_Handler(void)
