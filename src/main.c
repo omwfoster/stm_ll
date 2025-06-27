@@ -21,23 +21,17 @@
 
 #include "fft_module.h"
 
-/* Audio In states */
-#define AUDIO_IN_STATE_RESET 0U
-#define AUDIO_IN_STATE_RECORDING 1U
-#define AUDIO_IN_STATE_STOP 2U
-#define AUDIO_IN_STATE_PAUSE 3U
+
 
 #define FFT_SIZE 512 // Example: 64-point FFT
 #define PI_loc 3.14159265358979323846f
 
-float32_t Input[2 * FFT_SIZE];  // Input data (real and imaginary parts interleaved)
-float32_t Output[2 * FFT_SIZE]; // Output data (real and imaginary parts interleaved)
+
+q15_t fft_output[FFT_SIZE*2]; //has to be twice FFT size
 
 CRC_HandleTypeDef hcrc;
-
 SPI_HandleTypeDef hspi1;
 DMA_HandleTypeDef hdma_spi1_rx;
-
 TIM_HandleTypeDef htim1;
 
 // Audio
@@ -60,15 +54,12 @@ enum
 
 #define FFT_SIZE 512
 
-/* USER CODE END PTD */
 
-/* Private define ------------------------------------------------------------*/
-/* USER CODE BEGIN PD */
 
 uint16_t RecBuf[PCM_OUT_SIZE];
 
 /* Temporary data sample */
-static uint16_t InternalBuffer[INTERNAL_BUFF_SIZE];
+
 extern uint16_t pcm_output_block_ping[FFT_SIZE * 2];
 extern uint16_t pcm_output_block_pong[FFT_SIZE * 2];
 
@@ -244,9 +235,8 @@ void SystemClock_Config(void)
 
 void output_audio_cdc()
 {
-  char local_buffer[10];
-  sprintf(local_buffer, "%.4f\n\r", Output[0]);
-  CDC_Transmit_FS((uint8_t *)local_buffer, 4);
+  
+
 }
 
 static void MX_GPIO_Init(void)
@@ -266,22 +256,13 @@ void USB_CDC_RxHandler(uint8_t *Buf, uint32_t Len)
 static void MX_CRC_Init(void)
 {
 
-  /* USER CODE BEGIN CRC_Init 0 */
-
-  /* USER CODE END CRC_Init 0 */
-
-  /* USER CODE BEGIN CRC_Init 1 */
-
-  /* USER CODE END CRC_Init 1 */
   hcrc.Instance = CRC;
   if (HAL_CRC_Init(&hcrc) != HAL_OK)
   {
     Error_Handler();
   }
   __HAL_CRC_DR_RESET(&hcrc);
-  /* USER CODE BEGIN CRC_Init 2 */
 
-  /* USER CODE END CRC_Init 2 */
 }
 
 /**
@@ -292,13 +273,7 @@ static void MX_CRC_Init(void)
 static void MX_SPI1_Init(void)
 {
 
-  /* USER CODE BEGIN SPI1_Init 0 */
 
-  /* USER CODE END SPI1_Init 0 */
-
-  /* USER CODE BEGIN SPI1_Init 1 */
-
-  /* USER CODE END SPI1_Init 1 */
   /* SPI1 parameter configuration*/
   hspi1.Instance = SPI1;
   hspi1.Init.Mode = SPI_MODE_MASTER;
@@ -316,9 +291,7 @@ static void MX_SPI1_Init(void)
   {
     Error_Handler();
   }
-  /* USER CODE BEGIN SPI1_Init 2 */
 
-  /* USER CODE END SPI1_Init 2 */
 }
 
 /**
@@ -329,9 +302,7 @@ static void MX_SPI1_Init(void)
 static void MX_TIM1_Init(void)
 {
 
-  /* USER CODE BEGIN TIM1_Init 0 */
 
-  /* USER CODE END TIM1_Init 0 */
 
   TIM_ClockConfigTypeDef sClockSourceConfig = {0};
   TIM_MasterConfigTypeDef sMasterConfig = {0};
@@ -361,9 +332,7 @@ static void MX_TIM1_Init(void)
   {
     Error_Handler();
   }
-  /* USER CODE BEGIN TIM1_Init 2 */
 
-  /* USER CODE END TIM1_Init 2 */
 }
 
 /**

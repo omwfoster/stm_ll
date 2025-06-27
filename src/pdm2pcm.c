@@ -58,22 +58,7 @@ void MX_PDM2PCM_Init(void)
 
 /* USER CODE BEGIN 4 */
 
-/*  process function */
-uint8_t MX_PDM2PCM_Process(uint16_t *PDMBuf, uint16_t *PCMBuf)
-{
-  /*
-  uint8_t BSP_AUDIO_IN_PDMToPCM(uint16_t * PDMBuf, uint16_t * PCMBuf)
 
-  Converts audio format from PDM to PCM.
-  Parameters:
-    PDMBuf : Pointer to PDM buffer data
-    PCMBuf : Pointer to PCM buffer data
-  Return values:
-    AUDIO_OK in case of success, AUDIO_ERROR otherwise
-  */
-  /* this example return the default status AUDIO_ERROR */
-  return (uint8_t) 1;
-}
 
 /* USER CODE END 4 */
 
